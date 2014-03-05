@@ -1,0 +1,186 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="jupiter hybrid ready rwd application ">
+    <meta name="author" content="kkovac@spin.hr kovack@gmail.com">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <meta http-equiv="X-UA-Compatible" content="IE=9" >
+    <title>Jupiter RWD | Welcome</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/mojglobal.css" />
+    <link rel="stylesheet" href="css/foundation-icons.css" />
+    <script src="js/vendor/modernizr.js"></script>
+     <style>
+         .panel { margin-bottom:0rem; padding : 0.90rem;
+         }
+         a { color : #000;
+         }
+     </style>
+  </head>
+  <body>
+
+      <div class="fixed hide-for-print" >
+      <nav class="top-bar" data-topbar="">
+            <!-- Title -->
+            <ul class="title-area">
+            <li class="name">
+                <h1><a href="#"><img src="pic/spin2.png" width="35" /> Jupiter Hybrid RWD</a></h1>
+                </li>
+            <!-- Mobile Menu Toggle -->
+            <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+            </ul>
+
+            <!-- Top Bar Section -->
+              <section class="top-bar-section">
+
+            <!-- Top Bar Left Nav Elements -->
+            <ul class="left">
+                <li class="printdoc printbutton hide"><a href="#"><i class="fi-print"></i> print</a></li> 
+                <li class="name filterbutton hide"><a href="#"><i class="fi-filter"></i> filter</a></li> 
+            </ul>
+
+            <!-- Top Bar Right Nav Elements -->
+            <ul class="right">
+              <!-- Divider -->
+              <li class="divider"></li>
+
+              <!-- Dropdown -->
+              <li class="has-dropdown not-click "><a href="#"><i class="fi-list"></i></a>
+                <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)"><i class="fi-arrow-left"></i></a></h5></li>
+                  <li class="logoutrwd hide"><a href="#" >Logout</a></li>
+                  <li><a href="#" class="aboutrwd">About Jupiter Hybrid RWD</a></li>
+                  <li class="divider"></li>
+                  <li class="has-dropdown not-click"><a href="#">Teme</a>
+
+                    <!-- Nested Dropdown -->
+                    <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)"><i class="fi-arrow-left"></i></a></h5></li>
+                      <li><a href="#" class="theme" data-id="0">Blank</a></li>
+                      <li><a href="#" class="theme" data-id="pic/1.jpg">Landscape</a></li>
+                      <li><a href="#" class="theme" data-id="pic/2.jpg">Green</a></li>
+                      <li><a href="#" class="theme" data-id="pic/3.jpg">Dark</a></li>
+                      <li><a href="#" class="theme" data-id="pic/4.jpg">Orange</a></li>
+                    </ul>
+                  </li>
+                    <li class="divider"></li>
+                    <li><a href="http://www.spin.com/">Spin</a></li>
+                  <li><a href="http://www.jupiter-software.com/">Jupiter software</a></li>
+                  <li><a href="https://helpdesk.jupiter-software.com/login.asp">Jupiter help desk</a></li>
+                </ul>
+              </li>
+
+              <li class="divider"></li>
+
+       
+            </ul>
+        </section>
+      </nav>
+    </div>
+
+
+      <section id="sectionlogin" class="hide">
+          <form id="loginform">
+              <div class="row">
+                  <div class="medium-5 medium-centered columns">
+                      <fieldset class="panel">
+                          <legend>login</legend>
+                                <div class="small-12 columns"><label><i class="fi-torso"></i><input type="text" name="e" id="e" placeholder="user"  /></label></div>
+                                <div class="small-12 columns"><label><i class="fi-asterisk"></i><input type="password" name="p" id="p" placeholder="password" autofocus /></label></div>
+                                <div class="small-12 columns"><div id="loginserverresponse"></div></div>
+                                <div class="small-8 columns"><button href="#" id="buttonlogin" class="button expand"><i class="fi-arrow-right"></i></button></div>
+                                <div class="small-4 columns"><button href="#" id="buttonsettings" class="button expand alert"><i class="fi-widget"></i></button></div>
+                                <div id="settingsfields" class="hide">
+                                <div class="small-12 columns "><label><i class="fi-cloud"></i><input type="text"  name="d" id="d" placeholder="database" /></label></div>
+                                <div class="small-12 columns"><label><i class="fi-rss"></i><input type="text"  id="w" placeholder="web service" /></label></div>
+                                </div>
+                          </fieldset>
+                  </div>
+              </div>
+            </form>
+      </section>
+
+    
+
+<div class="off-canvas-wrap hide"> <!-- begin of off-canvas -->
+  <div class="inner-wrap">
+    <nav class="tab-bar">
+      <section class="left-small">
+        <a class="left-off-canvas-toggle menu-icon " ><span></span></a>
+      </section>
+
+      <section class="middle tab-bar-section">
+        <h5 class="title">Applications</h5>
+      </section>
+
+     
+    </nav>
+
+    <aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+        <li><label><i class="fi-filter size-22"></i> filter</label></li>
+        <li class="has-form">
+          <form id="filterform">
+              <li><label>tekst</label></li>
+               <input type="text" id="search" name="search" placeholder="">
+               <button href="#" class="expand button  "><i class="fi-arrow-right"></i></button>
+          </form>
+      </li>
+      </ul>
+    </aside>
+
+        
+
+    <section class="main-section">          <!-- main section -->
+        
+        <section id="sectionlist" class="mojsection">
+            <div class="row">
+                <div class="large-12 columns" >
+                <img src="pic/ajax-loader.gif" id="ajaxloader1" class="hide ajaxloader" />
+                    <div class="forfastfilter"><a href="pregledrobepotrgovinama.htm"><div class="panel medium-4 columns "><i class="fi-shopping-cart size-28"></i> pregled robe po trgovinama</div></a></div>
+                    <div class="forfastfilter"><a href="pregledstanjapartnera.htm"><div class="panel medium-4 columns "><i class="fi-torsos-all size-28"></i> pregled stanja partnera</div></a></div>
+                    <div class="forfastfilter"><a href="knjigaulazneposte.htm"><div class="panel medium-4 columns "><i class="fi-mail size-28"></i> knjiga ulazne pošte</div></a></div>
+                    <div class="forfastfilter"><a href="nekidokument.htm"><div class="panel medium-4 columns "><i class="fi-page size-28"></i> neki dokument</div></a></div>
+                <div id="lista"></div>
+
+                </div>
+            </div>
+        </section>
+
+       
+
+        <section id="sectionaboutrwd" class="hide mojsection">
+            <div class="row">
+                <div class="large-12 columns" >
+                   <div class="panel">
+                    <h2><img src="pic/spin2.png" width="50" /> Jupiter Hybrid RWD application</h2>
+                    <p>A hybrid app is one that is written with the same technology used for websites and mobile web implementations, and that is hosted or runs inside a native container on a mobile device. It is the marriage of web technology and native execution.</p>
+                    <p>Responsive Web design (RWD) is a Web design approach aimed at crafting sites to provide an optimal viewing experience—easy reading and navigation with a minimum of resizing, panning, and scrolling—across a wide range of devices from mobile phones to desktop computer monitors.</p>
+                    <img src="css/rwd.png" />
+                    <p><br/><br/><h3>enjoy [ɪnˈdʒɔɪ,ɛn-/]</h3></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </section>                          <!-- end of main section -->
+
+  <a class="exit-off-canvas"></a>
+
+  </div>
+</div>  <!-- end of off-canvas -->
+           
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+   	<script src="js/jquery.backstretch.js"></script>
+    <script src="js/highcharts.js"></script>
+    <script src="js/modules/exporting.js"></script>
+    <script src="js/fastLiveFilter.js"></script>
+    <script src="index.js"></script>  
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>

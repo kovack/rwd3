@@ -1,0 +1,18 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{53A0B900-717A-409D-91CA-17DAA78B4E33}"
+	ProjectSection(SolutionItems) = preProject
+		\\SPIN-IIS\ng\rwd3service\default.asp = \\SPIN-IIS\ng\rwd3service\default.asp
+		..\index.htm = ..\index.htm
+		..\index.js = ..\index.js
+		..\pregledrobepotrgovinama.css = ..\pregledrobepotrgovinama.css
+		..\pregledrobepotrgovinama.htm = ..\pregledrobepotrgovinama.htm
+		..\pregledrobepotrgovinama.js = ..\pregledrobepotrgovinama.js
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
