@@ -1,0 +1,70 @@
+.slider {
+  position: relative;
+  height: 100%;
+  width:100%;
+  overflow: hidden;
+}
+
+.slides {
+   height: 100%;
+   width:100%;
+  /* Clear fix */
+  overflow: hidden;
+  *zoom: 1;
+  /**
+   * Prevent blinking issue
+   * Not tested. Experimental.
+   */
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+}
+
+.slide {
+  height: 100%;
+  width:100%;
+  float: left;
+  clear: none;
+  display:block;
+}
+
+.slider-arrow {
+  position: absolute;
+  display: block;
+  margin-bottom: -20px;
+}
+
+.slider-arrow--right {
+  bottom: 5%;
+  right: 10px;
+}
+
+.slider-arrow--left {
+  bottom: 5%;
+  left: 10px;
+}
+
+.slider-nav {
+   position:fixed;
+   left:50%;
+   bottom:0px;
+   height:25px;
+   z-index:1111;
+}
+
+.slider-nav__item {
+  width: 15px;
+  height: 15px;
+  float: left;
+  clear: none;
+  display: block;
+  margin: 0 10px;
+  background: #fff;
+}
+
+.slider-nav__item:hover {
+  background: #d9534f;
+}
+
+.slider-nav__item--current {
+  background: #d9534f;
+}
