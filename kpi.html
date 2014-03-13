@@ -1,6 +1,6 @@
 ﻿<!doctype html>
 <html class="no-js" lang="en">
-  <head>
+   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="jupiter hybrid ready rwd application ">
@@ -8,18 +8,14 @@
     <meta http-equiv='cache-control' content='no-cache'>
     <meta http-equiv='expires' content='0'>
     <meta http-equiv='pragma' content='no-cache'>
-    <meta http-equiv="X-UA-Compatible" content="IE=9" >
-    <title>Jupiter RWD | Welcome</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=10" >
+    <title>KPI portala</title>
     <link rel="stylesheet" href="css/foundation.css" />
     <link rel="stylesheet" href="css/mojglobal.css" />
     <link rel="stylesheet" href="css/foundation-icons.css" />
+    <link rel="stylesheet" href="kpi.css" />
     <script src="js/vendor/modernizr.js"></script>
-     <style>
-         .panel { margin-bottom:0rem; padding : 0.90rem;
-         }
-         a { color : #000;
-         }
-     </style>
+     
   </head>
   <body>
 
@@ -84,17 +80,17 @@
       <section id="sectionlogin" class="hide">
           <form id="loginform">
               <div class="row">
-                  <div class="medium-5 medium-centered columns">
+                  <div class="medium-4 medium-centered columns">
                       <fieldset class="panel">
                           <legend>login</legend>
-                                <div class="small-12 columns"><label><i class="fi-torso"></i><input type="text" name="e" id="e" placeholder="user"  /></label></div>
-                                <div class="small-12 columns"><label><i class="fi-asterisk"></i><input type="password" name="p" id="p" placeholder="password" autofocus /></label></div>
+                                <div class="small-12 columns"><label>User<input type="text" name="e" id="e" placeholder="user"  /></label></div>
+                                <div class="small-12 columns"><label>Password<input type="password" name="p" id="p" placeholder="password" autofocus /></label></div>
                                 <div class="small-12 columns"><div id="loginserverresponse"></div></div>
                                 <div class="small-8 columns"><button href="#" id="buttonlogin" class="button expand"><i class="fi-arrow-right"></i></button></div>
                                 <div class="small-4 columns"><button href="#" id="buttonsettings" class="button expand alert"><i class="fi-widget"></i></button></div>
                                 <div id="settingsfields" class="hide">
-                                <div class="small-12 columns "><label><i class="fi-cloud"></i><input type="text"  name="d" id="d" placeholder="database" /></label></div>
-                                <div class="small-12 columns"><label><i class="fi-rss"></i><input type="text"  id="w" placeholder="web service" /></label></div>
+                                <div class="small-12 columns "><label>Database<input type="text"  name="d" id="d" placeholder="database" /></label></div>
+                                <div class="small-12 columns"><label>Web service<input type="text"  id="w" placeholder="web service" /></label></div>
                                 </div>
                           </fieldset>
                   </div>
@@ -112,7 +108,7 @@
       </section>
 
       <section class="middle tab-bar-section">
-        <h5 class="title">Applications</h5>
+        <h5 class="title">KPI portal</h5>
       </section>
 
      
@@ -123,11 +119,14 @@
         <li><label><i class="fi-filter size-22"></i> filter</label></li>
         <li class="has-form">
           <form id="filterform">
-              <li><label>tekst</label></li>
-               <input type="text" id="search" name="search" placeholder="">
+              
+              <li><label>datum </label></li>
+               <input type="date" id="datumod" name="datumod" placeholder="datum od" value="2014-03-14">
+               
                <button href="#" class="expand button  "><i class="fi-arrow-right"></i></button>
           </form>
       </li>
+        
       </ul>
     </aside>
 
@@ -135,32 +134,27 @@
 
     <section class="main-section">          <!-- main section -->
         
-        <section id="sectionlist" class="mojsection">
+        <section id="sectionlist" class=" mojsection">
             <div class="row">
-                <div class="large-12 columns" >
-                <img src="pic/ajax-loader.gif" id="ajaxloader1" class="hide ajaxloader" />
-                    <div class="forfastfilter"><a href="pregledrobepotrgovinama.html"><div class="panel medium-4 columns "><i class="fi-shopping-cart size-28"></i> pregled robe po trgovinama <br/>(zurb foundation)</div></a></div>
-		   
-                    <div class="forfastfilter"><a href="pregledrobepotrgovinamaglide.html"><div class="panel medium-4 columns "><i class="fi-shopping-cart size-28"></i> pregled robe po trgovinama <br/>(glide , bootstrap)</div></a></div>
-
-                    <div class="forfastfilter"><a href="pregledKntPregledPrometa.html"><div class="panel medium-4 columns "><i class="fi-torsos-all size-28"></i> pregled prometa</div></a></div>
-                    <div class="forfastfilter"><a href="pregledKntPregledPrometa.html"><div class="panel medium-4 columns "><i class="fi-mail size-28"></i> pregled prometa</div></a></div>
-                    <div class="forfastfilter"><a href="nekidokument.html"><div class="panel medium-4 columns "><i class="fi-page size-28"></i> neki dokument</div></a></div>
-                    <div class="forfastfilter"><a href="pos.html"><div class="panel medium-4 columns "><i class="fi-page size-28"></i> POS</div></a></div>
-<div class="forfastfilter"><a href="kpi.html"><div class="panel medium-4 columns "><i class="fi-page size-28"></i> KPI</div></a></div>
-                <div id="lista"></div>
+                <div id="lista">
 
                 </div>
             </div>
         </section>
 
-       
+        <section id="sectionchart" class=" mojsection">
+            <div class="row">
+                <div class="medium-12 columns" >
+                    <div id="container1"   ></div>
+                </div> 
+            </div>
+        </section>
 
         <section id="sectionaboutrwd" class="hide mojsection">
             <div class="row">
                 <div class="large-12 columns" >
                    <div class="panel">
-                    <h2><img src="pic/spin2.png" width="50" /> Jupiter Hybrid RWD application</h2>
+                    <h2><img src="spin2.png" width="50" /> Jupiter Hybrid RWD application</h2>
                     <p>A hybrid app is one that is written with the same technology used for websites and mobile web implementations, and that is hosted or runs inside a native container on a mobile device. It is the marriage of web technology and native execution.</p>
                     <p>Responsive Web design (RWD) is a Web design approach aimed at crafting sites to provide an optimal viewing experience—easy reading and navigation with a minimum of resizing, panning, and scrolling—across a wide range of devices from mobile phones to desktop computer monitors.</p>
                     <img src="css/rwd.png" />
@@ -177,13 +171,16 @@
   </div>
 </div>  <!-- end of off-canvas -->
            
-    <script src="js/vendor/jquery.js"></script>
+     <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
    	<script src="js/jquery.backstretch.js"></script>
     <script src="js/highcharts.js"></script>
+    <script src="js/highcharts-more.js"></script>
     <script src="js/modules/exporting.js"></script>
     <script src="js/fastLiveFilter.js"></script>
-    <script src="index.js"></script>  
+    <script src="kpi.js"></script>  
+    
+      
     <script>
       $(document).foundation();
     </script>
