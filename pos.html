@@ -1,0 +1,754 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>POS | HTML5 </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    
+    <meta name="author" content="kovack@gmail.com">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/BlagajnaHTML5.css" rel="stylesheet" />
+    <link href="assets/css/sliderstyle.css" rel="stylesheet" />
+    <link href="" class="additional" rel="stylesheet" />
+  
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+      <script src="assets/js/respond/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="assets/ico/favicon.png">
+
+     <style type="text/css">
+      body {
+        padding-top: 62px;
+        padding-bottom: 40px;
+      }
+    </style>
+     
+  </head>
+
+  <body>
+
+    <div id="g" class="hide"></div>   <!-- user guid -->
+ 
+      <!--FIXED HEADER -->
+      <div class="navbar navbar-fixed-top navbar-inverse ">
+        <div class="container kontejnerodfiksiranoghedera ">
+
+            <a class="navbar-brand" href="#">HTML5 POS </a>
+
+               <div id="dugmicinafixnomhederu" class="myhide">
+                <div class="col-xs-2 mojakolona glavnimenidugmic">
+                   <a class="btn btn-lg btn-block btn-danger mybigicon" href="#" ><span class="glyphicon glyphicon-home"></span></a> 
+                </div>
+
+                <form name="searchproductsform" id="searchproductsform">
+                    <div class="col-xs-2 mojakolona">
+                      <input type="text" class="form-control input-lg" name="searchproductstext" id="searchproductstext" placeholder="" autofocus-old >
+                    </div>
+
+                    <div class="col-xs-2 mojakolona">
+                             
+                        
+                          <a type="submit" class="btn  btn-black btn-block  btn-lg  mybigicon " id="searchproductsbutton"><span class="glyphicon glyphicon-search"></span> </a>
+                          
+                    </div>
+
+                    
+
+                    <div class="col-xs-2 mojakolona">
+                                <a type="button" class="btn  btn-black btn-block btn-lg hidden-phone mybigicon  pokazistavkedokumenta"  >  <span class="glyphicon glyphicon-shopping-cart"></span> <span id="brojstavki" class="iznoszanaplatu" /> </a>
+                    </div>
+                    <div class="col-xs-2 mojakolona hide">
+                                <a type="button" class="btn btn-block btn-lg hidden-phone btn-black mybigicon  pokaziopcijedokumenta"  ><span class="glyphicon glyphicon-th-large"></span> <span id="brojstola" class="iznoszanaplatu" /></a>
+                     </div>
+                </form>
+             
+                 <div class="col-xs-4 mojakolona">
+                     <a type="button" class="btn btn-block btn-lg btn-black  mybigicon naplata">
+                         <span class="glyphicon glyphicon-file hidden-phone"></span>
+                         <span  class="iznoszanaplatu "><span id="doctotal1">0.00</span></span>
+                         <img src="assets/ajax-loader.gif" class="loadergif" id="doctotal1loader" alt="" />
+                     </a>
+                </div>   
+           
+                </div>
+               
+        </div>
+      </div> <!-- END OF FIXED HEADER -->
+
+      <!-- Begin page content -->
+
+
+        <div class="container">
+
+           <span class="label label-danger errordescription"></span>
+
+            <!-- LOGIN -->
+            <div id="loginsection" class="Transparent clearfix">
+                <br />
+                
+                    <div class="controls  col-sm-6">
+                <form class="form-signin" id="loginform">        
+                        <h3><span class=" "><span class="translateable" data-hr="POS" data-en="POS" data-ger="POS" >POS</span></span> <span class="label label-danger"><i>v1.4</i></span></h3>
+
+                        <br />
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                            <input type="text" id="e" autofocus class="form-control input-lg enterastab" name="e" placeholder="username">
+                        </div>
+                        <br />
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            <input type="password" id="p" class="form-control input-lg enterastab" name="p" placeholder="password">
+                        </div>
+                        <br />
+                        <div class="btn-group">
+                            <button type="submit" id="loginbutton" class="btn btn-success btn-lg"> <span class="glyphicon glyphicon-log-in"></span> <span class="translateable" data-hr="Ulaz" data-en="Login" data-ger="Login" >Login</span></button>
+                        </div>
+
+
+                        <!-- Split button -->
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default btn-lg"><span id="langid" data-langid="hr" >HR</span></button>
+                          <button type="button" class="btn btn-default dropdown-toggle btn-lg" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="#" data-langid="en"  class="langselector" >EN</a></li>
+                            <li><a href="#" data-langid="ger" class="langselector" >GER</a></li>
+                            <li><a href="#" data-langid="hr"  class="langselector" >HR</a></li>
+                          </ul>
+                        </div>
+
+                        <div class="btn-group ">
+                            <button type="submit" id="settingsbutton" class="btn btn-default btn-lg "> <span class="glyphicon glyphicon-cog"></span> </button>
+                        </div>
+                        <img src="assets/ajax-loader.gif" class="loadergif" id="loginloadergif" alt="" />
+                        <br /><br />
+                        
+                        <div id="settingssection" class="myhide">
+                        
+                              <br />
+                                    <h4><span class="translateable" data-hr="Postavke" data-en="Settings" data-ger="Einstellung" >Settings</span> <span class="label label-danger"> <i> !!!</i> </span></h4>
+                                   
+                        <br />
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-headphones"></span></span>
+                            <input type="text" value="http://www.spin.hr/ng/posservice/" id="w"  class="form-control input-lg enterastab" name="w" placeholder="Web service">
+                        </div>
+                        <br />
+                        <div class="input-group ">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-briefcase"></span></span>
+                            <input type="text" id="d"  class="form-control input-lg enterastab" name="d" placeholder="Database">
+                        </div>
+                        <br />
+                        <div class="input-group ">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+                            <input type="text" id="o"  class="form-control input-lg enterastab" name="o" placeholder="Device">
+                        </div>
+                        <br />
+                        </div>
+
+                    </form>
+                    </div>
+
+                     
+
+
+                    <div class="  col-sm-6 Transparent">
+                           
+                                  <div class="">
+                                    
+                                       
+
+                                        <br />
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. <span id="readmoreabout" class="myhide"> Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?".</span></p>
+                                       
+                                      <p><a class="btn btn-link pull-right btn-lg readmoreaboutdugmic"><span class="glyphicon glyphicon-chevron-right"></span></a></p>
+                                    <br />
+                                  </div>
+                         <br />
+                        </div>
+
+               
+                <br />
+            </div>
+      
+            <!-- END OF LOGIN -->
+
+
+
+
+            <!--OPCIJE DOKUMENTA -->
+           <div class="dugmicizaprodaju myhide mojpanel Transparent2 clearfix">
+     
+                            <!-- STOLOVI -->
+                
+                               <div class="Transparent2 clearfix">
+                                   <div  class="col-xs-4 mojakolona" >
+                                   <h4><span class="glyphicon glyphicon-th-large"></span> <span class="translateable" data-hr="Stolovi" data-en="Tables" data-ger="Tisch" >Stolovi</span></h4>
+                                   </div>
+                                   <div  class="col-xs-6 mojakolona" >
+                                   <h4> </h4>
+                                   </div>
+                               </div>
+
+                        <!--
+                           <div class="">
+                     
+                                 <div class="clearfix">
+                                    <div  class="col-xs-6 nekikvadratic mojakolona" >
+                                        <div class="Transparent" >
+                                        <div class="btn-primary btn-lg  naplata  "  ><span  class="glyphicon glyphicon-share-alt"></span> Zaključi dokument</div>
+                                        </div>
+                                    </div>
+                         
+                         
+                                </div>
+
+                               <hr />
+                
+                           </div>
+                            -->
+               
+                               <div class="" id="stolovilist"></div>
+               
+                            <!-- END OF STOLOVI -->
+
+          </div>
+            <!-- END OF OPCIJE DOKUMENTA -->
+            
+
+           
+           <!-- COMMENT SECTION -->
+            <div class="Transparent2 myhide clearfix" id="commentsection">
+                <div class="Transparent2 clearfix">
+                   <div  class="col-xs-10 mojakolona" >
+                   <h4><span class="glyphicon glyphicon-comment"></span> <span class="translateable" data-hr="Napomena" data-en="Note" data-ger="Anmerkung" >Napomena</span></h4>
+                   </div>
+                   <div  class="col-xs-1 mojakolona" >
+                   <h4> </h4>
+                   </div>
+              </div>
+              
+               <textarea  rows="3" class="form-control mojtextarea input-lg" id="documentcomment"></textarea>
+                    
+               <div  class="col-xs-6 nekikvadratic mojakolona " >
+                         <div class="Transparent clearfix" >
+                     <div class="btn-lg nastavidugmic" id="savedocumentcomment"><span class="label label-danger"><span  class="glyphicon glyphicon-ok"></span></span> <span class="translateable" data-hr="Spremi" data-en="Save" data-ger="Speichern" >Spremi</span></div>
+                         </div>
+                    </div>
+
+
+                  <br /> <br />
+            </div>
+           <!-- END OF COMMENT SECTION -->
+
+           <!-- REZULTATI TRAŽENJA SECTION --> 
+           <div id="searchproductlistwrapper" class="myhide mojpanel Transparent2 clearfix">
+               <div class="Transparent2 clearfix">
+                   <div  class="col-xs-4 mojakolona" >
+                   <h4>Rezultati traženja</h4>
+                   </div>
+                   <div  class="col-xs-7 mojakolona" >
+                   <h4> </h4>
+                   </div>
+                   <div  class="col-xs-1 mojakolona " >
+                   <img src="assets/ajax-loader.gif" class="loadergif" id="searchloader" alt="" />
+                   </div>
+               </div>
+            <div class="" id="searchproductlist"></div>
+           </div>
+           <!-- END OF REZULTATI TRAŽENJA SECTION --> 
+
+             <!-- BRZI ODABIR SECTION --> 
+           <div id="speeddial" class="myhide mojpanel Transparent2 clearfix">
+               <div class="Transparent2 clearfix">
+                   
+                   
+
+                        <ul  class="nav nav-tabs" id="speeddialsection">
+
+                            <li class="active col-xs-4 mojakolona"><a href="#Atab" data-toggle="tab" data-tag="A" id="AtabCaption" > &nbsp;  <img src="assets/ajax-loader.gif" class="loadergif" id="speeddialloader" alt="" /> </a></li> 
+                            <li class="col-xs-4 mojakolona" ><a href="#Btab" data-toggle="tab" data-tag="B" id="BtabCaption" > &nbsp; </a></li> 
+                            <li class="col-xs-4 mojakolona"><a href="#Ctab" data-toggle="tab" data-tag="C" id="CtabCaption" > &nbsp; </a></li>
+                            <!--  <li class="col-xs-2 mojakolona"><a href="#Dtab" data-toggle="tab" data-tag="D" id="DtabCaption" > &nbsp; </a></li> -->
+                            
+                            
+
+                        </ul>
+                    
+               </div>
+               <div  class="tab-content  clearfix ">
+                    <div class="tab-pane fade in active " id="Atab">
+                               <div class="" id="searchproductlistA"></div>     
+                    </div>
+                    <div class="tab-pane fade" id="Btab">
+                               <div class="" id="searchproductlistB"></div> 
+                    </div>
+                    <div class="tab-pane fade" id="Ctab">
+                               <div class="" id="searchproductlistC"></div> 
+                    </div>
+                    <div class="tab-pane fade" id="Dtab">
+                               <div class="" id="searchproductlistD"></div> 
+                    </div>
+                </div>
+           </div>
+           <!-- END OF BRZI ODABIR SECTION --> 
+
+
+           <!-- STAVKE DOKUMENTA SECTION --> 
+           <div id="documentitemslistwrapper" class="myhide mojpanel Transparent2 clearfix">
+               <div class="Transparent2 clearfix">
+               <div  class="col-xs-6 mojakolona" >
+               <h4> <span class="glyphicon glyphicon-shopping-cart"></span>  <span class="translateable" data-hr="Stavke" data-en="Items" data-ger="Artikel" >Stavke</span> <span class="brojstavki"></span> </h4>
+                  
+               </div>
+              
+               <div  class="col-xs-5 mojakolona" >
+               <h4> </h4> 
+               </div>
+               <div  class="col-xs-1 mojakolona" >
+               <img src="assets/ajax-loader.gif" class="loadergif" id="docitemsloader" alt="" />
+               </div>
+               </div>
+
+                    <!--
+                       <div class="clearfix">
+                                <div  class="col-xs-6 nekikvadratic mojakolona" >
+                                    <div class="Transparent" >
+                                    <div class="btn-primary btn-lg  naplata  "  ><span  class="glyphicon glyphicon-share-alt"></span> Zaključi dokument</div>
+                                    </div>
+                                </div>
+                            </div>
+                       <hr />
+                    -->
+            <div class="clearfix    " id="documentitemslist"></div>
+           </div>
+             <!-- END OF STAVKE DOKUMENTA SECTION --> 
+
+            <!-- NAPLATA SECTION --> 
+            <div id="naplataitemslistwrapper" class="myhide Transparent2 clearfix mojpanel">
+                
+               <div class="Transparent2 clearfix zaglavljesekcije">
+                    <div  class="col-xs-12 mojakolona" >
+                    <h4><span class="glyphicon glyphicon-file"></span> <span class="translateable" data-hr="Dokument" data-en="Document" data-ger="Dokument" >Dokument</span> </h4>
+                    </div>
+
+                    <div  class="col-xs-1 mojakolona " >
+                    <img src="assets/ajax-loader.gif" class="loadergif" id="naplataloader" alt="" />
+                    </div>
+               </div>
+
+               <div class="clearfix">
+
+
+                    <div  class="col-xs-6 nekikvadratic mojakolona " >
+                        <div class="Transparent" >
+                        <div class="btn-primary btn-lg  btnspremiracun" id="btnspremiracun" ><span  class="glyphicon glyphicon-check"></span> <span class="translateable" data-hr="Zaključi" data-en="Close" data-ger="Verschließen" >Zaključi</span></div>
+                        </div>
+                    </div>
+
+                   <div class="col-xs-6 nekikvadratic mojakolona ">
+                             <div class="Transparent">
+                             <div class=" btn-danger btn-lg    canceldoc  "><span class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span> <span class="translateable" data-hr="Poništi" data-en="Cancel" data-ger="Stornieren" >Poništi</span></div>
+                             </div>
+                   </div>
+                   
+                </div>
+
+                 <div class="clearfix">
+                    <div  class="col-xs-6 nekikvadratic mojakolona Transparent" >
+                        <div class="" >
+                        <div class="btn-lg  " id="Div1" > <span class="label label-danger"><span class="glyphicon glyphicon-usd"></span></span> <span class="translateable" data-hr="Naplata" data-en="Payment" data-ger="Zahlung" >Naplata</span></div>
+                        </div>
+                    </div>
+                   <div  class="col-xs-6 nekikvadratic mojakolona" >
+                         <div class="Transparent" >
+                         <div class="    btn-lg  pokaziopcijedokumenta afterclickfocussearchproductstext"><span class="label label-danger"><span class="glyphicon glyphicon-th-large "></span></span> <span class="translateable" data-hr="Stol" data-en="Table" data-ger="Tisch" >Stol</span> <span class="brojstola"></span></div>
+                         </div>
+                    </div>
+                </div>
+                            
+                <div  class="col-xs-12 nekikvadratic mojakolona Transparent" >
+                     <div class="    btn-lg butonzapartnera">
+                         <span class="label label-danger"><span class="glyphicon glyphicon-user"></span></span>
+                         <span class="translateable" data-hr="Partner" data-en="Partner" data-ger="Partner" >Partner</span>
+                <span id="partnerid"  ></span>
+                         </div>
+                </div>
+
+                <div  class="col-xs-12 nekikvadratic mojakolona Transparent" >
+                     <div class="    btn-lg butonzakomentiranje">
+                         <span class="label label-danger"><span class="glyphicon glyphicon-comment"></span></span>
+                         <span class="translateable" data-hr="Napomena" data-en="Note" data-ger="Anmerkung" >Napomena</span>
+                <span id="documentcommentviewer"  ></span>
+                         </div>
+                </div>
+
+
+                <div class="clearfix">
+                <div class="nekikvadratic" id="pregledstolalist"></div>
+                    </div>
+
+                <div class="clearfix">
+                <form name="naplataitemsform" id="naplataitemsform" >
+                             <div class="clearfix" ></div>
+                                 <div class="" id="naplataitemslist"></div>
+                              
+                    </form>
+                    </div>
+            </div>
+           <!-- END OF NAPLATA SECTION --> 
+
+
+           <!-- PREGLED NARUČENOG PO STOLAVIMA SECTION --> 
+            <div id="pregledstolovasection" class="myhide Transparent2 clearfix mojpanel">
+                <div class="Transparent2 clearfix zaglavljesekcije">
+                   <div  class="col-xs-10 mojakolona" >
+                   <h4><span class="glyphicon glyphicon-list"></span> <span class="translateable" data-hr="Pregled naručenog po stolovima" data-en="Review ordered by the tables" data-ger="Bewertung Besteller durch die Tabellen" >Pregled naručenog po stolovima</span></h4>
+                   </div>
+                
+                    <div  class="col-xs-1 mojakolona " >
+                   <img src="assets/ajax-loader.gif" class="loadergif" id="pregledstolovaloader" alt="" />
+                   </div>
+               </div>
+
+               <div class="" id="pregledstolovalist"></div>
+                 
+            </div>
+           <!-- END OF PREGLED NARUČENOG PO STOLAVIMA --> 
+            
+
+
+
+            <input type="number" value="0" class="input-medium hide" step="any" id="bsjDocTotalEntered" >
+            <input type="number" value="0" class="input-medium hide" step="any" id="bsjDocTotal6" >
+
+            <div class="clearfix" ></div>
+            
+           <!-- GLAVNI MENI -->
+            <div class="myhide Transparent2 mojpanel clearfix" id="glavnimeni" >
+                <div class="Transparent2 clearfix">
+                        <div  class="col-xs-11 mojakolona" >
+                        <h4><span class="glyphicon glyphicon-home"></span> <span class="translateable" data-hr="Glavni izbornik" data-en="Main menu" data-ger="Hauptmenü" >Glavni izbornik</span></h4>        
+                        </div>
+                         
+                    </div>
+                
+              <div class="glavniizbornik">
+                     
+                  <div class="  clearfix">
+                        <div  class="col-sm-4 nekikvadratic mojakolona" >
+                            <div class="Transparent " >
+                            <div class="  btn-lg  naplata " ><span class="label label-danger"><span  class="glyphicon glyphicon-file"></span></span> <span class="translateable" data-hr="Dokument" data-en="Document" data-ger="Dokument" >Dokument</span> </div>
+                            </div>
+                        </div>
+                        <div  class="col-sm-4 nekikvadratic mojakolona" >
+                             <div class="Transparent" >
+                             <div class="  btn-lg   nastavidugmic afterclickfocussearchproductstext   "   ><span class="label label-danger"><span class="glyphicon glyphicon-shopping-cart "></span></span> <span class="translateable" data-hr="Stavke" data-en="Items" data-ger="Artikel" >Stavke</span> <span class="brojstavki"></span></div>
+                             </div>
+                        </div>
+                        <div  class="col-sm-4 nekikvadratic mojakolona" >
+                             <div class="Transparent" >
+                             <div class="  btn-lg    canceldoc  " ><span class="label label-danger"><span  class="glyphicon glyphicon-remove"></span></span> <span class="translateable" data-hr="Poništi" data-en="Cancel" data-ger="Stornieren" >Poništi</span></div>
+                             </div>
+                        </div>
+                 </div>
+                
+                 <div class="clearfix">
+                     <div  class="col-sm-4 nekikvadratic mojakolona" >
+                         <div class="Transparent" >
+                         <div class="btn-lg  pokaziopcijedokumenta afterclickfocussearchproductstext"><span class="label label-danger"><span class="glyphicon glyphicon-th-large "></span></span> <span class="translateable" data-hr="Stol" data-en="Table" data-ger="Tisch" >Stol</span> <span class="brojstola"></span></div>
+                         </div>
+                    </div>
+                    <div  class="col-sm-4 nekikvadratic mojakolona" >
+                        <div class="Transparent" >
+                         <div class="btn-lg pregledstolovadugmic  afterclickfocussearchproductstext"><span class="label label-danger"><span class="glyphicon glyphicon-list "></span></span> <span class="translateable" data-hr="Naručeno" data-en="Ordered" data-ger="Bestellt" >Naručeno</span> </div>
+                        </div>
+                    </div>
+                     <div  class="col-sm-4 nekikvadratic mojakolona" >
+                             <div class="Transparent" >
+                             <div class="btn-lg  butonzakomentiranje"><span class="label label-danger"><span  class="glyphicon glyphicon-comment"></span></span> <span class="translateable" data-hr="Napomena" data-en="Note" data-ger="Anmerkung" >Napomena</span></div>
+                             </div>
+                     </div>
+                </div>
+                    
+    
+                <div class="clearfix">
+                    <div  class="col-sm-4 nekikvadratic mojakolona" >
+                         <div class="Transparent" >
+                         <div class="  btn-lg themedugmic"><span class="label label-danger"><span class="glyphicon glyphicon-tint "></span></span> <span class="translateable" data-hr="Teme" data-en="Theme" data-ger="Thema" >Teme</span></div>
+                         </div>
+                    </div>
+                    
+                    <div  class="col-sm-4 nekikvadratic mojakolona" >
+                             <div class="Transparent" >
+                             <div class=" btn-lg    logoutdugmic  " ><span class="label label-danger"><span  class="glyphicon glyphicon-log-out"></span></span> <span class="translateable" data-hr="Odjava" data-en="Logout" data-ger="Ausloggen" >Odjava</span>
+
+                                     
+
+                             </div>
+                                
+                             </div>
+                     </div>
+                </div>
+
+                
+
+            </div>
+                </div>
+           <!-- END OF GLAVNI MENI -->
+
+
+
+            <!-- THEME -->
+           <div class="myhide  Transparent2 mojpanel" id="themelist" >
+               <div class="Transparent2 clearfix">
+                   <div  class="col-xs-4 mojakolona" >
+                   <h4><span class="translateable" data-hr="Teme" data-en="Theme" data-ger="Thema" >Teme</span></h4>
+                   </div>
+                   <div  class="col-xs-6 mojakolona" >
+                   <h4> </h4>
+                   </div>
+               </div>
+                      
+                      <div class="clearfix">
+                        <div  class="col-xs-4 nekikvadratic mojakolona" >
+                            <div class="Transparent" >
+                             <div class="themeimg "><img src="assets/css/bg/1s.jpg" data-id="1.jpg" data-css="assets/css/BlagajnaHTML5FBP.css" class="img-rounded img-responsive" alt="" ></div>
+                            </div>
+                        </div>
+                        <div  class="col-xs-4 nekikvadratic mojakolona" >
+                             <div class="Transparent" >
+                             <div class="themeimg "><img src="assets/css/bg/2s.jpg" data-id="2.jpg" data-css="assets/css/BlagajnaHTML5FBP.css"  class="img-rounded img-responsive" alt="" ></div>
+                             </div>
+                        </div>
+                        <div  class="col-xs-4 nekikvadratic mojakolona" >
+                             <div class="Transparent" >
+                             <div class="themeimg "><img src="assets/css/bg/3s.jpg" data-id="3.jpg" data-css="assets/css/BlagajnaHTML5FBP.css"  class="img-rounded img-responsive" alt="" ></div>
+                             </div>
+                        </div>
+                    </div>
+
+                
+                    <div class="clearfix ">
+                        <div  class="col-xs-4 nekikvadratic mojakolona" >
+                            <div class="Transparent" >
+                             <div class="themeimg "><img src="assets/css/bg/4s.jpg" data-id="4.jpg" data-css="assets/css/BlagajnaHTML5FBP.css"  class="img-rounded img-responsive" alt="" ></div>
+                            </div>
+                        </div>
+                        <div  class="col-xs-4 nekikvadratic mojakolona" >
+                             <div class="Transparent" >
+                             <div class="themeimg "><img src="assets/css/bg/6s.jpg" data-id="6.jpg" data-css="assets/css/BlagajnaHTML5FBP.css"  class="img-rounded img-responsive" alt="" ></div>
+                             </div>
+                        </div>
+                        <div  class="col-xs-4 nekikvadratic mojakolona" >
+                             <div class="Transparent" >
+                             <div class="themeimg "><img src="assets/css/bg/5s.jpg" data-id="5.jpg" data-css="assets/css/BlagajnaHTML5FBPw.css" class="img-rounded img-responsive" alt="" ></div>
+                             </div>
+                        </div>
+                    </div>
+
+                <div class="clearfix ">
+                         <div  class="col-xs-4 nekikvadratic mojakolona" >
+                         <div class="Transparent" >
+                         <div class=" btn-lg uklunithemedugmic" id="themeblank2" data-id="0.png" data-css="assets/css/BlagajnaHTML5FBPb.css" ><span class="label label-danger"><span class="glyphicon glyphicon-tint "></span></span> <span class="translateable" data-hr="Ukloni temu" data-en="Remove theme" data-ger="Entfernen thema" >Ukloni temu</span></div>
+                         </div>
+                             </div>
+
+                         <div  class="col-xs-4 nekikvadratic mojakolona" >
+                         <div class="Transparent" >
+                         <div class=" btn-lg uklunithemedugmic2" id="themeblank3" data-id="0.png" data-css="assets/css/BlagajnaHTML5FBPb2.css" ><span class="label label-danger"><span class="glyphicon glyphicon-tint "></span></span> <span class="translateable" data-hr="Ukloni temu" data-en="Remove theme" data-ger="Entfernen thema" >Ukloni temu</span></div>
+                         </div>
+                        </div>
+
+                    </div>
+                   
+
+
+               
+  
+                </div>
+            <!-- END OF THEME -->
+           
+ 
+
+
+             <!-- CANCEL DOC -->
+           <div class="myhide Transparent2 clearfix canceldocsection mojpanel"  >
+                    <div class="Transparent2 clearfix">
+                        <div  class="col-xs-12 mojakolona" >
+                        <h4><span  class="glyphicon glyphicon-remove"></span> <span class="translateable" data-hr="Obrisati sve stavke ?" data-en="Clear all items ?" data-ger="Alle artikel löschen ?" >Obrisati sve stavke ?</span></h4>
+                        </div>
+                        
+                    </div>
+                     <div class="row clearfix">
+                        <div  class="col-xs-6 nekikvadratic " >
+                            <div class="Transparent" >
+                            <div class="btn-lg   reallycanceldoc " ><span class="label label-danger"><span  class="glyphicon glyphicon-remove"></span></span> <span class="translateable" data-hr="Da" data-en="Yes" data-ger="Ja" >Da</span></div>
+                            </div>
+                        </div>
+                        <div  class="col-xs-6 nekikvadratic " >
+                             <div class="Transparent" >
+                             <div class="btn-lg   nastavidugmic afterclickfocussearchproductstext   "   ><span class="label label-danger"><span class="glyphicon glyphicon-shopping-cart "></span></span> <span class="translateable" data-hr="Ne" data-en="No" data-ger="Nein" >No</span></div>
+                             </div>
+                        </div>
+                         
+                    </div>
+  
+                </div>
+            <!-- END OF CANCEL DOC -->
+
+            <!-- STAVKA DETALJ DOCITEM KOLICINA, POPUST, NAPOMENA , ... -->
+             <div class="myhide Transparent2 clearfix docitemsection mojpanel"  >
+                        <div class="Transparent2 clearfix">
+                            <div  class="col-xs-5 mojakolona" >
+                            <h4><span id="detaljno">Detaljno:</span></h4>
+                            </div>
+
+                            <div  class="col-xs-1 mojakolona pull-right " >
+                            <img src="assets/ajax-loader.gif" class="loadergif" id="saveqtyloader" alt="" />
+                            </div>
+
+                             <ul id="myTab" class="nav nav-tabs  ">
+                              <li class="active col-xs-2 mojakolona"><a href="#kolicinatab" data-toggle="tab"><span class="glyphicon glyphicon-asterisk"></span></a></li>
+                               <!-- <li class="col-xs-2 mojakolona "><a href="#popusttab" data-toggle="tab"><span class="glyphicon glyphicon-chevron-down"></span></a></li>  -->
+                              <li class="col-xs-2 mojakolona "><a href="#napomenastavketab" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span></a></li>
+                            </ul>
+                            
+                        </div>
+                        
+                
+                 <br/>
+                           
+                            <div id="myTabContent" class="tab-content  clearfix ">
+                              <div class="tab-pane fade in active " id="kolicinatab">
+                                                <div  class="col-xs-6 nekikvadratic mojakolona " >
+                                                <div class="Transparent " >
+                                                    <div class="input-group">
+                                                    <span class="input-group-addon">kom</span>
+                                                      <input type="number" class="form-control input-lg" name="kolicina" id="kolicina" data-id="0" placeholder="kolicina" / >
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <div  class="col-xs-3 nekikvadratic mojakolona " >
+                                                <div class="Transparent " >
+                                                      <div class=" btn-lg " id="pluskolicina" ><span class="label label-danger"><span  class="glyphicon glyphicon-plus"></span></span></div>
+                                                </div>
+                                                </div>
+                                                <div  class="col-xs-3 nekikvadratic mojakolona " >
+                                                <div class="Transparent " >
+                                                      <div class="  btn-lg " id="minuskolicina" ><span class="label label-danger"><span  class="glyphicon glyphicon-minus"></span></span></div>
+                                                </div>
+                                                </div>
+                              </div>
+                              <div class="tab-pane fade" id="popusttab">
+                                                <div  class="col-xs-4 nekikvadratic mojakolona " >
+                                                <div class="Transparent " >
+                                                    <div class="input-group">
+                                                    <span class="input-group-addon">%</span>
+                                                      <input type="number" class="form-control input-lg" name="popust" id="popust" data-id="0" placeholder="%" / >
+                                                </div>
+                                                     </div>
+                                                </div>
+                              </div>
+                                <div class="tab-pane fade" id="napomenastavketab">
+                                                <div  class="col-xs-12 nekikvadratic mojakolona " >
+                                                <div class="Transparent " >
+                                                    <div class="input-group">
+                                                    <span class="input-group-addon"><span  class="glyphicon glyphicon-comment"></span></span>
+                                                      <input type="text" class="form-control input-lg" name="napomenastavke" id="napomenastavke" data-id="0" placeholder="note" / >
+                                                </div>
+                                                    </div>
+                                                </div>
+                              </div>
+                            </div>
+          
+ 
+                    <div class="clearfix"></div>     
+                     
+              <br/><br/>
+                        <div  class="col-xs-6 nekikvadratic mojakolona" >
+                            <div class="Transparent " >
+                            <div class="  btn-lg spremikolicinu " ><span class="label label-danger"><span  class="glyphicon glyphicon-ok"></span></span> <span class="translateable" data-hr="Spremi" data-en="Save" data-ger="Speichern" >Spremi</span></div>
+                            </div>
+                        </div>
+
+
+                        
+                        
+                        <div  class="col-xs-6 nekikvadratic mojakolona" >
+                             <div class="Transparent" >
+                             <div class="  btn-lg uklonistavku  " ><span class="label label-danger"><span  class="glyphicon glyphicon-remove"></span></span> <span class="translateable" data-hr="Ukloni" data-en="Remove" data-ger="Entfernen" >Ukloni</span></div>
+                             </div>
+                        </div>
+                </div>
+            <!-- END OF DOCITEM KOLICINA, POPUST, NAPOMENA , ... -->
+
+
+            <div id="klaselist" class="myhide"></div>
+
+            
+
+
+             <!-- PARTNERI --> 
+            <div id="partnerisection" class="myhide Transparent2 clearfix mojpanel">
+                <div class="Transparent2 clearfix zaglavljesekcije">
+                   <div  class="col-xs-10 mojakolona" >
+                   <h4><span class="glyphicon glyphicon-user"></span> <span class="translateable" data-hr="Partneri" data-en="Partners" data-ger="Partners" >Partneri</span></h4>
+                   </div>
+                
+                    <div  class="col-xs-1 mojakolona " >
+                   <img src="assets/ajax-loader.gif" class="loadergif" id="partnerisectionloader" alt="" />
+                   </div>
+               </div>
+
+               <div class="" id="partnerilist"></div>
+                 
+            </div>
+           <!-- END OF PARTNERI --> 
+
+
+
+
+       
+    </div> <!-- end of container  -->
+
+      <div class="container">
+       
+      <div  class="col-xs-12 mojakolona nekikvadratic  " >
+                    <span class="pull-right">
+                    <span  id="usernamenav" ></span> / <span id="d2" ></span>   
+                        </span>
+                    </div>
+                </div>
+
+    <!-- BOOTSTRAP CORE -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- PLUGINS -->
+    <script src="assets/js2/jquery.Storage.js"></script>
+	<script src="assets/js2/BlagajnaHTML5.js?5"></script>
+    <script src="assets/js2/jquery.backstretch.js"></script>
+    <script src="assets/js2/jquery.glide.js"></script>
+    <script src="assets/js2/equailHeight.js"></script>
+  </body>
+</html>

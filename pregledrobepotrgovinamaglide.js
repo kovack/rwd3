@@ -96,6 +96,16 @@
         glide2.jump(2, console.log('Wooo!'));
     });
 
+    // Radialize the colors
+    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+        return {
+            radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+            stops: [
+                [0, color],
+                [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+            ]
+        };
+    });
     // ============================================================================= GET JSON DATA & format HTML ...
 
     $('#filterform').submit(function (e) { GetList($("#search").val()); });
@@ -122,6 +132,7 @@
                     TurnONlogin("<br/><div class='alert-box secondary'><i class='fi-alert size-28'></i><h6>" + data.errdescription + '</h6></div>');
                     return;
                 }
+                arrDataForPieChart = [];
                 var j = "";
                 var k = 0;
                 var rowcount = data.length - 1;
@@ -172,6 +183,8 @@
                     afterTransition: function () {
                         // alert()
                         if (glide.current() == 1 || glide.current() == 3) { $(window).scrollTop(0); };
+                        if (glide.current() == 3) { $(window).resize();};
+                        
                     }
                 });
                 
@@ -179,6 +192,7 @@
                 $('.slide,#search').removeClass('hide');
                 var glide = $('.slider').glide().data('api_glide');
                 glide.next();
+                $(window).resize();
 
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -203,20 +217,12 @@
 
     function PieChart() {
         $("#sectionchart").show('slow');
-        // Radialize the colors
-        Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
-            return {
-                radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
-                stops: [
-		            [0, color],
-		            [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
-                ]
-            };
-        });
+        
 
         // Build the chart
-        $('#container1').highcharts({
+        var chart1 = new Highcharts.Chart({
             chart: {
+                renderTo: 'container1',
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false
@@ -248,7 +254,7 @@
             }]
         });
 
-       
+        //chart1 = new Highcharts.Chart(chartOptions);
 
     }
 
