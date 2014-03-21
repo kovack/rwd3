@@ -1,188 +1,126 @@
-﻿<!doctype html>
-<html class="no-js" lang="en">
-   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="jupiter hybrid ready rwd application ">
-    <meta name="author" content="kkovac@spin.hr kovack@gmail.com">
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="kovack@gmail.com">
     <meta http-equiv='cache-control' content='no-cache'>
     <meta http-equiv='expires' content='0'>
     <meta http-equiv='pragma' content='no-cache'>
-    <meta http-equiv="X-UA-Compatible" content="IE=10" >
-    <title>KPI portala</title>
-    <link rel="stylesheet" href="css/foundation.css" />
-    <link rel="stylesheet" href="css/mojglobal.css" />
-    <link rel="stylesheet" href="css/foundation-icons.css" />
-    <link rel="stylesheet" href="kpi.css" />
-    <script src="js/vendor/modernizr.js"></script>
-     
+   
+ 
+    <link rel="shortcut icon" href="ico/favicon.ico">
+
+    <title>RWD 4 | glide test</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrapassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrapassets/css/glide.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+      <style>
+          body { padding-top: 140px; background-color:#333; color:#fff; }
+          .navbar-inverse {background-color:#333; border-color:#333;}
+          ul {list-style-type: none; padding:0; margin:0;}
+          .innerspace { padding-left:10px;padding-right:10px; }
+          .alert { padding-bottom : 7px; padding-top: 7px; }
+          #search { background-color:#eee; }
+          .mojhide { display:none; }
+          html {position: relative;min-height: 100%;}
+          .panel{ color:#000; }
+        #footer {
+          
+            background-color:#333;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 35px;
+        }
+
+        
+
+      </style>
+
   </head>
+
   <body>
 
-      <div class="fixed hide-for-print" >
-      <nav class="top-bar" data-topbar="">
-            <!-- Title -->
-            <ul class="title-area">
-            <li class="name">
-                <h1><a href="#"><img src="pic/spin2.png" width="35" /> Jupiter Hybrid RWD</a></h1>
-                </li>
-            <!-- Mobile Menu Toggle -->
-            <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
-            </ul>
-
-            <!-- Top Bar Section -->
-              <section class="top-bar-section">
-
-            <!-- Top Bar Left Nav Elements -->
-            <ul class="left">
-                <li class="printdoc printbutton hide"><a href="#"><i class="fi-print"></i> print</a></li> 
-                <li class="name filterbutton hide"><a href="#"><i class="fi-filter"></i> filter</a></li> 
-            </ul>
-
-            <!-- Top Bar Right Nav Elements -->
-            <ul class="right">
-              <!-- Divider -->
-              <li class="divider"></li>
-
-              <!-- Dropdown -->
-              <li class="has-dropdown not-click "><a href="#"><i class="fi-list"></i></a>
-                <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)"><i class="fi-arrow-left"></i></a></h5></li>
-                  <li class="logoutrwd hide"><a href="#" >Logout</a></li>
-                  <li><a href="#" class="aboutrwd">About Jupiter Hybrid RWD</a></li>
-                  <li class="divider"></li>
-                  <li class="has-dropdown not-click"><a href="#">Teme</a>
-
-                    <!-- Nested Dropdown -->
-                    <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)"><i class="fi-arrow-left"></i></a></h5></li>
-                      <li><a href="#" class="theme" data-id="0">Blank</a></li>
-                      <li><a href="#" class="theme" data-id="pic/1.jpg">Landscape</a></li>
-                      <li><a href="#" class="theme" data-id="pic/2.jpg">Green</a></li>
-                      <li><a href="#" class="theme" data-id="pic/3.jpg">Dark</a></li>
-                      <li><a href="#" class="theme" data-id="pic/4.jpg">Orange</a></li>
-                    </ul>
-                  </li>
-                    <li class="divider"></li>
-                    <li><a href="http://www.spin.com/">Spin</a></li>
-                  <li><a href="http://www.jupiter-software.com/">Jupiter software</a></li>
-                  <li><a href="https://helpdesk.jupiter-software.com/login.asp">Jupiter help desk</a></li>
-                </ul>
-              </li>
-
-              <li class="divider"></li>
-
-       
-            </ul>
-        </section>
-      </nav>
+ 
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container-fluid" >
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+         <a class="navbar-brand" id="homelogo" href="#" ><img src="bootstrapassets/pic/spin2.png"  width="40"></a>
+          <form class="navbar-form navbar-left datumforma" role="search">
+          <input type="date" id="datumdo" name="datumdo" class="form-control" value="2013-12-31">
+        <button type="submit" class="btn btn-danger "><span class="glyphicon glyphicon-search"></span></button>
+      </form>
     </div>
 
 
-      <section id="sectionlogin" class="hide">
-          <form id="loginform">
-              <div class="row">
-                  <div class="medium-4 medium-centered columns">
-                      <fieldset class="panel">
-                          <legend>login</legend>
-                                <div class="small-12 columns"><label>User<input type="text" name="e" id="e" placeholder="user"  /></label></div>
-                                <div class="small-12 columns"><label>Password<input type="password" name="p" id="p" placeholder="password" autofocus /></label></div>
-                                <div class="small-12 columns"><div id="loginserverresponse"></div></div>
-                                <div class="small-8 columns"><button href="#" id="buttonlogin" class="button expand"><i class="fi-arrow-right"></i></button></div>
-                                <div class="small-4 columns"><button href="#" id="buttonsettings" class="button expand alert"><i class="fi-widget"></i></button></div>
-                                <div id="settingsfields" class="hide">
-                                <div class="small-12 columns "><label>Database<input type="text"  name="d" id="d" placeholder="database" /></label></div>
-                                <div class="small-12 columns"><label>Web service<input type="text"  id="w" placeholder="web service" /></label></div>
-                                </div>
-                          </fieldset>
-                  </div>
-              </div>
-            </form>
-      </section>
-
-    
-
-<div class="off-canvas-wrap hide"> <!-- begin of off-canvas -->
-  <div class="inner-wrap">
-    <nav class="tab-bar">
-      <section class="left-small">
-        <a class="left-off-canvas-toggle menu-icon " ><span></span></a>
-      </section>
-
-      <section class="middle tab-bar-section">
-        <h5 class="title">KPI portal</h5>
-      </section>
-
-     
-    </nav>
-
-    <aside class="left-off-canvas-menu">
-      <ul class="off-canvas-list">
-        <li><label><i class="fi-filter size-22"></i> filter</label></li>
-        <li class="has-form">
-          <form id="filterform">
-              
-              <li><label>datum </label></li>
-               <input type="date" id="datumod" name="datumod" placeholder="datum od" value="2014-03-14">
-               
-               <button href="#" class="expand button  "><i class="fi-arrow-right"></i></button>
-          </form>
-      </li>
-        
-      </ul>
-    </aside>
-
         
 
-    <section class="main-section">          <!-- main section -->
-        
-        <section id="sectionlist" class=" mojsection">
-            <div class="row">
-                <div id="lista">
-
-                </div>
-            </div>
-        </section>
-
-        <section id="sectionchart" class=" mojsection">
-            <div class="row">
-                <div class="medium-12 columns" >
-                    <div id="container1"   ></div>
-                </div> 
-            </div>
-        </section>
-
-        <section id="sectionaboutrwd" class="hide mojsection">
-            <div class="row">
-                <div class="large-12 columns" >
-                   <div class="panel">
-                    <h2><img src="spin2.png" width="50" /> Jupiter Hybrid RWD application</h2>
-                    <p>A hybrid app is one that is written with the same technology used for websites and mobile web implementations, and that is hosted or runs inside a native container on a mobile device. It is the marriage of web technology and native execution.</p>
-                    <p>Responsive Web design (RWD) is a Web design approach aimed at crafting sites to provide an optimal viewing experience—easy reading and navigation with a minimum of resizing, panning, and scrolling—across a wide range of devices from mobile phones to desktop computer monitors.</p>
-                    <img src="css/rwd.png" />
-                    <p><br/><br/><h3>enjoy [ɪnˈdʒɔɪ,ɛn-/]</h3></p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </section>                          <!-- end of main section -->
-
-  <a class="exit-off-canvas"></a>
-
-  </div>
-</div>  <!-- end of off-canvas -->
+  </div><!-- /.container-fluid -->
+</nav>
+         
            
-     <script src="js/vendor/jquery.js"></script>
-    <script src="js/foundation.min.js"></script>
-   	<script src="js/jquery.backstretch.js"></script>
-    <script src="js/highcharts.js"></script>
+
+          <div class="slider">
+              <ul class="slides">
+                 
+                 <li class="slide">
+                       <div class="row">
+                       <div class="innerspace">
+                       <div class="col-sm-12"><div  id="lista"></div></div>
+                       </div>
+                       </div>
+                 </li>
+
+
+                  <li class="slide">
+                       <div class="row">
+                       <div class="innerspace">
+                       <div class="col-sm-12">gsssssssssssssss<div  id="Div1">aaaaa</div></div>
+                       </div>
+                       </div>
+                 </li>
+
+              </ul>
+            </div>
+           
+        <div id="footer">
+      <div class="container">
+        <p class="text-muted"></p>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="bootstrapassets/js/bootstrap.min.js"></script>
+    <script src="bootstrapassets/js/jquery.glide.min.js"></script>
+    <script src="bootstrapassets/js/jquery.backstretch.js"></script>
+    <script src="bootstrapassets/js/fastLiveFilter.js"></script>
+    <script src="bootstrapassets/js/highcharts.js"></script>
     <script src="js/highcharts-more.js"></script>
     <script src="js/modules/exporting.js"></script>
-    <script src="js/fastLiveFilter.js"></script>
-    <script src="kpi.js"></script>  
-    
-      
+
+    <script src="kpi.js"></script>
+
     <script>
-      $(document).foundation();
+
+        //$.backstretch("pic/4.jpg");
+
     </script>
+
   </body>
 </html>
