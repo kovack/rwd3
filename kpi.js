@@ -231,13 +231,23 @@
     function PieChart(iznos, cont, naz, IznosDobro, IznosLose) {
         //$("#sectionchart").show('slow');
 
-        var pod = [iznos];
+        //var pod = [iznos];
         // Build the chart
 
         var Prosjek = parseFloat((IznosDobro + IznosLose) / 2);
 
         var MaxVrijednost = Prosjek + 2 * (IznosDobro - Prosjek);
         var MinVrijednost = Prosjek - 2 * (IznosDobro - Prosjek);
+
+        if (iznos < MinVrijednost) {
+            iznos = MinVrijednost;
+        }
+
+        if (iznos > MaxVrijednost) {
+            iznos = MaxVrijednost;
+        }
+
+        var pod = [iznos];
 
         $(function () {
             $('#' + cont).highcharts({
