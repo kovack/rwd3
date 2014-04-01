@@ -17,6 +17,7 @@
     };
 
     strDataBase = "spin27012014";
+    //strDataBase = "spin";
 
     function TurnONlogin(str) { $("#sectionlogin").show(); $(".off-canvas-wrap").addClass('hide'); $(".logoutrwd").addClass('hide'); strGUID = ""; localStorage.JRWDGUID = '0'; $("#p").val(''); $("#loginserverresponse").html(str); $(".printbutton,.filterbutton,.aboutrwd").hide(); }
     function TurnOFFlogin() { $("#sectionlogin").hide(); $(".off-canvas-wrap").removeClass('hide'); $(".logoutrwd").removeClass('hide'); $(".printbutton,.filterbutton,.aboutrwd").show(); }
@@ -116,14 +117,32 @@
         nav: 'html',
         navigationCenter: true,
         arrowRightText: '<span class="glyphicon glyphicon-chevron-right"></span>',
-        arrowLeftText: '<span class="glyphicon glyphicon-chevron-left"></span>'
+        arrowLeftText: '<span class="glyphicon glyphicon-chevron-left"></span>',
+        afterTransition: function () {
+            $(window).scrollTop(0);
+        }
     });
+
+    var glide = $('.slider').glide().data('api_glide');
+    glide.jump(1, console.log('Wooo!'));
 
     // ============================================================================= GET JSON DATA & format HTML ...
 
+    //strCrossDomainServiceURL = "http://www.spin.hr/ng/rwd3service";
+
     GetPokazatelj1(25);
 
+    $('.datumforma').submit(function (e) { GetPokazatelj1(25); });
+
+
     function GetPokazatelj1(OperaterId) {
+        //$("#lista").hide();
+        $("#ajaxloaderzagraf1").show();
+
+        $("#grafikon").html('');
+        $("#lista").html('');
+        glide.jump(1);
+
         $.ajax({
             url: strCrossDomainServiceURL,
             data: "g=" + strGUID + "&d=" + strDataBase + "&action=kpi1&operateriid=" + OperaterId,
@@ -147,10 +166,10 @@
 
                 });
 
-
+                $("#ajaxloaderzagraf1").hide();
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                $("#ajaxloader1").hide();
+                $("#ajaxloaderzagraf1").hide();
                 $("#lista").html("<br/><div class='panel'><i class='fi-unlink size-36'></i><h4>" + thrownError + ' ' + xhr.status) + '</h4></div>';
             }
         });
@@ -178,28 +197,186 @@
                 $.each(data, function (i, item) {
 
                     var strFormattedTABLE = "";
+                    var g1 = numeral(item.gadiznos1).format('0,0');
+                    var g2 = numeral(item.gadiznos2).format('0,0');
+                    var g3 = numeral(item.gadiznos3).format('0,0');
+                    var g4 = numeral(item.gadiznos4).format('0,0');
 
                     strFormattedTABLE = strFormattedTABLE + '<div class="col-sm-4"><div class="panel panel-primary">' +
                                         '<div class="panel-heading">' +
                                         '<h5 class="panel-title">' + item.naziv + '</h5>' +
                                         '</div>' +
                                         '<div class="panel-body">' +
-                                        '<h4>' + item.gadnaziv1 + " " + item.gadiznos1 + '</h4>' +
+                                        '<span ><font size="5">' + item.gadnaziv1 + '</font></span>' +
+                                         '<span style="float: right" ><font size="5">' + g1.replace(/,/g, ".") + '</font></span><br/>' +
                                         '<div id="bsjChartContainer' + item.manpokazateljiid + '"  ></div>' +
                                         '<span >' + item.gadnaziv2 + '</span>' +
-                                        '<span style="float: right" >' + item.gadiznos2 + '</span><br/>' +
+                                        '<span style="float: right" >' + g2.replace(/,/g, ".") + '</span><br/>' +
                                         '<span >' + item.gadnaziv3 + '</span>' +
-                                        '<span style="float: right">' + item.gadiznos3 + '</span><br/>' +
+                                        '<span style="float: right">' + g3.replace(/,/g, ".") + '</span><br/>' +
                                         '<span >' + item.gadnaziv4 + '</span>' +
-                                        '<span style="float: right">' + item.gadiznos4 + '</span>' +
+                                        '<span style="float: right">' + g4.replace(/,/g, ".") + '</span>' +
                                         '</div></div></div>';
 
                     $("#lista").append(strFormattedTABLE);
 
-                    PieChart(item.gadiznos5, 'bsjChartContainer' + item.manpokazateljiid, '', parseFloat(item.iznosdobro), parseFloat(item.iznoslose));
+                    PieChart(item.gadiznos5, 'bsjChartContainer' + item.manpokazateljiid, item.gadnaziv5, parseFloat(item.iznosdobro), parseFloat(item.iznoslose));
 
 
 
+                });
+
+                //$("#ajaxloaderzagraf1").hide();
+                //$("#lista").show();
+
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $("#ajaxloader1").hide();
+                $("#lista").html("<br/><div class='panel'><i class='fi-unlink size-36'></i><h4>" + thrownError + ' ' + xhr.status) + '</h4></div>';
+            }
+        });
+    }
+
+    function formatbroj(broj) {
+        //var num = new NumberFormat();
+        //num.setNumber(broj);
+        var num = broj.toFixed(0);
+    }
+
+    //GetList("");
+
+    $('#filterform').submit(function (e) { GetList($("#search").val()); });
+
+    // ============================================================================= grafikon ...
+
+    var setovi = [];
+    var grafikoni = [];
+
+    GetSetovi(25);
+
+    function GetSetovi(OperaterId) {
+        var pr = "g=" + strGUID + "&d=" + strDataBase + "&action=kpi7&id=" + OperaterId;
+        $.ajax({
+            url: strCrossDomainServiceURL,
+            data: "g=" + strGUID + "&d=" + strDataBase + "&action=kpi7&id=" + OperaterId,
+            dataType: 'jsonp',
+            jsonp: 'jsoncallback',
+            async: false,
+            timeout: 10000,
+            success: function (data, status) {
+                if (typeof data.errnumber != 'undefined' && data.errnumber != '0') {
+
+                    if (data.errnumber != '0') { strGUID = ''; localStorage.JRWDGUID = ''; }
+                    TurnONlogin("<br/><div class='alert-box secondary'><i class='fi-alert size-28'></i><h6>" + data.errdescription + '</h6></div>');
+                    return;
+                }
+
+                $.each(data, function (i, item) {
+                    // obrada prvog recorseta
+                    if (i == 0) {
+                            setovi = item;
+                    }
+
+                    // obrada drugog recorseta
+
+                    if (i == 1) {
+                            grafikoni = item;
+                    }
+
+                });
+
+                var strgl = "";
+                var formatiraniHTML = "";
+                var DatumDo = new Date();
+
+                var strData = $(".datumforma").serialize();
+
+                var strdatum = strData.replace("datumdo=", "");
+
+                var DatumDo = new Date("'" + strdatum + "'");
+                //var DatumDo = new Date();
+
+
+
+                $.each(setovi, function (index, value) {
+                    var strdet = "";
+
+                    formatiraniHTML = formatiraniHTML
+                      + '<h2>'
+                     + '&nbsp;&nbsp;' + value.Naziv
+                     + '</h2>';
+                     
+
+
+                    $.each(grafikoni, function (g_index, g_value) {
+                        if (value.ManPokSetId == g_value.ManPokSetId) {
+
+                            var Korak = "";
+                            switch (g_value.Korak)
+                            {
+                                case "Tromjesjeèje":
+                                    Korak = "Tromjesjecje";
+                                    break;
+                                case "Polugodište":
+                                    Korak = "Polugodiste";
+                                    break;
+                                default:
+                                    Korak = g_value.Korak;
+                            }
+
+                            var PeriodKorak = "";
+                            switch (g_value.PeriodKorak)
+                            {
+                                case "Tromjesjeèje":
+                                    PeriodKorak = "Tromjesjecje";
+                                    break;
+                                case "Polugodište":
+                                    PeriodKorak = "Polugodiste";
+                                    break;
+                                default:
+                                    PeriodKorak = g_value.PeriodKorak;
+                            }
+
+                            var lngBrojDana = BrojDana(g_value.PeriodRazdoblje, PeriodKorak.trim());
+                            var PeridoDatum = PocetakPerioda(lngBrojDana, PeriodKorak.trim(), DatumDo)
+
+                            var someFormattedDate = DatumDo.toISOString();
+
+                            var i = someFormattedDate.indexOf("T");
+
+                            var dat = someFormattedDate.substring(0, i);
+                            var datret = dat.replace(/-/g, "");
+
+                            formatiraniHTML = formatiraniHTML + '<div class="forlivesearch"><div class="col-md-4 "><div class="mojitem1 clearfix thumbnail " style="color:#000;" data-manpokgrafikonid="' + g_value.ManPokGrafikonId + '"'
+                             + ' data-datod="' + PeridoDatum + '"'
+                             + ' data-datdo="' + datret + '"'
+                             + ' data-korak="' + Korak.trim() + '"'
+                             + ' data-operateriid="' + OperaterId + '"'
+                             + ' data-naziv="' + g_value.Naziv.trim() + '"'
+                             + ' data-tip="' + g_value.Tip + '"'
+                             + '>'
+                             + '<div class="robanaslov">'
+                             + '<h5><span class="glyphicon glyphicon-stats"></span> ' + g_value.Naziv + '</h5>'
+                             + '</div>'
+                             + '</div></div></div>';
+                        }
+                    });
+
+                    formatiraniHTML = formatiraniHTML + '<div class="clearfix"></div>';
+                    
+                    //strgl = strgl + '<li role="presentation" class="dropdown-header">' + value.Naziv + '</li>' + strdet;
+                    //if (index < setovi.length) {
+                    //    strgl = strgl + '<li role="presentation" class="divider"></li>';
+                    //}
+
+                });
+
+                //$("#setlista").html(strgl);
+                $("#izbor").html(formatiraniHTML);
+
+                $(".mojitem1").on('click', function () {
+                    //alert($(this).attr('data-manpokgrafikonid'));
+                    KreirajGrafikon($(this).attr('data-datod'), $(this).attr('data-datdo'), $(this).attr('data-korak'), $(this).attr('data-manpokgrafikonid'), $(this).attr('data-operateriid'), $(this).attr('data-naziv'), $(this).attr('data-tip'));
                 });
 
             },
@@ -210,10 +387,258 @@
         });
     }
 
+    function PocetakPerioda(BrojDana, Oznaka, Datum) {
 
-    //GetList("");
+        var myDate = new Date();
+        myDate.setTime(Datum - BrojDana * 86400000);
 
-    $('#filterform').submit(function (e) { GetList($("#search").val()); });
+        var dtDatum = new Date();
+
+        switch (Oznaka)
+        {
+            case "Dan":
+                dtDatum = myDate;
+                break;
+            case "Mjesec":
+                dtDatum.setFullYear(myDate.getFullYear(), myDate.getMonth() + 1, 1);
+                break;
+            case "Tromjesječje":
+                dtDatum.setFullYear(myDate.getFullYear(), ~~(myDate.getMonth() / 3) * 3 + 1, 1);
+                break;
+            case "Tromjesjecje":
+                dtDatum.setFullYear(myDate.getFullYear(), ~~(myDate.getMonth() / 3) * 3 + 1, 1);
+                break;
+            case "Kvartal":
+                dtDatum.setFullYear(myDate.getFullYear(), ~~(myDate.getMonth() / 4) * 4 + 1, 1);
+                break;
+            case "Polugodište":
+                dtDatum.setFullYear(myDate.getFullYear(), ~~(myDate.getMonth() / 6) * 6 + 1, 1);
+                break;
+            case "Polugodiste":
+                dtDatum.setFullYear(myDate.getFullYear(), ~~(myDate.getMonth() / 6) * 6 + 1, 1);
+                break;
+            case "Godina":
+                dtDatum.setFullYear(myDate.getFullYear(), 0, 1);
+                break;
+        }
+
+        //var dd = myDate.getDate();
+        //var mm = myDate.getMonth() + 1;
+        //var y = myDate.getFullYear();
+
+        
+        //var someFormattedDate = y + mm + dd;
+        var someFormattedDate = dtDatum.toISOString();
+
+        var i = someFormattedDate.indexOf("T");
+
+        var dat = someFormattedDate.substring(0, i);
+        var datret = dat.replace(/-/g, "");
+
+        return datret;
+
+    }
+
+
+
+    function BrojDana(Iznos, oznaka) {
+        
+        var brdana = 0;
+
+        switch (oznaka)
+        {
+            case "Dan":
+                brdana = Iznos;
+                break;
+            case "Tjedan":
+                brdana = Iznos * 7;
+                break;
+            case "Mjesec":
+                brdana = Iznos * 30;
+                break;
+            case "Tromjesjeèje":
+                brdana = Iznos * 90;
+                break;
+            case "Tromjesjecje":
+                brdana = Iznos * 90;
+                break;
+            case "Polugodište":
+                brdana = Iznos * 180;
+                break;
+            case "Polugodiste":
+                brdana = Iznos * 180;
+                break;
+            case "Godina":
+                brdana = Iznos * 360;
+                break;
+        }
+
+        return brdana;
+    }
+
+
+    //KreirajGrafikon("20110101", "20140322", "Mjesec", 14, 25);
+
+    function KreirajGrafikon(datod, datdo, mjesec, manpokgrafikonid, operateriid, naz, tip1) {
+
+        var serije = [];
+        var xosa = [];
+        var serijepodaci = [];
+        $("#grafikon").hide();
+        $("#ajaxloaderzagraf").show();
+        //var tst = "g=" + strGUID + "&d=" + strDataBase + "&action=kpi5&datumod=" + datod + "&datumdo=" + datdo + "&s=" + mjesec + "&id=" + manpokgrafikonid + "&id2=" + operateriid;
+        $.ajax({
+            url: strCrossDomainServiceURL,
+            data: "g=" + strGUID + "&d=" + strDataBase + "&action=kpi5&datumod=" + datod + "&datumdo=" + datdo + "&s=" + mjesec + "&id=" + manpokgrafikonid + "&id2=" + operateriid,
+            dataType: 'jsonp',
+            jsonp: 'jsoncallback',
+            async: false,
+            timeout: 10000,
+            success: function (data, status) {
+                if (typeof data.errnumber != 'undefined' && data.errnumber != '0') {
+
+                    if (data.errnumber != '0') { strGUID = ''; localStorage.JRWDGUID = ''; }
+                    TurnONlogin("<br/><div class='alert-box secondary'><i class='fi-alert size-28'></i><h6>" + data.errdescription + '</h6></div>');
+                    return;
+                }
+
+                $.each(data, function (index, value) {
+                    if ($.inArray(value.naziv, serije) == -1) {
+                        serije.push(value.naziv);
+                    }
+                });
+
+                $.each(data, function (index, value) {
+                    if ($.inArray(value.gdatum, xosa) == -1) {
+                        xosa.push(value.gdatum);
+                    }
+                });
+
+                serije.slice;
+
+                $.each(serije, function (s_index, s_value) {
+                    var serijepodacivrijednosti = [];
+
+
+                    //serijepodacivrijednosti = null;
+
+
+
+
+                    $.each(xosa, function (x_index, x_value) {
+
+                        $.each(data, function (index, value) {
+
+                            if (value.naziv == s_value && value.gdatum == x_value) {
+
+                                serijepodacivrijednosti.push(value.iznos);
+
+                            };
+                        });
+
+                    });
+
+                    o = new Object();
+                    o.name = s_value;
+                    o.data = serijepodacivrijednosti;
+
+                    serijepodaci.push(o);
+
+                });
+
+                //GrafikonChart("Novčana sredstva");
+                GrafikonChart(naz, xosa, serijepodaci, tip1);
+                $("#ajaxloaderzagraf").hide();
+                $("#grafikon").show();
+                $(window).resize();
+               
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $("#ajaxloaderzagraf").hide();
+                $("#lista").html("<br/><div class='panel'><i class='fi-unlink size-36'></i><h4>" + thrownError + ' ' + xhr.status) + '</h4></div>';
+            }
+        });
+
+        
+        glide.jump(3);
+
+    };
+
+
+    function GrafikonChart(naslov, xosa1, serijepodaci1, tip) {
+        $("#sectionchart").show('slow');
+
+        var tipgrafa = "spline";
+
+        switch (tip) {
+            case "0":
+                tipgrafa = "column";
+                break;
+            case "1":
+                tipgrafa = "column";
+                break;
+            case "11":
+                tipgrafa = "spline";
+                break;
+            case "12":
+                tipgrafa = "spline";
+                break;
+            case "15":
+                tipgrafa = "spline";
+                break;
+        }
+
+
+        // Build the chart
+
+        $(function () {
+            $('#grafikon').highcharts({
+                chart: {
+                    type: tipgrafa
+                },
+                title: {
+                    text: naslov,
+                    x: -20 //center
+                },
+                subtitle: {
+                    text: '',
+                    x: -20
+                },
+                xAxis: {
+                    categories: xosa1,
+                    labels: {
+                        rotation: 90
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    labels: {
+                        format: '{value:,.0f}'
+                    },
+                    title: {
+                        text: null
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                legend: {
+                    borderWidth: 0
+                },
+                series: serijepodaci1
+            });
+        });
+
+
+
+    }
+
+
+
+    // ============================================================================= grafikon ...
+
+
+
 
 
     // ============================================================================= chart ...
@@ -254,7 +679,7 @@
 
                 chart: {
                     type: 'gauge',
-                    height: 100,
+                    height: 130,
                     plotBorderWidth: 1,
                     plotBackgroundColor: {
                         linearGradient: {
@@ -272,7 +697,7 @@
                 },
 
                 title: {
-                    text: ''
+                    text: naz
                 },
 
                 pane: [{
@@ -330,7 +755,8 @@
 
 
                 series: [{
-                    data: pod
+                    data: pod,
+                    name: naz
                 }]
 
             });

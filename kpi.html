@@ -26,7 +26,7 @@
     <![endif]-->
 
       <style>
-          body { padding-top: 140px; background-color:#333; color:#fff; }
+          body { padding-top: 50px; background-color:#333; color:#fff; }
           .navbar-inverse {background-color:#333; border-color:#333;}
           ul {list-style-type: none; padding:0; margin:0;}
           .innerspace { padding-left:10px;padding-right:10px; }
@@ -59,13 +59,39 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
          <a class="navbar-brand" id="homelogo" href="#" ><img src="bootstrapassets/pic/spin2.png"  width="40"></a>
-          <form class="navbar-form navbar-left datumforma" role="search">
-          <input type="date" id="datumdo" name="datumdo" class="form-control" value="2013-12-31">
-        <button type="submit" class="btn btn-danger "><span class="glyphicon glyphicon-search"></span></button>
-      </form>
+
     </div>
 
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <form class="navbar-form navbar-left datumforma" role="search">
+            <input type="date" id="datumdo" name="datumdo" class="form-control" value="2013-12-31">
+            <button type="submit" class="btn btn-danger "><span class="glyphicon glyphicon-search"></span></button>
+        </form>
+<!--      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setovi <b class="caret"></b></a>
+          <ul class="dropdown-menu " id="setlista">-->
+<!--                <li role="presentation" class="dropdown-header">Set1</li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation" class="dropdown-header">Set2</li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>-->
 
+ <!--           <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>-->
+<!--          </ul>
+        </li>
+      </ul>-->
+    </div><!-- /.navbar-collapse -->
         
 
   </div><!-- /.container-fluid -->
@@ -79,16 +105,38 @@
                  <li class="slide">
                        <div class="row">
                        <div class="innerspace">
-                       <div class="col-sm-12"><div  id="lista"></div></div>
+                           <div class="col-sm-12">
+                               <h2>&nbsp;&nbsp;Favourites</h2>
+                               <img src="pic/ajax-loader.gif" id="ajaxloaderzagraf1" class="mojhide" />
+                               <div id="lista"></div>
+                           </div>
                        </div>
                        </div>
                  </li>
 
-
-                  <li class="slide">
+                 <li class="slide">
                        <div class="row">
                        <div class="innerspace">
-                       <div class="col-sm-12">gsssssssssssssss<div  id="Div1">aaaaa</div></div>
+                       <div  id="izbor"></div>
+                       </div>
+                       </div>
+                 </li>
+
+                 <li class="slide">
+                       <div class="row">
+                       <div class="innerspace">
+                       <div class="col-sm-12"><h2>Grafikon</h2>
+                           <img src="pic/ajax-loader.gif" id="ajaxloaderzagraf" class="mojhide" />
+                           <div  id="grafikon" class="mojhide"></div>
+                       </div>
+                       </div>
+                       </div>
+                 </li>
+
+                 <li class="slide">
+                       <div class="row">
+                       <div class="innerspace">
+                       <div class="col-sm-12"><h2>KPI portal</h2></div>
                        </div>
                        </div>
                  </li>
@@ -113,6 +161,7 @@
     <script src="bootstrapassets/js/highcharts.js"></script>
     <script src="js/highcharts-more.js"></script>
     <script src="js/modules/exporting.js"></script>
+    <script src="js/numeral.min.js"></script>
 
     <script src="kpi.js"></script>
 
