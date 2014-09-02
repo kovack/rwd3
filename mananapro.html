@@ -1,0 +1,1315 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="ico/favicon.ico">
+
+      <meta http-equiv="X-UA-Compatible" content="IE=9" >
+
+    <title>Analiza prodaje</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrapassets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css"/>
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css" type="text/css"/>
+    <link rel="stylesheet" href="css/datatables.css">
+
+<link rel="stylesheet" type="text/css" media="print" href="bootstrap.min.css"> 
+
+
+    <!-- Custom styles for this template -->
+    
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+      <style>
+          body { padding-top: 60px; background-color:#333; color:#fff; }
+          .navbar-inverse {background-color:#333; border-color:#333;}
+          ul {list-style-type: none; padding:0; margin:0;}
+          .innerspace { padding-left:10px;padding-right:10px; }
+          .alert { padding-bottom : 7px; padding-top: 7px; }
+          #search { background-color:#eee; }
+          .mojhide { display:none; }
+          html {position: relative;min-height: 100%;}
+          .panel{ color:#000; }
+          .bootstrap-datetimepicker-widget
+          {
+              color: #333;
+          }
+
+.form-control { margin-bottom: 10px; }
+
+        #footer {
+          
+            background-color:#333;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 35px;
+        }
+
+    .row{
+		    margin-top:40px;
+		    padding: 0 10px;
+		}
+		.clickable{
+		    cursor: pointer;   
+		}
+
+		.panel-heading div {
+			margin-top: -18px;
+			font-size: 15px;
+		}
+		.panel-heading div span{
+			margin-left:5px;
+		}
+		/*.panel-body{
+			display: none;
+		}*/
+
+        .lead { font-size: 33px;margin-bottom:0px; }
+
+
+
+
+      </style>
+
+  </head>
+
+  <body>
+
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" id="homelogo" href="#">
+                      <img src="bootstrapassets/pic/spin2.png" width="40"></a>
+
+                  <!--                  <form class="navbar-form navbar-left lijevi" role="search">
+                      <button type="button" class="btn btn-default toggle-slide-left" id="lijevibar"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                  </form>
+
+                  <form class="navbar-form navbar-right desni" role="search">
+                      <button type="button" class="btn btn-default toggle-slide-right" id="desnibar"><span class="glyphicon glyphicon-chevron-right"></span></button>
+                  </form>-->
+              </div>
+
+
+              <div>
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+
+                      <form class="navbar-form navbar-left hidden-lg hidden-md hidden-sm" role="search">
+                          <div class="btn-group">
+                              <button type="button" class="btn btn-default toggle-slide-left">
+                                  Izvj. raz.
+                              </button>
+                              <button type="button" class="btn btn-default">Zbirno</button>
+                              <button type="button" class="btn btn-default">Kupci</button>
+                              <button type="button" class="btn btn-default">Roba</button>
+                          </div>
+                      </form>
+                      <!--                      <ul class="nav navbar-nav navbar-left">
+                         <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                               Izbor 
+                               <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                               <li><a href="#" id="mnuprviekran">Početni prikaz</a></li>
+                               <li><a href="#" id="mnukup">Kupci</a></li>
+                               <li><a href="#" id="mnurob">Roba</a></li>
+                            </ul>
+                         </li>
+                      </ul> -->
+                      <form class="navbar-form navbar-right hidden-lg hidden-md hidden-sm" role="search">
+                          <div class="btn-group">
+                          <button type="button" class="btn btn-default toggle-slide-right">
+                              Ref. raz.
+                          </button>
+                               <button type="button" class="btn btn-default">Zbirno</button>
+                              <button type="button" class="btn btn-default">Kupci</button>
+                              <button type="button" class="btn btn-default">Roba</button>
+                          </div>
+                      </form>
+                      <form class="navbar-form navbar-left hidden-lg hidden-md hidden-sm" role="search">
+                          <input type="text" class="form-control" id="search" name="search" placeholder="Traži">
+                      </form>
+                  </div>
+              </div>
+
+          </div>
+          <!-- /.container-fluid -->
+      </nav>
+
+
+
+
+      <div class="container-fluid">
+
+
+
+
+          <nav class="menu slide-menu-left hidden-print">
+              <ul>
+                  <li>
+                      <h2>Izvještajno razdoblje </h2>
+                      <br />
+                  </li>
+                  <form id="filterformizv">
+                      <li>
+                          <select id="izbizv"></select></li>
+                      <li>&nbsp; </li>
+                      <li>
+                          <button type="button" class="btn btn-default" style="width: 100%">
+                              <span>Razdoblje</span>
+                          </button>
+                      </li>
+                      <!--<select id="example28" ></select>-->
+                      <!--                        <select id="orgshemaizv" ></select>-->
+                      <li>
+                          <div class="form-group">
+                              <div class="input-group date" id="datodizv">
+                                  <input type="text" class="form-control" />
+                                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                  </span>
+                              </div>
+                              <div class="input-group date" id="datdoizv">
+                                  <input type="text" class="form-control" />
+                                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                  </span>
+                              </div>
+                          </div>
+                      </li>
+
+                      <li>Klasa robe</li>
+                      <li>
+                          <select id="klasaizv" style="width: 100%"></select></li>
+                      <li>Organizacijska jedinica</li>
+                      <li>
+                          <select id="orgshemaizv"></select></li>
+                      <li>Odgovorna osoba</li>
+                      <li>
+                          <select id="odgosobaizv" class="btn-group"></select></li>
+                      <li>&nbsp; </li>
+                      <li>
+                          <button type="button" class="btn btn-default" id="btnizv" style="width: 100%">
+                              <span class="glyphicon glyphicon glyphicon-ok"></span>
+                          </button>
+                      </li>
+                  </form>
+              </ul>
+          </nav>
+          <!-- /slide menu left -->
+
+          <nav class="menu slide-menu-right hidden-print">
+              <ul>
+                  <li>
+                      <h2>Referentno razdoblje </h2>
+                      <br />
+                  </li>
+                  <form id="filterformref">
+                      <li>
+                          <select id="izbref"></select></li>
+                      <li>&nbsp; </li>
+                      <li>
+                          <button type="button" class="btn btn-default" style="width: 100%">
+                              <span>Razdoblje</span>
+                          </button>
+                      </li>
+                      <!--<select id="example28" ></select>-->
+                      <!--                        <select id="orgshemaizv" ></select>-->
+                      <li>
+                          <div class="form-group">
+                              <div class="input-group date" id="datodref">
+                                  <input type="text" class="form-control" />
+                                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                  </span>
+                              </div>
+                              <div class="input-group date" id="datdoref">
+                                  <input type="text" class="form-control" />
+                                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                  </span>
+                              </div>
+                          </div>
+                      </li>
+
+                      <li>Klasa robe</li>
+                      <li>
+                          <select id="klasaref" style="width: 100%"></select></li>
+                      <li>Organizacijska jedinica</li>
+                      <li>
+                          <select id="orgshemaref"></select></li>
+                      <li>Odgovorna osoba</li>
+                      <li>
+                          <select id="odgosobaref" class="btn-group"></select></li>
+                      <li>&nbsp; </li>
+                      <li>
+                          <button type="button" class="btn btn-default" id="btnref" style="width: 100%">
+                              <span class="glyphicon glyphicon glyphicon-ok"></span>
+                          </button>
+                      </li>
+                  </form>
+              </ul>
+          </nav>
+          <!-- /slide menu right -->
+
+
+          
+          <div class="row">
+              <div id="prvifilter">
+                  <div class="col-md-6 hidden-print hidden-xs">
+                      <div class="panel panel-primary">
+                          <div class="panel-heading" id="formaizvclick1">
+                              <h3 class="panel-title">Izvještajno razdoblje</h3>
+                              <!--<span class="pull-right" style="margin-top: -20px;"><i class="glyphicon glyphicon-print"></i></span>-->
+                          </div>
+
+                          <div class="panel-body" id="prvifilterbody" style="padding-top: 0px;">
+                              <form role="form" style="margin-top: -30px; margin-bottom: -15px;">
+
+                                  <div class="form-group">
+                                      <div class="col-md-6">
+                                          <label for="frmizbizv">Dokument</label>
+                                          <select class="form-control" id="frmizbizv"></select>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <div class="col-md-6">
+                                          <label for="frmklasaizv">Klasa robe</label>
+                                          <select class="form-control" id="frmklasaizv"></select>
+                                      </div>
+                                  </div>
+
+
+
+                                  <div class="form-group">
+                                      <div class="col-md-4" style="padding-right: 0px;">
+                                          <div class="btn-group btn-group-justified">
+                                              <button type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown" style="width: 100%; ">
+                                                  Razdoblje <span class="caret"></span>
+                                              </button>
+                                              <ul class="dropdown-menu" role="menu">
+                                                  <li><a href="#">Ovaj tjedan</a></li>
+                                                  <li><a href="#">Ovaj mjesec</a></li>
+                                                  <li><a href="#">Ovaj kvartal</a></li>
+                                                  <li><a href="#">Ovo polugodište</a></li>
+                                                  <li><a href="#">Ova godina</a></li>
+                                                  <li class="divider"></li>
+                                                  <li><a href="#">Prošli tjedan</a></li>
+                                                  <li><a href="#">Prošli mjesec</a></li>
+                                                  <li><a href="#">Prošli kvartal</a></li>
+                                                  <li><a href="#">Prošlo polugodište</a></li>
+                                                  <li><a href="#">Prošla godina</a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+
+                                      <div class="col-md-4" style="padding-left: 0px; padding-right: 0px;">
+                                          <div class="input-group date" id="frmdatodizv">
+                                              <input type="text" class="form-control" />
+                                              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                              </span>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-4" style="padding-left: 0px; padding-right: 15px;">
+                                          <div class="input-group date" id="frmdatdoizv">
+                                              <input type="text" class="form-control" />
+                                              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                              </span>
+                                          </div>
+                                      </div>
+
+                                  </div>
+
+                                  <div class="form-group">
+                                      <div class="row">
+                                          <div class="col-md-4"  style="padding-left: 20px;">
+                                              <label for="frmizbizv">Org. jedinica</label>
+                                              <select class="form-control" id="frmorgshemaizv"></select>
+                                          </div>
+
+
+
+                                          <div class="col-md-4">
+                                              <label for="frmizbizv">Odg. osoba</label>
+                                              <select class="form-control" id="frmodgosobaizv"></select>
+                                          </div>
+
+
+                                          <div class="col-md-4" style="padding-right: 20px;">
+                                              <button type="button" class="btn btn-block btn-default " id="frmbtnizv" style="margin: 25px 0px 0px 0px;"><span class="glyphicon glyphicon glyphicon-ok"></span></button>
+                                          </div>
+                                      </div>
+                                  </div>
+
+
+                              </form>
+                          </div>
+
+                          <div class="panel-footer">
+                              <ul class="nav nav-pills nav-justified frmizvizbor">
+                                  <li class="active" id="frmbtnizvzbirno"><a href="#">Zbirno</a></li>
+                                  <li id="frmbtnizvkupci"><a href="#">Kupci</a></li>
+                                  <li id="frmbtnizvroba"><a href="#">Roba</a></li>
+                              </ul>
+
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+              <div id="drugifilter" class="hidden-print">
+                  <div class="col-md-6 hidden-print">
+                      <div class="panel panel-success hidden-print hidden-xs">
+                          <div class="panel-heading" id="formarefclick">
+                              <h3 class="panel-title">Referentno razdoblje</h3>
+                              <span class="pull-right clickable" style="margin-top: -20px;"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                          </div>
+
+                          <div class="panel-body hidden-print" id="drugifilterbody" style="padding-top: 0px;">
+                              <form role="form" style="margin-top: -30px; margin-bottom: -15px;">
+
+                                  <div class="form-group">
+                                      <div class="col-md-6">
+                                          <label for="frmizbizv">Dokument</label>
+                                          <select class="form-control" id="frmizbref"></select>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <div class="col-md-6">
+                                          <label for="frmklasaizv">Klasa robe</label>
+                                          <select class="form-control" id="frmklasaref"></select>
+                                      </div>
+                                  </div>
+
+
+
+                                  <div class="form-group">
+                                      <div class="col-md-4" style="padding-right: 0px;">
+                                          <div class="btn-group btn-group-justified">
+                                              <button type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown" style="width: 100%">
+                                                  Razdoblje <span class="caret"></span>
+                                              </button>
+                                              <ul class="dropdown-menu" role="menu">
+                                                  <li><a href="#">Ovaj tjedan</a></li>
+                                                  <li><a href="#">Ovaj mjesec</a></li>
+                                                  <li><a href="#">Ovaj kvartal</a></li>
+                                                  <li><a href="#">Ovo polugodište</a></li>
+                                                  <li><a href="#">Ova godina</a></li>
+                                                  <li class="divider"></li>
+                                                  <li><a href="#">Prošli tjedan</a></li>
+                                                  <li><a href="#">Prošli mjesec</a></li>
+                                                  <li><a href="#">Prošli kvartal</a></li>
+                                                  <li><a href="#">Prošlo polugodište</a></li>
+                                                  <li><a href="#">Prošla godina</a></li>
+                                              </ul>
+                                          </div>
+                                      </div>
+
+                                      <div class="col-md-4" style="padding-left: 0px; padding-right: 0px;">
+                                          <div class="input-group date" id="frmdatodref">
+                                              <input type="text" class="form-control" />
+                                              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                              </span>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-4" style="padding-left: 0px; padding-right: 15px;">
+                                          <div class="input-group date" id="frmdatdoref">
+                                              <input type="text" class="form-control" />
+                                              <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                              </span>
+                                          </div>
+                                      </div>
+
+                                  </div>
+
+                                  <div class="form-group">
+                                      <div class="row">
+                                          <div class="col-md-4" style="padding-left: 20px;">
+                                              <label for="frmizbizv">Org. jedinica</label>
+                                              <select class="form-control" id="frmorgshemaref"></select>
+                                          </div>
+
+
+
+                                          <div class="col-md-4">
+                                              <label for="frmizbizv">Odg. osoba</label>
+                                              <select class="form-control" id="frmodgosobaref"></select>
+                                          </div>
+
+
+                                          <div class="col-md-4" style="padding-right: 20px;">
+                                              <button type="button" class="btn btn-block btn-default " id="frmbtnref" style="margin: 25px 0px 0px 0px;"><span class="glyphicon glyphicon glyphicon-ok"></span></button>
+                                          </div>
+                                      </div>
+                                  </div>
+
+
+                              </form>
+                          </div>
+
+                          <div class="panel-footer">
+                              <ul class="nav nav-pills nav-justified frmrefizbor">
+                                  <li class="active" id="frmbtnrefzbirno"><a href="#">Zbirno</a></li>
+                                  <li id="frmbtnrefkupci"><a href="#">Kupci</a></li>
+                                  <li id="frmbtnrefroba"><a href="#">Roba</a></li>
+                              </ul>
+
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="row" >
+              <div id="prviekranizv" class="mojhide hidden-print">
+                  <div class="col-md-6 ">
+                      <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Izvještajno razdoblje</h3>
+                            <!--<span class="pull-right" style="margin-top: -20px; cursor: pointer;"><i class="glyphicon glyphicon-print"></i></span>-->
+                        </div>
+                          <div id="listaizv1"></div>
+
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <h3>Dnevni prosjek</h3>
+                              </div>
+                          </div>
+
+                          <table class="table " id="Table1">
+                              <thead>
+                                  <tr>
+                                      <th></th>
+                                      <th></th>
+                                      <th></th>
+                                      <th></th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td><b>Izdano</b></td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                  </tr>
+                                  <tr>
+                                      <td><b>Realizirano</b></td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                  </tr>
+                                  <tr>
+                                      <td><b>Otpisano</b></td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <h4>Indexi Izvještajno razdoblje/Referentno razdoblje</h4>
+                              </div>
+                          </div>
+
+                          <table class="table " id="Table2">
+                              <thead>
+                                  <tr>
+                                      <th></th>
+                                      <th></th>
+                                      <th></th>
+                                      <th></th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td><b>Izdano</b></td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                  </tr>
+                                  <tr>
+                                      <td><b>Realizirano</b></td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                  </tr>
+                                  <tr>
+                                      <td><b>Otpisano</b></td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+
+                      </div>
+                  </div>
+              </div>
+              <div id="drugiekranizv" class="mojhide">
+                  <div class="col-md-6">
+                      <div class="panel panel-primary">
+                          <div class="panel-heading">
+                              <h3 class="panel-title">Izvještajno razdoblje</h3>
+                              <!--<span class="pull-right" id="drugiekranizvprint" style="margin-top: -20px; cursor: pointer;"><i class="glyphicon glyphicon-print"></i></span>-->
+<!--                              <div class="pull-right">
+                                  <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+                                      <i class="glyphicon glyphicon-filter"></i>
+                                  </span>
+                              </div>-->
+                          </div>
+<!--                          <div class="panel-body">
+                              <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Traži" />
+                          </div>-->
+                          <div id="listakupizv1"></div>
+<!--<table class="table table-hover" id="tablekupizv">
+                              <thead>
+                                  <tr>
+                                      <th>Partner</th>
+                                      <th>NetoVrijednost</th>
+                                      <th>RUC</th>
+                                      <th>% RUC</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>AGRO-HONOR d.o.o.</td>
+                                      <td>6035</td>
+                                      <td>2421</td>
+                                      <td>40.11599</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>Auto-moto klub SLAVONAC Osijek          </td>
+                                      <td>1470</td>
+                                      <td>400.36</td>
+                                      <td>27.235374</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>CESTE d.d.</td>
+                                      <td>4920</td>
+                                      <td>4920</td>
+                                      <td>100</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>ČVORKOVAC d.o.o.</td>
+                                      <td>1636</td>
+                                      <td>519.2</td>
+                                      <td>31.735941</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>EUROVOĆE ZADRUGA Orahovica</td>
+                                      <td>0</td>
+                                      <td>0</td>
+                                      <td>0</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>FERMOPROMET d.o.o.</td>
+                                      <td>4850</td>
+                                      <td>1116</td>
+                                      <td>23.010309</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>FRIZER d.o.o.</td>
+                                      <td>3000</td>
+                                      <td>3000</td>
+                                      <td>100</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>GLAS SLAVONIJE d.d.</td>
+                                      <td>2600</td>
+                                      <td>804.16</td>
+                                      <td>30.92923</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>GRAVIA d.o.o.</td>
+                                      <td>3600</td>
+                                      <td>3600</td>
+                                      <td>100</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>HA CO trgovina d.o.o.</td>
+                                      <td>18030</td>
+                                      <td>18030</td>
+                                      <td>100</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>HARMONIJA d.o.o.</td>
+                                      <td>32</td>
+                                      <td>1.6</td>
+                                      <td>5</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>HRVATSKE ŠUME Uprava Osijek</td>
+                                      <td>1770</td>
+                                      <td>105.04</td>
+                                      <td>5.934463</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>KANDIT d.o.o.</td>
+                                      <td>31540</td>
+                                      <td>31540</td>
+                                      <td>100</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>LIMEX &amp; PARTNER d.o.o. u stečaju</td>
+                                      <td>5400</td>
+                                      <td>5400</td>
+                                      <td>100</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>MLIN I PEKARE d.o.o.</td>
+                                      <td>107</td>
+                                      <td>22</td>
+                                      <td>20.560747</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>Novatech Med d.o.o. u stečaju</td>
+                                      <td>200</td>
+                                      <td>200</td>
+                                      <td>100</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>OPTIVUS d.o.o.</td>
+                                      <td>1800</td>
+                                      <td>1800</td>
+                                      <td>100</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>OSJEČKA PIVOVARA d.d.</td>
+                                      <td>0</td>
+                                      <td>0</td>
+                                      <td>0</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>PANONIJA d.d. u stečaju</td>
+                                      <td>5400</td>
+                                      <td>5400</td>
+                                      <td>100</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>PROKŠ COMPANY d.o.o. Osijek             </td>
+                                      <td>246</td>
+                                      <td>56.56</td>
+                                      <td>22.991869</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>PRVI MAJ d.d. Laslovo</td>
+                                      <td>1800</td>
+                                      <td>1800</td>
+                                      <td>100</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>R-MONT Osijek                           </td>
+                                      <td>1440</td>
+                                      <td>277</td>
+                                      <td>19.236111</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>REKORD d.d.</td>
+                                      <td>15630</td>
+                                      <td>12148</td>
+                                      <td>77.722328</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>REMIX d.o.o.</td>
+                                      <td>2880</td>
+                                      <td>2880</td>
+                                      <td>100</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>RICARDO d.o.o.</td>
+                                      <td>3348</td>
+                                      <td>468.8</td>
+                                      <td>14.002389</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>SPIN Maloprodaja</td>
+                                      <td>20</td>
+                                      <td>20</td>
+                                      <td>100</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>TIA Partner d.o.o.</td>
+                                      <td>0</td>
+                                      <td>0</td>
+                                      <td>0</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>Tvornica šećera Osijek d.o.o.</td>
+                                      <td>4000</td>
+                                      <td>4000</td>
+                                      <td>100</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>UPRAVA ZA CESTE O-B ŽUPANIJE</td>
+                                      <td>3150</td>
+                                      <td>3150</td>
+                                      <td>100</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>VUKA d.d.</td>
+                                      <td>9880</td>
+                                      <td>9880</td>
+                                      <td>100</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>ZAVOD ZA JAVNO ZDRAVSTVO</td>
+                                      <td>9340</td>
+                                      <td>1280.12</td>
+                                      <td>13.705781</td>
+                                  </tr>
+                                  <tr class="forlivesearchkupizv1">
+                                      <td>ŽITO d.o.o.</td>
+                                      <td>1615</td>
+                                      <td>1615</td>
+                                      <td>100</td>
+                                  </tr>
+                              </tbody>
+                          </table>-->
+                      </div>
+                  </div>
+              </div>
+              <div id="prviekranref" class="mojhide hidden-print">
+                  <div class="col-md-6">
+                      <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Referentno razdoblje</h3>
+                            <!--<span class="pull-right" style="margin-top: -20px; cursor: pointer;"><i class="glyphicon glyphicon-print"></i></span>-->
+                        </div>
+                          <div id="listaref1"></div>
+
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <h3>Dnevni prosjek</h3>
+                              </div>
+                          </div>
+
+                          <table class="table " id="Table3">
+                              <thead>
+                                  <tr>
+                                      <th></th>
+                                      <th></th>
+                                      <th></th>
+                                      <th></th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td><b>Izdano</b></td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                  </tr>
+                                  <tr>
+                                      <td><b>Realizirano</b></td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                  </tr>
+                                  <tr>
+                                      <td><b>Otpisano</b></td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <h4>Indexi Izvještajno razdoblje/Referentno razdoblje</h4>
+                              </div>
+                          </div>
+
+                          <table class="table " id="Table4">
+                              <thead>
+                                  <tr>
+                                      <th></th>
+                                      <th></th>
+                                      <th></th>
+                                      <th></th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td><b>Izdano</b></td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                  </tr>
+                                  <tr>
+                                      <td><b>Realizirano</b></td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                  </tr>
+                                  <tr>
+                                      <td><b>Otpisano</b></td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                      <td>0,00</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+
+                      </div>
+
+                  </div>
+              </div>
+              <div id="drugiekranref" class="mojhide hidden-print">
+                  <div class="col-md-6">
+                      <div class="panel panel-success">
+                          <div class="panel-heading">
+                              <h3 class="panel-title">Referentno razdoblje</h3>
+                              <!--<span class="pull-right" style="margin-top: -20px; cursor: pointer;"><i class="glyphicon glyphicon-print"></i></span>-->
+<!--                              <div class="pull-right">
+                                  <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+                                      <i class="glyphicon glyphicon-filter"></i>
+                                  </span>
+                              </div>-->
+                          </div>
+<!--                          <div class="panel-body">
+                              <input type="text" class="form-control" id="task-table-filter" data-action="filter" data-filters="#task-table" placeholder="Traži" />
+                          </div>-->
+                          <div id="listakupref1"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div id="prviekranmaliizv" class="mojhide hidden-print">
+                  <div class="col-xs-6 ">
+                      <div class="panel panel-primary">
+                          <div class="panel-heading">
+                              <h3 class="panel-title">Izvještajno razdoblje</h3>
+                              <!--<span class="pull-right" style="margin-top: -20px; cursor: pointer;"><i class="glyphicon glyphicon-print"></i></span>-->
+                          </div>
+                          <div class="panel-body hidden-print" id="Div1" style="padding-top: 0px;">
+                              <div id="listamaliizv1"></div>
+
+                              
+
+                                  <ul class="list-group text-center">
+                                      <li class="list-group-item off ">Vrijednost:
+                                      <br>
+                                          <h4>1,520.00</h4>
+                                      </li>
+                                      <li class="list-group-item off">Količina:
+                                      <br>
+                                          <strong>250.00</strong></li>
+                                      <li class="list-group-item off">RUC:
+                                      <br>
+                                          <strong>340.00</strong></li>
+                                      <li class="list-group-item off">Prosječna vrijednost:
+                                      <br>
+                                          <strong>420.00</strong></li>
+                                      <li class="list-group-item off">% RUC:
+                                      <br>
+                                          <strong>11.25</strong></li>
+                                  </ul>
+
+                              
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                          <h4>Dnevni prosjek</h4>
+                                      </div>
+                                  </div>
+                              
+
+                                  <ul class="list-group text-center">
+                                      <li class="list-group-item off ">
+                                          <h4>Izdano</h4>
+                                      </li>
+                                      <li class="list-group-item off ">
+                                          0.00
+                                      </li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                  </ul>
+
+                                  <ul class="list-group text-center">
+                                      <li class="list-group-item off ">
+                                          <h4>Realizirano</h4>
+                                      </li>
+                                      <li class="list-group-item off ">
+                                          0.00
+                                      </li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                  </ul>
+
+                                  <ul class="list-group text-center">
+                                      <li class="list-group-item off ">
+                                          <h4>Otpisano</h4>
+                                      </li>
+                                      <li class="list-group-item off ">
+                                          0.00
+                                      </li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                  </ul>
+
+
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                          <h4>Indexi Izvještajno razdoblje / Referentno razdoblje</h4>
+                                      </div>
+                                  </div>
+                              
+
+                                 <ul class="list-group text-center">
+                                      <li class="list-group-item off ">
+                                          <h4>Izdano</h4>
+                                      </li>
+                                      <li class="list-group-item off ">
+                                          0.00
+                                      </li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                  </ul>
+
+                                  <ul class="list-group text-center">
+                                      <li class="list-group-item off ">
+                                          <h4>Realizirano</h4>
+                                      </li>
+                                      <li class="list-group-item off ">
+                                          0.00
+                                      </li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                  </ul>
+
+                                  <ul class="list-group text-center">
+                                      <li class="list-group-item off ">
+                                          <h4>Otpisano</h4>
+                                      </li>
+                                      <li class="list-group-item off ">
+                                          0.00
+                                      </li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                  </ul>
+
+                              
+
+
+
+
+
+
+                          </div>
+                      </div>
+                      <!--</div>-->
+
+                      <!--                          <div class="row">
+                              <div class="col-md-6">
+                                  <h3>Dnevni prosjek</h3>
+                              </div>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <h4>Indexi Izvještajno razdoblje/Referentno razdoblje</h4>
+                              </div>
+                          </div>-->
+
+                  </div>
+              </div>
+              <div id="drugiekranmaliizv" class="mojhide">
+                  <div class="col-xs-6">
+                      <div class="panel panel-primary">
+                          <div class="panel-heading">
+                              <h3 class="panel-title">Izvještajno razdoblje</h3>
+                          </div>
+<!--                          <div class="panel-body">
+                              <input type="text" class="form-control" id="task-table-filter" data-action="filter" data-filters="#task-table" placeholder="Traži" />
+                          </div>-->
+                          <div id="listakupmaliizv1"></div>
+
+
+<!--                           <div class="panel ">
+
+                               <h5 class="media-heading text-center">Partner:</h5>
+                              <h4 class="media-heading text-center">AGRO-HONOR d.o.o.</h4>
+                               <h5 class="media-heading text-center">Netto vrijednost:</h5>
+                              <h4 class="media-heading text-center">1,520.00</h4>
+
+                                <ul class="list-inline mrg-0 btm-mrg-10 clr-535353 text-center">
+                                    <li>RUC<br /><b>2,421.00</b></li>
+
+                                    <li style="list-style: none"></li>
+
+                                    <li>% RUC<br /><b>10.00</b></li>
+
+                                </ul>
+
+                              <h4 class="media-heading">Vrijednost:</h4>
+                              <h2 class="media-heading">1,520.00</h2>
+                              <h4 class="media-heading">Količina:</h4>
+                              <h4 class="media-heading">250.00</h4>
+                              <h4 class="media-heading">RUC:</h4>
+                              <h4 class="media-heading">340.00</h4>
+                              <h4 class="media-heading">Prosječna vrijednost:</h4>
+                              <h4 class="media-heading">420.00</h4>
+                              <h4 class="media-heading">% RUC:</h4>
+                              <h4 class="media-heading">11.25</h4>
+
+                            </div>
+
+                           <div class="panel ">
+
+                               <h5 class="media-heading text-center">Partner:</h5>
+                              <h4 class="media-heading text-center">AGRO-HONOR d.o.o.</h4>
+                               <h5 class="media-heading text-center">Netto vrijednost:</h5>
+                              <h4 class="media-heading text-center">1,520.00</h4>
+
+                                <ul class="list-inline mrg-0 btm-mrg-10 clr-535353 text-center">
+                                    <li>RUC<br /><b>2,421.00</b></li>
+
+                                    <li style="list-style: none"></li>
+
+                                    <li>% RUC<br /><b>10.00</b></li>
+
+                                </ul>
+
+                              <h4 class="media-heading">Vrijednost:</h4>
+                              <h2 class="media-heading">1,520.00</h2>
+                              <h4 class="media-heading">Količina:</h4>
+                              <h4 class="media-heading">250.00</h4>
+                              <h4 class="media-heading">RUC:</h4>
+                              <h4 class="media-heading">340.00</h4>
+                              <h4 class="media-heading">Prosječna vrijednost:</h4>
+                              <h4 class="media-heading">420.00</h4>
+                              <h4 class="media-heading">% RUC:</h4>
+                              <h4 class="media-heading">11.25</h4>
+
+                            </div>-->
+
+                      </div>
+                  </div>
+
+              </div>
+              <div id="prviekranmaliref" class="mojhide hidden-print">
+                  <div class="col-xs-6">
+                      <div class="panel panel-success">
+                          <div class="panel-heading">
+                              <h3 class="panel-title">Referentno razdoblje</h3>
+                              <!--<span class="pull-right" style="margin-top: -20px; cursor: pointer;"><i class="glyphicon glyphicon-print"></i></span>-->
+                          </div>
+                          <div class="panel-body hidden-print" id="Div3" style="padding-top: 0px;">
+                          <div id="Div2"></div>
+
+                          
+                              <ul class="list-group text-center">
+                                  <li class="list-group-item off ">Vrijednost:
+                                      <br>
+                                      <h4>1,520.00</h4>
+                                  </li>
+                                  <li class="list-group-item off">Količina:
+                                      <br>
+                                      <strong>250.00</strong></li>
+                                  <li class="list-group-item off">RUC:
+                                      <br>
+                                      <strong>340.00</strong></li>
+                                  <li class="list-group-item off">Prosječna vrijednost:
+                                      <br>
+                                      <strong>420.00</strong></li>
+                                  <li class="list-group-item off">% RUC:
+                                      <br>
+                                      <strong>11.25</strong></li>
+                              </ul>
+
+
+                                   <div class="row">
+                                      <div class="col-md-6">
+                                          <h4>Dnevni prosjek</h4>
+                                      </div>
+                                  </div>
+                              
+
+                                  <ul class="list-group text-center">
+                                      <li class="list-group-item off ">
+                                          <h4>Izdano</h4>
+                                      </li>
+                                      <li class="list-group-item off ">
+                                          0.00
+                                      </li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                  </ul>
+
+                                  <ul class="list-group text-center">
+                                      <li class="list-group-item off ">
+                                          <h4>Realizirano</h4>
+                                      </li>
+                                      <li class="list-group-item off ">
+                                          0.00
+                                      </li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                  </ul>
+
+                                  <ul class="list-group text-center">
+                                      <li class="list-group-item off ">
+                                          <h4>Otpisano</h4>
+                                      </li>
+                                      <li class="list-group-item off ">
+                                          0.00
+                                      </li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                  </ul>
+
+
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                          <h4>Indexi Izvještajno razdoblje / Referentno razdoblje</h4>
+                                      </div>
+                                  </div>
+                              
+
+                                 <ul class="list-group text-center">
+                                      <li class="list-group-item off ">
+                                          <h4>Izdano</h4>
+                                      </li>
+                                      <li class="list-group-item off ">
+                                          0.00
+                                      </li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                  </ul>
+
+                                  <ul class="list-group text-center">
+                                      <li class="list-group-item off ">
+                                          <h4>Realizirano</h4>
+                                      </li>
+                                      <li class="list-group-item off ">
+                                          0.00
+                                      </li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                  </ul>
+
+                                  <ul class="list-group text-center">
+                                      <li class="list-group-item off ">
+                                          <h4>Otpisano</h4>
+                                      </li>
+                                      <li class="list-group-item off ">
+                                          0.00
+                                      </li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                      <li class="list-group-item off">
+                                          0.00</li>
+                                  </ul>
+
+
+
+
+                         </div>
+                      </div>
+
+
+
+
+
+
+
+                  </div>
+
+              </div>
+
+
+
+          </div>
+        
+
+        
+
+
+
+        <!--<div class="row">-->
+            <!--<h1>Bootstrap starter template</h1>-->
+<!--            <div class="form-group">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>-->
+            <!--<select id="klasaizv" ></select>-->
+            <!--<select id="orgshemaizv" ></select>-->
+            <!--<select id="odgosobaizv" class="btn-group"></select>-->
+        <!--</div>-->
+        
+
+    
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="bootstrapassets/js/bootstrap.min.js"></script>
+    <script src="mananapro.js"></script>
+    <script src="js/classie.js"></script>
+    <script src="js/nav.js"></script>
+    <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+    <script type="text/javascript" src="js/moment.js"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="js/locales/bootstrap-datetimepicker.hr.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="js/dataTables.js"></script>
+    <script type="text/javascript" src="js/fastLiveFilter.js"></script>
+
+
+
+  </body>
+</html>

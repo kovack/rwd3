@@ -9,6 +9,7 @@
     <meta http-equiv='cache-control' content='no-cache'>
     <meta http-equiv='expires' content='0'>
     <meta http-equiv='pragma' content='no-cache'>
+      <!--<meta http-equiv="X-UA-Compatible" content="IE=9" >-->
    
  
     <link rel="shortcut icon" href="ico/favicon.ico">
@@ -57,16 +58,25 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container-fluid" >
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-         <a class="navbar-brand" id="homelogo" href="#" ><img src="bootstrapassets/pic/spin2.png"  width="40"></a>
-
-    </div>
+      <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+          <a class="navbar-brand" id="homelogo" href="#">
+              <img src="bootstrapassets/pic/spin2.png" width="40"></a>
+  
+      </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
         <form class="navbar-form navbar-left datumforma" role="search">
-            <input type="date" id="datumdo" name="datumdo" class="form-control" value="2013-12-31">
-            <button type="submit" class="btn btn-danger "><span class="glyphicon glyphicon-search"></span></button>
-        </form>
+              <input type="date" id="datumdo" name="datumdo" class="form-control" value="2013-12-31">
+              <!--<button type="submit" class="btn btn-danger "><span class="glyphicon glyphicon-search"></span></button>-->
+          </form>
+
 <!--      <ul class="nav navbar-nav">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setovi <b class="caret"></b></a>

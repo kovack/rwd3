@@ -128,11 +128,12 @@
 
     // ============================================================================= GET JSON DATA & format HTML ...
 
-    //strCrossDomainServiceURL = "http://www.spin.hr/ng/rwd3service";
+    strCrossDomainServiceURL = "http://www.spin.hr/ng/rwd3service";
 
     GetPokazatelj1(25);
 
-    $('.datumforma').submit(function (e) { GetPokazatelj1(25); });
+    //$('.datumforma').submit(function (e) { GetPokazatelj1(25); });
+    $('#datumdo').change(function(e) { GetPokazatelj1(25); $(".navbar-toggle").click(); });
 
 
     function GetPokazatelj1(OperaterId) {
@@ -142,6 +143,8 @@
         $("#grafikon").html('');
         $("#lista").html('');
         glide.jump(1);
+
+        //alert("g=" + strGUID + "&d=" + strDataBase + "&action=kpi1&operateriid=" + OperaterId);
 
         $.ajax({
             url: strCrossDomainServiceURL,
@@ -157,6 +160,8 @@
                     TurnONlogin("<br/><div class='alert-box secondary'><i class='fi-alert size-28'></i><h6>" + data.errdescription + '</h6></div>');
                     return;
                 }
+
+                //alert(1);
 
                 $.each(data, function (i, item) {
 
@@ -193,7 +198,8 @@
                     return;
                 }
 
-                
+                //alert(2);
+
                 $.each(data, function (i, item) {
 
                     var strFormattedTABLE = "";
