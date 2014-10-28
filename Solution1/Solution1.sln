@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\index.js = ..\index.js
 		\\SPIN-IIS\ng\rwd3\kpi.html = \\SPIN-IIS\ng\rwd3\kpi.html
 		\\SPIN-IIS\ng\rwd3\kpi.js = \\SPIN-IIS\ng\rwd3\kpi.js
+		..\mananapro.html = ..\mananapro.html
 		..\partneriglide.html = ..\partneriglide.html
 		..\partneriglide.js = ..\partneriglide.js
 		..\partnerizurbglide.html = ..\partnerizurbglide.html

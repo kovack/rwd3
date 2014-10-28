@@ -32,18 +32,18 @@
     function Login() {
         $("#ajaxloader1").show();
         $("#loginserverresponse").html('');
-        
+
         localStorage.JRWDe = $("#e").val();
         //localStorage.JRWDp = $("#p").val();
         localStorage.JRWDd = $("#d").val();
         strDataBase = $("#d").val();
         localStorage.JRWDw = $("#w").val();
-        
+
         var strData = $("#loginform").serialize();
         if ($("#w").val() != '') { strCrossDomainServiceURL = $("#w").val(); }
         if (strCrossDomainServiceURL == '') { $("#loginserverresponse").html("<br/><div class='alert-box secondary'><span class='glyphicon glyphicon-shopping-cart'></span><h6>web service is required field</h6></div>"); return; }
         $.ajax({
-            url: strCrossDomainServiceURL ,
+            url: strCrossDomainServiceURL,
             data: "action=login&" + strData,
             dataType: 'jsonp',
             jsonp: 'jsoncallback',
@@ -70,7 +70,7 @@
 
     $(".logoutrwd").on('click', function () { TurnONlogin(''); });
     $("#buttonsettings").on('click', function () { $("#settingsfields").toggle(); });
-    
+
 
     // =============================================================================== generalije ...
     var glide;
@@ -84,16 +84,16 @@
     $('form').submit(function (e) { e.preventDefault(); return false; });
 
     $(".printdoc").on('click', function () { window.print(); return false; });
-   
+
     $(".theme").on('click', function () {
         localStorage.JRWDbackstretch = $(this).attr('data-id');
         if ($(this).attr('data-id') == "0") { $.backstretch('destroy', false); } else { $.backstretch([$(this).attr('data-id')]); $(".backstretch").addClass('hide-for-print'); }
     });
 
-    $.backstretch([localStorage.JRWDbackstretch]);
+    //$.backstretch([localStorage.JRWDbackstretch]);
 
     $(".backstretch").addClass('hide-for-print');
-        
+
     $("#search").on('keypress', function () {
         var glide2 = $('.slider').glide().data('api_glide');
         glide2.jump(2, console.log('Wooo!'));
@@ -133,7 +133,7 @@
     GetPokazatelj1(25);
 
     //$('.datumforma').submit(function (e) { GetPokazatelj1(25); });
-    $('#datumdo').change(function(e) { GetPokazatelj1(25); $(".navbar-toggle").click(); });
+    $('#datumdo').change(function (e) { GetPokazatelj1(25); $(".navbar-toggle").click(); });
 
 
     function GetPokazatelj1(OperaterId) {
@@ -155,12 +155,12 @@
             timeout: 10000,
             success: function (data, status) {
                 if (typeof data.errnumber != 'undefined' && data.errnumber != '0') {
-                    
+
                     if (data.errnumber != '0') { strGUID = ''; localStorage.JRWDGUID = ''; }
                     TurnONlogin("<br/><div class='alert-box secondary'><i class='fi-alert size-28'></i><h6>" + data.errdescription + '</h6></div>');
                     return;
                 }
-
+                $("#logfav").append("<p>GetPokazatelj1 action=kpi1 </p>");
                 //alert(1);
 
                 $.each(data, function (i, item) {
@@ -199,6 +199,7 @@
                 }
 
                 //alert(2);
+                $("#logfav").append("<p>GetPokazatelj2 action=kpjot </p>");
 
                 $.each(data, function (i, item) {
 
@@ -226,8 +227,9 @@
 
                     $("#lista").append(strFormattedTABLE);
 
+                    $("#logfav").append("<p>GetPokazatelj2 prije charta </p>");
                     PieChart(item.gadiznos5, 'bsjChartContainer' + item.manpokazateljiid, item.gadnaziv5, parseFloat(item.iznosdobro), parseFloat(item.iznoslose));
-
+                    $("#logfav").append("<p>GetPokazatelj2 poslije charta </p>");
 
 
                 });
@@ -280,13 +282,13 @@
                 $.each(data, function (i, item) {
                     // obrada prvog recorseta
                     if (i == 0) {
-                            setovi = item;
+                        setovi = item;
                     }
 
                     // obrada drugog recorseta
 
                     if (i == 1) {
-                            grafikoni = item;
+                        grafikoni = item;
                     }
 
                 });
@@ -311,15 +313,14 @@
                       + '<h2>'
                      + '&nbsp;&nbsp;' + value.Naziv
                      + '</h2>';
-                     
+
 
 
                     $.each(grafikoni, function (g_index, g_value) {
                         if (value.ManPokSetId == g_value.ManPokSetId) {
 
                             var Korak = "";
-                            switch (g_value.Korak)
-                            {
+                            switch (g_value.Korak) {
                                 case "Tromjesjeèje":
                                     Korak = "Tromjesjecje";
                                     break;
@@ -331,8 +332,7 @@
                             }
 
                             var PeriodKorak = "";
-                            switch (g_value.PeriodKorak)
-                            {
+                            switch (g_value.PeriodKorak) {
                                 case "Tromjesjeèje":
                                     PeriodKorak = "Tromjesjecje";
                                     break;
@@ -369,7 +369,7 @@
                     });
 
                     formatiraniHTML = formatiraniHTML + '<div class="clearfix"></div>';
-                    
+
                     //strgl = strgl + '<li role="presentation" class="dropdown-header">' + value.Naziv + '</li>' + strdet;
                     //if (index < setovi.length) {
                     //    strgl = strgl + '<li role="presentation" class="divider"></li>';
@@ -400,8 +400,7 @@
 
         var dtDatum = new Date();
 
-        switch (Oznaka)
-        {
+        switch (Oznaka) {
             case "Dan":
                 dtDatum = myDate;
                 break;
@@ -432,7 +431,7 @@
         //var mm = myDate.getMonth() + 1;
         //var y = myDate.getFullYear();
 
-        
+
         //var someFormattedDate = y + mm + dd;
         var someFormattedDate = dtDatum.toISOString();
 
@@ -448,11 +447,10 @@
 
 
     function BrojDana(Iznos, oznaka) {
-        
+
         var brdana = 0;
 
-        switch (oznaka)
-        {
+        switch (oznaka) {
             case "Dan":
                 brdana = Iznos;
                 break;
@@ -557,7 +555,7 @@
                 $("#ajaxloaderzagraf").hide();
                 $("#grafikon").show();
                 $(window).resize();
-               
+
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $("#ajaxloaderzagraf").hide();
@@ -565,7 +563,7 @@
             }
         });
 
-        
+
         glide.jump(3);
 
     };
@@ -774,8 +772,8 @@
     }
 
 
-    
-     
+
+
 
 });
 
