@@ -8,9 +8,9 @@
     data = document.location.pathname.match(/[^\/]+$/);
     if (data != null && data !== undefined) {
         strAppName = document.location.pathname.match(/[^\/]+$/)[0];
-    } else { strAppName = 'index.htm';}
+    } else { strAppName = 'index.html';}
     
-    if (strAppName != 'login.htm' && strAppName != 'index.htm') { localStorage.perzisterApp = strAppName; }
+    if (strAppName != 'login.htm' && strAppName != 'index.html') { localStorage.perzisterApp = strAppName; }
 
 
     if (localStorage.perzisterURL != undefined) { $("#w").val(localStorage.perzisterURL) };
