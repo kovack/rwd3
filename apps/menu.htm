@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="html5 javascript applications" />
+    <meta name="author" content="kovack@gmail.com" />
+    <meta http-equiv='cache-control' content='no-cache' />
+    <meta http-equiv='expires' content='0' />
+    <meta http-equiv='pragma' content='no-cache' />
+    
+    <title>menu</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="../css/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../css/jquery.gritter.css" rel="stylesheet" />
+    <link href="../css/dataTables.responsive.css" rel="stylesheet" />
+    <link href="../css/perzister.css" rel="stylesheet" />
+    <link href="../css/perzister-dark.css" rel="stylesheet" class="additional" />
+    <link href="../css/print.css" rel="stylesheet" media="print" />
+
+    <style>
+       body {  padding-top:50px; }
+            .perzister-about-container { height: 400px; padding-top : 10px; text-align: center;}
+            .favoritescol  {  color : #fff !important; }
+            .favoritescol .perzister-dimed {  color : #fff !important; }
+            .appcol { height : 80px; padding-top:10px; text-align : left;  overflow:hidden;  }
+            .appcol:hover { cursor : pointer; background-color:#eee;  }
+            .appicon { width:75px;  padding-top:5px;    }
+            .appcolfav,.favoritesrow { background: url("../bg/transparent-bg.png");  }
+            .modal { color : #2d3033; }
+    </style>
+
+    <link rel="shortcut icon" href="../bg/favicon.ico" />
+
+  </head>
+  <body data-perzister-login="true" data-perzister-notification="true" >
+
+        <!-- NAV -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" >
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectionapps"><i class="fa fa-home "></i> menu <i id="ajaxloader0" class="fa fa-spinner fa-spin invisible" ></i></span> <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span id="numberofnotifications" >1</span></span></a>
+            </div>
+
+          
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav" id="actionbutton">
+                      </ul>
+
+                      <form class="navbar-form navbar-right" role="search">
+                          <div class="input-group">
+                            <input type="text"  id="topsearchtext" class="form-control" placeholder="Search">
+                            <span class="input-group-btn">
+                            <button class="btn btn-default btn-primary" id="topsearchbutton" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                         </div><!-- /input-group -->
+                      </form>
+                    </div><!-- /.navbar-collapse -->
+              
+
+          </div><!-- /.container-fluid -->
+        </nav> <!-- end of NAV  -->
+      
+        <!-- ABOUT  -->
+        <section class="sectionng" id="sectionapps" data-perzister-sectiontitle="" data-perzister-sectionicon="" >
+          
+            <!-- FAVORITES  -->
+            <div class="container-fluid perzister-dark-container perzister-backstretch-it perzister-about-container" >                 <div class="container " > 
+                     <div class="row ">  
+                             
+                             <div class="col-sm-12  favoritescol">
+                                 <h3> <span class="glyphicon glyphicon-star"></span> <strong>favorites</strong> </h3>
+                                 <br />
+                                   <div class="row favoritesrow">
+                                      <div id="menuitems0"></div>
+                                  </div>
+                             </div>
+                    </div>
+                </div>
+                </div>
+
+            <!-- APPS  -->
+            <div class="container-fluid perzister-dark-container transparent" >                 <div class="container" >
+                     <h3><span class="label label-primary">apps</span></h3><br />
+                                <div class="row ">  
+                                        <div id="menuitems1"></div>
+                                </div>
+                     </div>
+                   </div>
+                   
+     
+        </section> <!-- end of section about  -->
+
+        <!-- TOP SEARCH RESULTS  -->
+        <section class="sectionng hide" id="sectiontopsearchresults" data-perzister-sectiontitle="" data-perzister-sectionicon=""  >
+                 <div class="container-fluid perzister-dark-container transparent" >                  <div class="container" >
+                     <h3><span class="label label-primary">apps</span></h3><br />
+                                <div class="row ">  
+                                        <div id="menuitems2"></div>
+                                </div>
+                     </div>
+                 </div>
+        </section>
+      
+        <!-- MODAL (NOTIFICATIONS) -->
+        <div class="modal fade" id="notificationdialog" data-caller="">
+        <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-search"></span> <span id="Span1"></span> <i id="I1" class="fa fa-spinner fa-spin"></i></h4>
+                </div>
+                <div class="modal-body">
+                    <span id="notificationitems"></span>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> OK</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                </div>
+        </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
+
+        <!-- MODAL (APPS) -->
+        <div class="modal " id="quickapplicationlistdialog" data-caller="">
+        <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><i class="fa fa-cube fa-lg "></i> Apps </h4>
+                </div>
+                <div class="modal-body">
+                      <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#allapps" aria-controls="allapps" role="tab" data-toggle="tab"><i class="fa fa-asterisk fa-2x"></i></a></li>
+                        <li role="presentation"><a href="#historyapps" aria-controls="historyapps" role="tab" data-toggle="tab"><i class="fa fa-history fa-2x"></i></a></li>
+                        <li role="presentation"><a href="#favoritesapps" aria-controls="favoritesapps" role="tab" data-toggle="tab"><i class="fa fa-star fa-2x"></i></a></li>
+                      </ul>
+
+                      <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="allapps"><span id="quickapplicationlist"></span></div>
+                        <div role="tabpanel" class="tab-pane" id="historyapps"><span id="quickapplicationlisthistory"></span></div>
+                        <div role="tabpanel" class="tab-pane" id="favoritesapps"><span id="quickapplicationlistfavorites"></span></div>
+                      </div>
+
+                    
+                </div>
+            <div class="clearfix"></div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                </div>
+        </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
+
+         
+        <section class="sectionng" data-perzister-sectiontitle="divider" />
+        <section class="sectionng" data-perzister-sectiontitle="exit" data-url="login.htm" />
+
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/fastLiveFilter.js"></script>
+        <script src="../js/jquery.backstretch.js"></script>
+        <script src="../js/perzister.js"></script>
+      
+       
+        <script src="../js/jquery.gritter.js"></script>
+        <script src="../js/pubnub.min.js"></script>
+
+      <script>
+          $(document).ready(function () {
+
+              $('.perzister-backstretch-it').backstretch(["../bg/1.jpg"]);
+
+          // ============================================================================= top search
+
+                  $('#topsearchtext').on("keypress", function (e) {
+                      if (e.keyCode == 13) {
+                          $('#topsearchbutton').trigger('click');
+                          return false;
+                      }
+                  });
+
+                  $('#topsearchbutton,#topsearchtext').on("focus", function (e) {
+                      $(".sectionng").addClass('hide');
+                      $("#sectiontopsearchresults").toggleClass('hide');
+                  });
+
+                  $('#topsearchbutton').on("click", function (e) {
+                      TopSearch();
+                  });
+
+
+
+                  TopSearch();
+
+                  function TopSearch() {
+                      if (localStorage.perzisterURL == 'undefined') { window.location = 'login.htm'; }
+                      if (localStorage.perzisterURL == undefined) { window.location = 'login.htm'; }
+                      if (localStorage.perzisterURL == '') { window.location = 'login.htm'; }
+
+                      $("#ajaxloader0").removeClass('invisible');
+                      //$('#menuitems').hide();
+                      var strFormattedHTML = '';
+                      var strFormattedHTML0 = '';
+                      $.ajax({
+                          url: localStorage.perzisterURL,
+                          data: "d=" + localStorage.perzisterD + "&app=" + localStorage.perzisterApp + "&g=" + localStorage.perzisterG + "&action=getmenuitems",
+                          dataType: 'jsonp',
+                          jsonp: 'jsoncallback',
+                          timeout: 30000,
+                          success: function (data, status) {
+
+                              if (data.errnumber != '0') { window.location = 'login.htm'; }
+
+                              var jsonStr = '{"apps":[{"Parametar":"","Ikona":"","Opis":"","Hint":""}]}';
+                              var obj2 = JSON.parse(jsonStr);
+
+                              $.each(data.items, function (i, item) {
+                                  strFormattedItem = '<div class="forlivesearch">'
+                                  + '<div class="col-sm-4 appcol" data-url="' + item.Parametar + '" data-ikona="' + item.Ikona + '" data-opis="' + item.Opis + '" data-hint="' + item.Hint + '" >'
+                                  + '<div><div class="pull-left perzister-dimed appicon"><i class="fa fa-' + item.Ikona + ' fa-3x fa-fw"></i></div><strong>' + item.Opis + '</strong> <div class="text-muted">' + item.Hint + '</div></div>'
+                                  + '</div>'
+                                  + '</div>'
+                                  strFormattedHTML = strFormattedHTML + strFormattedItem;
+                                  if (i < 3) strFormattedHTML0 = strFormattedHTML0 + strFormattedItem;
+                                  obj2['apps'].push({ "Parametar": "" + item.Parametar + "", "Ikona": "" + item.Ikona + "", "Opis": "" + item.Opis + "", "Hint": "" + item.Hint + "" });
+                              });
+
+                              jsonStr = JSON.stringify(obj2);
+                              localStorage.perzisterApps = jsonStr
+                              $("#menuitems1,#menuitems2").html(strFormattedHTML);
+                              $("#menuitems0").html(strFormattedHTML0);
+                              //$('#menuitems').show();
+                              $("#ajaxloader0").addClass('invisible');
+                              $('#topsearchtext').fastLiveFilter('#sectiontopsearchresults .forlivesearch'); // local fast live search
+
+                              $(".appcol").on('click', function () {
+                                  var jsonStrApps = localStorage.perzisterAppHistory;
+                                  if (jsonStrApps == undefined) {
+                                      var jsonStrApps = '{"apps":[{"Parametar":"","Ikona":"","Opis":"","Hint":""}]}';
+                                  }
+                                  var objApps = JSON.parse(jsonStrApps);
+                                  while (objApps['apps'].length > 10) {
+                                      objApps['apps'].shift();
+                                  }
+                                  objApps['apps'].push({ "Parametar": "" + $(this).attr('data-url') + "", "Ikona": "" + $(this).attr('data-ikona') + "", "Opis": "" + $(this).attr('data-opis') + "", "Hint": "" + $(this).attr('data-hint') + "" });
+                                  jsonStrApps = JSON.stringify(objApps);
+                                  localStorage.perzisterAppHistory = jsonStrApps
+                                  window.location = '' + $(this).attr('data-url');
+                              });
+
+                          },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                              window.location = 'login.htm';
+                          }
+                      });
+                  }
+
+
+                   
+
+          });
+
+      </script>
+   
+
+  </body>
+</html>

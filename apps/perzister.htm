@@ -1,0 +1,337 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="html5 javascript applications" />
+    <meta name="author" content="kovack@gmail.com" />
+    <meta http-equiv='cache-control' content='no-cache' />
+    <meta http-equiv='expires' content='0' />
+    <meta http-equiv='pragma' content='no-cache' />
+    
+    <title>Perzister</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/jquery.gritter.css" rel="stylesheet" />
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../css/perzister.css" rel="stylesheet" />
+    <link href="../css/perzister-dark.css" rel="stylesheet" class="additional" />
+    <link href="../css/print.css" rel="stylesheet" media="print" />
+
+    <style>
+       body {  padding-top:50px; }
+        .perzister-about-container { padding-top : 150px; padding-bottom:100px; text-align: center;}
+        .popover { color:#30373c }
+    </style>
+
+    <link rel="shortcut icon" href="../bg/favicon.ico" />
+
+  </head>
+  <body data-perzister-notification="true" >
+
+        <!-- NAV -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" >
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectiondocumentedit"><i class="fa fa-cloud-upload "></i> perzister <i id="ajaxloader0" class="fa fa-spinner fa-spin invisible" ></i></span> <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span id="numberofnotifications" >1</span></span></a>
+            </div>
+
+          
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav" id="actionbutton">
+                      </ul>
+
+                      <form class="navbar-form navbar-right" role="search">
+                          <div class="input-group">
+                            <input type="text"  id="topsearchtext" class="form-control" placeholder="Search">
+                            <span class="input-group-btn">
+                            <button class="btn btn-default btn-primary" id="topsearchbutton" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                         </div><!-- /input-group -->
+                      </form>
+                    </div><!-- /.navbar-collapse -->
+              
+
+          </div><!-- /.container-fluid -->
+        </nav> <!-- end of NAV  -->
+      
+        <!-- SECTIONS :  -->
+
+        <section class="sectionng" id="sectionabout" data-perzister-sectiontitle="About" >
+                <div class="container-fluid perzister-dark-container perzister-backstretch-it perzister-about-container" >                <div class="container" >
+                    <div class="row ">
+                            <div class="col-sm-12 transparent ">
+                                <h1> <i class="fa fa-cloud-upload"></i>  perzister  </h1>
+                                
+                                <h3>about persisting form controls values into database</h3>
+                                
+                                <br />
+                                <div class="row ">
+                                     
+                                    <div class="col-xs-4 col-xs-offset-4 ">
+                                            <input class="form-control popover2 perzistonlostfocus" type="number" name="demo" data-placement="bottom" data-toggle="popover" data-trigger="focus" title="unbound persisting" data-content="&lt; input class='perzistonkeydown' type='number' name='demo' /&gt;" />
+                                    </div>
+                                     
+                                </div>
+                            </div>
+                </div>
+            </div>
+            </div>
+            </section>
+
+       <section class="sectionng" id="sectiondemo" data-perzister-sectiontitle="Demo" style="background-color:#fcfcfc;color:#000; " >
+                <div class="container" >
+                    <div class="row ">
+           
+                                <h3><span class="label label-primary">demo</span></h3>
+                                   <br />
+                                    <form role="form">
+                                         <div class="col-sm-6  ">
+                                              <div class="form-group">
+                                                <label for="example1">example 1</label>
+                                                <input type="number" class="form-control perzistonlostfocus" name="example1" id="example1" placeholder="perzistonlostfocus" />
+                                                 <code> &lt;input type="number" class="perzistonlostfocus" name="example1" /&gt;</code>  
+                                              </div>
+                                                <br />
+                                              <div class="form-group">
+                                                <label for="example2">example 2</label>
+                                                <input type="number" class="form-control perzistonkeyup" name="example2" id="example2" placeholder="perzistonkeyup" />
+                                                 <code> &lt;input type="number" class="perzistonkeyup" name="example2" /&gt;</code>  
+                                              </div>
+                                               
+                                         </div>
+
+                                        <div class="col-sm-6  ">
+                                              <div class="form-group">
+                                                <label for="example3">example 3</label>
+                                                <input type="number" class="form-control perzistonlostfocus" data-table="partneri" data-id="1" name="example3" id="example3" placeholder="perzistonlostfocus" />
+                                                 <code> &lt;input type="number" class="perzistonlostfocus" data-table="partneri" data-id="1" name="example3" id="example3" /&gt;</code>  
+                                              </div>
+                                                <br />
+                                              <div class="form-group">
+                                                <label for="example4">example 4</label>
+                                                <input type="number" class="form-control perzistonkeyup" data-table="partneri" data-id="1" name="example4" id="example4" placeholder="perzistonkeyup" />
+                                                 <code> &lt;input type="number" class="perzistonkeyup"  data-table="partneri" data-id="1"name="example4" id="example4" /&gt;</code>  
+                                              </div>
+                                               
+                                         </div>
+
+                                    </form>
+                                   <br />
+                        </div>
+                        
+                    <br /> 
+                    </div>
+                 
+          </section>
+      
+      
+        <section class="sectionng" id="sectionkeynotes" data-perzister-sectiontitle="Notes" style="background-color:#576670;color:#fff; " >
+                <div class="container" >
+                    <div class="row ">
+            <div class="col-sm-12  ">
+                                <h3><span class="label label-primary">key notes</span></h3>
+                                <ul>
+                                    <li>html5, javascript & css <a href="http://en.wikipedia.org/wiki/Single-page_application">single page application</a></li>
+                                    <li>based on <a href="http://jquery.com/">jQuery</a> , <a href="https://angularjs.org/">Angular</a>  & responsive <a href="http://getbootstrap.com/">bootstrap</a> front end frameworks | <a href="http://www.webdesignerdepot.com/2014/10/the-ultimate-guide-to-bootstrap/">read guide to bootstrap</a></li>
+                                    <li>JSONP & cross domain ajax calls </li>
+                                    <li>ready for <a href="http://phonegap.com/">phonegap</a> 
+                                    <li>include plugins : <a href="http://datatables.net/">datatables</a>, local live search, back strech, ...</li>
+                                    <li><a href="http://www.jupiter-software.com/">jupiter software</a> fetaures : operater login, searchbox look & feel, friendly import NetGen forms</li>
+                                    <li>printer friendly css</li>
+                                    <li>built-in multi language support</li>
+                                    <li>symbols first styling with <a href="http://fortawesome.github.io/Font-Awesome/icons/">font-awesome</a> help</li>
+                                    <li>other : enter as tab, application button automatic fill</li>
+                                    <li>optional dark or white color shema css 
+                                    </li>
+                                </ul>
+                                 
+                        </div>
+                        </div>
+                    <br /> 
+                    </div>
+                 
+          </section>
+      
+        <section class="sectionng" id="sectionclasses" data-perzister-sectiontitle="Classes" style="background-color:#738597; color:#fff; " >
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                    <h3><span class="label label-primary">helper classes</span></h3>
+                    <ul>
+                        <li>sectionng</li>
+                        <li>searchtextbox</li>
+                        <li>combobox</li>
+                        <li>perzistonblur</li>
+                        <li>perzistonchange</li>
+                        <li>enterastab</li>
+                        <li>printdoc</li>
+                        <li>fullscreenlist</li>
+                        <li>togglevalue</li>
+                    </ul>
+                    </div>
+                    </div>
+                <br /> 
+                </div>
+               </section>
+
+        <section class="sectionng" id="sectionattributes" data-perzister-sectiontitle="Attr" style="background-color:#93B7AA;" >
+                    <div class="container">
+                    <div class="row">
+                    <div class="col-sm-12">
+                    <h3><span class="label label-primary">attributes</span></h3>
+                    <ul>
+                        <li>data-perzister-login="true" - body attribute</li>
+                        <li>data-perzister-notification="true" - body attribute</li>
+                        <li>data-perzister-webserviceaction="http://.../someservice/"</li>
+                        <li>data-perzister-sectiontitle="title"</li>
+                        <li>data-perzister-showsectiononclick="sectionid"</li>
+                    </ul>
+                    </div>
+                    </div>
+                        <br /> 
+                    </div>
+               </section>
+
+        <section class="sectionng" id="section1" data-perzister-sectiontitle="API" style="background-color:#B5CBB0;" >
+                    <div class="container">
+                    <div class="row">
+                    <div class="col-sm-12">
+                    <h3><span class="label label-primary">web service parameters</span></h3>
+                    <ul>
+                        <li>action</li>
+                        <li>g</li>
+                        <li>d</li>
+                    </ul>
+                    </div>
+                        </div>
+                        <br /> 
+                    </div>
+               </section>
+
+        <section class="sectionng" id="section2" data-perzister-sectiontitle="DOM" style="background-color:#D8DEB3 ;" >
+                    <div class="container">
+                    <div class="row">
+                    <div class="col-sm-12">
+                    <h3><span class="label label-primary">app DOM arhitecture</span></h3>
+                    <ul>
+                        <li>application contains of one or more sections</li>
+                        <li>section contains of one or more containers</li>
+                        <li>container contains responsive grid</li>
+                        <li>responsive grid contains row(s) and column(s)</li>
+                        <li>column contains one or more forms or/and data lists</li>
+                        <li>nav bar fixed on top and one section visible </li>
+                    </ul>
+                    </div>
+                    </div>
+                        <br /> 
+            </div>      
+     
+        </section>  
+
+        <!-- MODAL (NOTIFICATIONS) -->
+        <div class="modal " id="notificationdialog" data-caller="">
+        <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-search"></span> <span id="Span1"></span> <i id="I1" class="fa fa-spinner fa-spin"></i></h4>
+                </div>
+                <div class="modal-body">
+                        <span id="notificationitems"></span>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> OK</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                </div>
+        </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
+
+        <!-- MODAL (APPS) -->
+        <div class="modal " id="quickapplicationlistdialog" data-caller="">
+        <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><i class="fa fa-cube fa-lg "></i> Apps </h4>
+                </div>
+                <div class="modal-body">
+                      <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#allapps" aria-controls="allapps" role="tab" data-toggle="tab"><i class="fa fa-asterisk fa-2x"></i></a></li>
+                        <li role="presentation"><a href="#historyapps" aria-controls="historyapps" role="tab" data-toggle="tab"><i class="fa fa-history fa-2x"></i></a></li>
+                        <li role="presentation"><a href="#favoritesapps" aria-controls="favoritesapps" role="tab" data-toggle="tab"><i class="fa fa-star fa-2x"></i></a></li>
+                      </ul>
+
+                      <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="allapps"><span id="quickapplicationlist"></span></div>
+                        <div role="tabpanel" class="tab-pane" id="historyapps"><span id="quickapplicationlisthistory"></span></div>
+                        <div role="tabpanel" class="tab-pane" id="favoritesapps"><span id="quickapplicationlistfavorites"></span></div>
+                      </div>
+
+                    
+                </div>
+            <div class="clearfix"></div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                </div>
+        </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
+
+        <section class="sectionng" data-perzister-sectiontitle="divider" />
+        <section class="sectionng" data-perzister-sectiontitle="exit" data-url="menu.htm" />
+
+    
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/perzister.js"></script>
+
+    <script src="../js/fastLiveFilter.js"></script>
+    <script src="../js/jquery.backstretch.js"></script>
+    <script src="../js/pusher.min.js"></script>
+    <script src="../js/jquery.gritter.js"></script>
+    <script src="../js/pubnub.min.js"></script>
+     
+    <script>
+        $(document).ready(function () {
+            //$.backstretch(["bg/1.jpg"]);
+            $('#topsearchtext').fastLiveFilter('ul'); // local fast live search
+            $(".popover2").popover();
+            $('#apptitle').on("click", function (e) {
+                $(".sectionng").removeClass('hide');
+                $(window).resize();
+            });
+
+            $('#topsearchtext').on("keypress", function (e) {
+                if (e.keyCode == 13) {
+                    $('#topsearchbutton').trigger('click');
+                    return false;
+                }
+            });
+
+            $('#topsearchbutton,#topsearchtext').on("focus", function (e) {
+                $(".sectionng").removeClass('hide');
+                $("#sectionabout").addClass('hide');
+                $(window).resize();
+            });
+
+            $('#topsearchbutton').on("click", function (e) {
+                //TopSearch();
+            });
+
+        });
+    </script>
+
+  </body>
+</html>

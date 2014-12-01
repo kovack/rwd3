@@ -1,0 +1,14 @@
+.perzister-dimed { color:#aaa; }
+
+.perzister-rowicon { font-size:2.5em; color:#aaa; }
+.perzister-alnright { text-align: right; }
+.actionbutton:hover { cursor : pointer; }
+.perzister-docbuttons { margin-bottom :5px;}
+ 
+#activenotificationicon {color:#d9534f;}
+#quickapplicationlistbtn {color:#888; padding-right:20px;}
+#disablednotificationicon  {color:#888; }
+#numberofnotifications {left:-12px; top: -3px; position:relative; font-size:0.5em; font-weight:bold;}
+
+.approwicon {color:#777;}
+ 

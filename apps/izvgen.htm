@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="html5 javascript applications" />
+    <meta name="author" content="kovack@gmail.com" />
+    <meta http-equiv='cache-control' content='no-cache' />
+    <meta http-equiv='expires' content='0' />
+    <meta http-equiv='pragma' content='no-cache' />
+    
+    <title>IzvGen</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="../css/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../css/jquery.gritter.css" rel="stylesheet" />
+    <link href="../css/dataTables.responsive.css" rel="stylesheet" />
+    <link href="../css/perzister.css" rel="stylesheet" />
+    <link href="../css/perzister-dark.css" rel="stylesheet" class="additional" />
+    <link href="../css/print.css" rel="stylesheet" media="print" />
+
+    <style>
+       body {  padding-top:50px; }
+       .table>tbody>tr:hover { background-color : #ccc !important; cursor:pointer; }
+       .table>tbody>tr>td { padding-top:10px; padding-bottom:10px; }
+    </style>
+
+    <link rel="shortcut icon" href="../bg/favicon.ico" />
+
+  </head>
+  <body data-perzister-login="true" data-perzister-notification="true" >
+
+        <!-- NAV -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" >
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectiontopsearchresults"><i class="fa fa-list-ol "></i> IzvGen <i id="ajaxloader0" class="fa fa-spinner fa-spin invisible" ></i></span>  <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span id="numberofnotifications" >1</span></span> </a>
+            </div>
+
+          
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav" id="actionbutton">
+                      </ul>
+
+                      <form class="navbar-form navbar-right" role="search">
+                          <div class="input-group">
+                            <input type="text"  id="topsearchtext" class="form-control" placeholder="Search" autofocus>
+                            <span class="input-group-btn">
+                            <button class="btn btn-default btn-primary" id="topsearchbutton" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                         </div><!-- /input-group -->
+                      </form>
+                    </div><!-- /.navbar-collapse -->
+              
+
+          </div><!-- /.container-fluid -->
+        </nav> <!-- end of NAV  -->
+      
+        <!-- TOP SEARCH RESULTS  -->
+        <section class="sectionng" id="sectiontopsearchresults" data-perzister-sectiontitle="reports list" data-perzister-sectionicon="list-ol"  >
+                 <div class="container-fluid perzister-dark-container" >                 <div class="container" >
+                     <div class="row ">
+                         <div class="col-sm-12 transparent">
+                              <h4 class="perzister-h4" ><span class="control-label"><i class="fa fa-list-ol"></i> reports list  </span> </h4>
+                             
+                              <div id="topsearchresultslist"></div>
+                         </div>
+                     </div>
+                 </div>
+                 </div>
+        </section>
+      
+        <!-- FILTER FORM -->
+        <section class="sectionng hide" id="sectionfilterform" data-perzister-sectiontitle="report" data-perzister-sectionicon="file-text-o" >            <div class="container-fluid perzister-dark-container"  >            <div class="container" >               <div class="row" >                        <div class="col-sm-12 transparent">					      <h4 class="perzister-h4" ><span class="control-label"><i class="fa fa-file-text-o"></i> <span id="reportname">report</span></span> </h4>                        </div>                                        </div>                <hr class="perzister-hr"  />                <form class="form-horizontal" role="form" name="filterform" id="filterform" >	            <div class="row">	                <div class="col-sm-12 transparent">                                                <input type="hidden" name="izvgenid" id="izvgenid" />		                <div class="form-group col-sm-6 " id="partneriidgroup">		                <label class="col-sm-3 control-label" for="partneriid">Partneri</label>		                <div class="col-sm-9">		                <input autofocus type="search" id="partneriid" class="col-sm-10 form-control perzistonblur searchtextbox enterastab" name="partneriFid" data-perzister-webserviceaction="searchproducts" data-form="filterform" value="" />		                </div>		                </div>		                <div class="form-group col-sm-6" id="parstruidgroup">		                <label class="col-sm-3 control-label" for="parstruid">ParStru</label>		                <div class="col-sm-9">		                <input type="search" id="parstruid" class="col-sm-10 form-control perzistonblur searchtextbox enterastab" name="parstruid" data-perzister-webserviceaction="searchpartners" data-form="filterform" value="" />		                </div>		                </div>                        <div class="form-group col-sm-6" id="skladisteidgroup">		                <label class="col-sm-3 control-label" for="skladisteid">Skladiste</label>		                <div class="col-sm-9">		                <select id="skladisteid" class="form-control  combobox perzistonchange enterastab" data-perzister-webserviceaction="getskladista" data-form="filterform" >		                </select>		                </div>		                </div>		                <div class="form-group col-sm-6" id="orgshemaidgroup">		                <label class="col-sm-3 control-label" for="orgshemaid">Org shema</label>		                <div class="col-sm-9">		                <select id="orgshemaid" class="form-control combobox perzistonblur enterastab" data-perzister-webserviceaction="getorgshema" data-form="filterform" >		                </select>		                </div>		                </div>                                    </div> <!-- end of col -->	            </div> <!-- end of row -->                   <div class="row ">	                    <div class="col-sm-12">
+                            <div class="form-actions">		                        <button type="button" id="btngetizvgenreport" class="btn btn-primary"  ><span class="glyphicon glyphicon-ok"></span> OK</button>                                      <span id="itemcounter"></span>	                        </div>
+                        </div>
+                    </div>
+                                    </form>                </div>         <!-- end of container -->                </div>         <!-- end of container fluid -->              <div class="container" >                  <br />                    <div class="row ">	                    <div class="col-sm-12">                            <div class="table-responsive">                                <div id="resultslist"></div>                            </div>                        </div>                    </div>              </div>	      </section>  <!-- end of section filterform -->
+
+
+         <!-- MODAL (NOTIFICATIONS) -->
+        <div class="modal fade" id="notificationdialog" data-caller="">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title"><i class="fa fa-bell-o"></i> notifications</h4>
+                        </div>
+                        <div class="modal-body">
+                            <span id="notificationitems"></span>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
+
+
+        <!-- MODAL (APPS) -->
+        <div class="modal " id="quickapplicationlistdialog" data-caller="">
+        <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><i class="fa fa-cube fa-lg "></i> Apps </h4>
+                </div>
+                <div class="modal-body">
+                      <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#allapps" aria-controls="allapps" role="tab" data-toggle="tab"><i class="fa fa-asterisk fa-2x"></i></a></li>
+                        <li role="presentation"><a href="#historyapps" aria-controls="historyapps" role="tab" data-toggle="tab"><i class="fa fa-history fa-2x"></i></a></li>
+                        <li role="presentation"><a href="#favoritesapps" aria-controls="favoritesapps" role="tab" data-toggle="tab"><i class="fa fa-star fa-2x"></i></a></li>
+                      </ul>
+
+                      <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="allapps"><span id="quickapplicationlist"></span></div>
+                        <div role="tabpanel" class="tab-pane" id="historyapps"><span id="quickapplicationlisthistory"></span></div>
+                        <div role="tabpanel" class="tab-pane" id="favoritesapps"><span id="quickapplicationlistfavorites"></span></div>
+                      </div>
+
+                    
+                </div>
+            <div class="clearfix"></div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                </div>
+        </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
+
+        <section class="sectionng" data-perzister-sectiontitle="divider" />
+        <section class="sectionng" data-perzister-sectiontitle="exit" data-url="menu.htm" />
+
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/fastLiveFilter.js"></script>
+        <script src="../js/jquery.backstretch.js"></script>
+        <script src="../js/perzister.js"></script>
+        <script src="../js/jquery.dataTables.min.js"></script>
+        <script src="../js/dataTables.bootstrap.js"></script>
+        <script src="../js/dataTables.responsive.min.js"></script>
+        <script src="../js/pusher.min.js"></script>
+        <script src="../js/jquery.gritter.js"></script>
+        <script src="../js/pubnub.min.js"></script>
+
+      <script>
+          $(document).ready(function () {
+
+              // ============================================================================= top search
+
+                  $('#topsearchtext').on("keypress", function (e) {
+                      if (e.keyCode == 13) {
+                          $('#topsearchbutton').trigger('click');
+                          return false;
+                      }
+                  });
+
+                  $('#topsearchbutton,#topsearchtext').on("focus", function (e) {
+                      $(".sectionng").addClass('hide');
+                      $("#sectiontopsearchresults").toggleClass('hide');
+                  });
+
+                  $('#topsearchbutton').on("click", function (e) {
+                      TopSearch();
+                  });
+
+                  $('#btngetizvgenreport').on("click", function (e) {
+                      GetIzvGenReport();
+                  });
+
+                  function GetIzvGenReport() {
+                      $("#ajaxloader0").removeClass('invisible');
+                      $('#resultslist').hide();
+                      var strFormattedHTML = '';
+                      var strTH = '';
+                      $.ajax({
+                          url: localStorage.perzisterURL,
+                          data: "d=" + localStorage.perzisterD + "&action=getizvgenreport&" + $('#filterform').serialize(),
+                          dataType: 'jsonp',
+                          jsonp: 'jsoncallback',
+                          timeout: 30000,
+                          success: function (data, status) {
+                              $.each(data, function (i, item) {
+                                  $("#itemcounter").html(i);
+                                  var strTD = '';
+                                  for (var key in item) {
+                                      var attrName = key;
+                                      if (i == 1) { strTH = strTH + "<th>" + attrName + "</th>"; }
+                                      var attrValue = item[key];
+                                      strTD = strTD + "<td>" + attrValue + "</td>";
+                                  }
+                                  strFormattedHTML = strFormattedHTML + '<tr>' + strTD + '</tr>';
+                              });
+                              strFormattedHTML = '<table id="izvgenlisttable" class="table "><thead><tr>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
+
+                              $("#resultslist").html(strFormattedHTML);
+                              $("#ajaxloader0").addClass('invisible');
+                              $('#resultslist').show();
+                          },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                              $("#ajaxloader0").addClass('invisible');
+                          }
+                      });
+                  }
+
+                  var jsonIzvGenList = localStorage.perzisterIzvGenList;
+                  if (jsonIzvGenList == undefined) {
+                      TopSearch();
+                  } else {
+                      $("#topsearchresultslist").html(jsonIzvGenList);
+                      RegisterOnClickEvent();
+                      $('#topsearchtext').fastLiveFilter('tbody');
+                  }
+
+                  
+
+                  function TopSearch() {
+                      $("#ajaxloader0").removeClass('invisible');
+                      $('#topsearchresultslist').hide();
+                      var strFormattedHTML = '';
+                      $.ajax({
+                          url: localStorage.perzisterURL,
+                          data: "d=" + localStorage.perzisterD + "&action=searchizvgen&s=" + $('#topsearchtext').val(),
+                          dataType: 'jsonp',
+                          jsonp: 'jsoncallback',
+                          timeout: 30000,
+                          success: function (data, status) {
+                             
+                              $.each(data, function (i, item) {
+                                  strFormattedHTML = strFormattedHTML
+                                  + '<tr data-id="' + item.izvgenid + '" data-parametri="' + item.parametri + '" ><td><span class="badge">' + item.sifra + '</span></td><td>' + item.naziv + '</td></tr>';
+                              });
+                              strFormattedHTML = '<table id="docitemstable" class="table "><tbody>' + strFormattedHTML + '</tbody></table>';
+                              
+                              $("#topsearchresultslist").html(strFormattedHTML);
+                              localStorage.perzisterIzvGenList = strFormattedHTML;
+
+                              RegisterOnClickEvent();
+                              $('#topsearchtext').fastLiveFilter('tbody');
+                              $("#ajaxloader0").addClass('invisible');
+                              $('#topsearchresultslist').show();
+                              
+                          },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                              $("#ajaxloader0").addClass('invisible');
+                          }
+                      });
+                  }
+
+                  function RegisterOnClickEvent() {
+                      $("tr").on("click", function (event) {
+                          $(".sectionng").addClass('hide');
+                          $("#reportname").html($(this).text());
+                          ToggleFormControls($(this).attr('data-parametri'));
+                          $("#sectionfilterform").toggleClass('hide').find('form:first').find('input:first').focus();
+                          $("#resultslist").html('');
+                          //$(window).resize();
+                      });
+                  }
+
+
+                  function ToggleFormControls(params) {
+                      var res = params.split(",");
+                      $("#filterform .form-group").addClass('hide');
+                      for (i = 0; i < res.length; i++) {
+                          //alert(res[i]);
+                          $("#" + res[i] + 'group').removeClass('hide');
+                      }
+                  }
+
+          });
+
+      </script>
+   
+
+  </body>
+</html>

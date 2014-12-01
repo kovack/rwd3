@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="html5 javascript applications" />
+    <meta name="author" content="kovack@gmail.com" />
+    <meta http-equiv='cache-control' content='no-cache' />
+    <meta http-equiv='expires' content='0' />
+    <meta http-equiv='pragma' content='no-cache' />
+    
+    <title>Login</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../css/perzister.css" rel="stylesheet" />
+    <link href="../css/perzister-dark.css" rel="stylesheet" class="additional" />
+    <link href="../css/print.css" rel="stylesheet" media="print" />
+
+    <style>
+       body {  padding-top:50px; }
+        .perzister-about-container { padding-top : 150px; padding-bottom:100px; text-align: center;}
+    </style>
+
+    <link rel="shortcut icon" href="../bg/favicon.ico" />
+
+  </head>
+  <body>
+
+        <!-- NAV -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              
+              <a class="navbar-brand" href="#"><i class="fa fa-sign-in"></i> login <i id="ajaxloader0" class="fa fa-spinner fa-spin invisible"></i></a>
+            </div>
+
+            
+          </div><!-- /.container-fluid -->
+       </nav> <!-- end of NAV  -->
+      
+        
+
+        <!-- LOGIN  -->
+        <section class="sectionng" id="sectionlogin" data-perzister-sectiontitle="Login" >
+                 <div class="container-fluid perzister-dark-container " >                 <div class="container" >
+                     <div class="row ">
+                            <div class="transparent  col-sm-4 col-sm-offset-4">
+                                <div id="g" class="hide"></div>   <!-- user guid -->
+                                <div id="wellcomeuser" class="hide">
+                                <i class="fa fa-user fa-3x perzister-dimed"></i>
+                                    <h3><span class="translateable" data-hr="Dobrodošli" data-en="Wellcome" data-ger="Willkommen" >Wellcome</span>  <span id="usernamenav" ></span> </h3>
+                                     <div class="btn-group">
+                                        <button type="submit" id="logoutbtn" class="btn btn-default"> <span class="glyphicon glyphicon-log-out"></span> <span class="translateable" data-hr="Odjava" data-en="Logout" data-ger="ausloggin" >Logout</span></button>
+                                     </div>
+                                </div>
+
+                                <form class="form-signin" id="loginform">        
+                                    	                                <i class="fa fa-sign-in fa-3x perzister-dimed"></i>
+
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                        <input type="text" id="e" autofocus class="form-control input enterastab" name="e" placeholder="username">
+                                    </div>
+                                    <br />
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                                        <input type="password" id="p" class="form-control input enterastab" name="p" placeholder="password">
+                                    </div>
+                                    <br />
+                                    <div class="btn-group">
+                                        <button type="submit" id="loginbutton" class="btn btn-primary"> <span class="glyphicon glyphicon-log-in"></span> <span class="translateable" data-hr="Prijava" data-en="Login" data-ger="Login" >Login</span></button>
+                                    </div>
+
+                                    <!-- Split button -->
+                                    <div class="btn-group">
+                                      <button type="button" class="btn btn-default "><span id="langid" data-langid="hr" >HR</span></button>
+                                      <button type="button" class="btn btn-default dropdown-toggle btn" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                      </button>
+                                      <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#" data-langid="en"  class="langselector" >EN</a></li>
+                                        <li><a href="#" data-langid="ger" class="langselector" >GER</a></li>
+                                        <li><a href="#" data-langid="hr"  class="langselector" >HR</a></li>
+                                        <li><a href="#" data-langid="hu"  class="langselector" >HU</a></li>
+                                      </ul>
+                                    </div>
+                                    <div class="btn-group ">
+                                        <button type="submit" id="settingsbutton" class="btn btn-default btn"> <span class="glyphicon glyphicon-cog"></span> </button>
+                                    </div>
+                                    <img src="../bg/ajax-loader.gif" class="loadergif invisible" id="loginloadergif" alt="" />
+                                    <br />
+                                     <div id="loginerrorwrapper" class="alert alert-info alert-dismissible hidden-print perzister-erroralert hide" role="alert">
+                                      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                      <div id="loginerrordescription">Warning!</div>
+                                    </div>
+                                    <br />
+                                    <div id="settingssection" class="hide">
+                                    <br />
+                                     <i class="fa fa-cog fa-3x perzister-dimed"></i><h4><span class="translateable" data-hr="Postavke" data-en="Settings" data-ger="Einstellung" >Settings</span> <span class="label label-danger"> <i> !!!</i> </span></h4>
+                                    <br />
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-headphones"></span></span>
+                                        <input type="text" value="http://127.0.0.1/perzister/service/" id="w"  class="form-control input enterastab" name="w" placeholder="Web service">
+                                    </div>
+                                    <br />
+                                    <div class="input-group ">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-briefcase"></span></span>
+                                        <input type="text" id="d"  class="form-control input enterastab" name="d" placeholder="Database">
+                                    </div>
+                                    <br />
+                                    <div class="input-group ">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+                                        <input type="text" id="o"  class="form-control input enterastab" name="o" placeholder="Device">
+                                    </div>
+                                    <br />
+                                    </div>
+                                </form>
+                            </div>  <!-- end of login -->
+
+                            
+
+                         </div>
+
+                     <div class="row">
+                         <br /> <br />
+                         <div class="transparent  col-sm-4 col-sm-offset-4">
+                                 <i class="fa fa-adjust fa-3x perzister-dimed"></i>
+                                <div class="input-group">
+                                            <div class="btn-group">
+                                              <button type="button" data-theme="1" data-css="../css/perzister-white.css" class="themebtn btn btn-default">white</button>
+                                              <button type="button" data-theme="2" data-css="../css/perzister-dark.css" class="themebtn btn btn-default">dark</button>
+                                           </div>
+                                    </div>
+                            </div>
+                     </div>
+                     <br /><br />
+                     </div>
+                     </div>
+            
+         </section>
+
+    
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.backstretch.js"></script>
+    <script src="../js/perzister.js"></script>
+    
+    <script>
+        $(document).ready(function () {
+            //$.backstretch(["bg/1.jpg"]);
+
+            // ================================================================= login
+
+            $("#settingsbutton").on('click', function () { $("#settingssection").toggleClass('hide'); $(window).resize(); $("#settingsbutton").hide('slow'); });
+
+            $("#loginbutton").click(function () {
+                Login();
+            });
+
+            function Login() {
+                //ConsoleLog('START Login()');
+                if ($("#w").val() == '') { alert('No web service URL !'); return; }
+                $("#loginerrordescription").html('');
+                $("#loginbutton").addClass('disabled').attr('disabled', 'disabled');
+                $("#loginloadergif").removeClass('invisible');
+                strDevice = $("#o").val();
+                $.ajax({
+                    url: $("#w").val() + '?o=' + strDevice + '&d=' + $("#d").val() + '&action=login&e=' + $("#e").val() + '&p=' + $("#p").val(),
+                    type: 'POST',
+                    cache: false,
+                    dataType: 'jsonp',
+                    jsonp: 'jsoncallback',
+                    async: true,
+                    contentType: "application/json;charset=UTF-8",
+                    success: function (data, status) {
+                        $("#g").html(data.userguid);
+                        if (data.errnumber != '0') {
+                            $("#loginerrordescription").html(data.errdescription);
+                            $("#loginerrorwrapper").removeClass('hide');
+                        }
+                        if (data.userguid != '0') {
+                            dataBase = data.database;
+                            $("#loginform").hide();
+                            $("#usernamenav").html(data.username);
+                            $("#wellcomeuser,.perzister-hiddeniflogoff").removeClass('hide');
+                            localStorage.perzisterURL = $("#w").val();
+                            localStorage.perzisterG = data.userguid;
+                            localStorage.perzisterE = $("#e").val();
+                            localStorage.perzisterP = $("#p").val();
+                            localStorage.perzisterD = $("#d").val();
+                            localStorage.perzisterO = $("#o").val();
+                            localStorage.perzisterU = data.username;
+                            // $(window).resize();
+                            // window.location = '../index.htm';
+                            if (localStorage.perzisterApp != undefined) {
+                                if (localStorage.perzisterApp != 'login.htm') {
+                                    window.location = localStorage.perzisterApp;
+                                }
+                            }
+                        }
+                        else { $("#loginbutton").removeClass('disabled').removeAttr('disabled', 'disabled'); }
+                        $("#loginloadergif").addClass('invisible');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //alert('Login error !');
+                        $("#loginerrordescription").html('Login error !');
+                        $("#loginerrorwrapper").removeClass('hide');
+                        $("#loginbutton").removeClass('disabled').removeAttr('disabled', 'disabled');
+                        $("#loginloadergif").addClass('invisible');
+                    }
+                });
+            }
+
+            // logout ...
+            $("#logoutbtn").on('click', function () { $("#loginbutton").removeClass('disabled').removeAttr('disabled', 'disabled'); $("#loginform").show(); $("#wellcomeuser").addClass('hide'); $("#g").html(''); $(window).resize(); });
+
+           
+        });
+    </script>
+
+  </body>
+</html>

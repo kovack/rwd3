@@ -1,0 +1,246 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="html5 javascript applications" />
+        <meta name="author" content="kovack@gmail.com" />
+        <meta http-equiv='cache-control' content='no-cache' />
+        <meta http-equiv='expires' content='0' />
+        <meta http-equiv='pragma' content='no-cache' />
+    
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <title>Angular - User Data Grid</title>
+
+        <link href="../bg/favicon.ico" rel="shortcut icon" />
+        <link href="../css/bootstrap.min.css" rel="stylesheet" />
+        <link href="../css/perzister.css" rel="stylesheet" />
+        <link href="../css/perzister-dark.css" rel="stylesheet" class="additional" />
+        <link href="../css/print.css" rel="stylesheet" media="print" />
+
+        <script src="../js/angular.min.js"></script>
+        
+        <style type="text/css">
+            body {  padding-top:50px; }
+
+            body {
+              background-color: #eee;
+              color:#444;
+            }
+
+            .fa {
+              color:#666;
+            }
+
+            hr {
+              border-color: transparent;
+            }
+
+
+            #userList {
+              display:none;
+            }
+
+            #loader {
+              position:absolute;
+              z-index:2;
+              width:100%;
+              text-align:center;
+              top:40%;
+            }
+
+            .cap:first-letter {
+                text-transform: uppercase;
+            }
+
+            .alt {
+	            background-color:#ccc;
+            }
+        </style>
+
+    </head>
+          
+    <body  >
+
+          <!-- NAV -->
+         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-cloud"></span> perzister <img src="../bg/ajax-loader.gif" id="ajaxloader0" class="ajaxloader invisible" /> </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+            <li class="dropdown">
+
+                <button type="button" class="btn btn-primary dropdown-toggle navbar-btn" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-th-large"></span> <span class="caret"></span>
+                </button>
+
+                <ul class="dropdown-menu" role="menu" id="actionbutton">
+                </ul>
+            </li>
+            </ul>
+
+            <form class="navbar-form navbar-left" role="search">
+                <div class="input-group">
+                <input type="text"  id="topsearchtext" class="form-control" placeholder="Search">
+                <span class="input-group-btn">
+                <button class="btn btn-default btn-primary" id="topsearchbutton" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+                </div><!-- /input-group -->
+            </form>
+        </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav> <!-- end of NAV  -->
+  
+        
+        <section class="sectionng" id="sectiontopsearchresults" data-perzister-sectiontitle="Search results" ng-app="myApp" ng-controller="Main" >
+                 <div class="container-fluid" >                 <div class="container" >
+                     <div class="row ">
+                         <div class="col-sm-12">
+                                <i class="fa fa-spin fa-refresh fa-5x" id="loader"></i>
+                                    <!--/ ANGUALAR container-->
+                                    <div class="container" ng-app="myApp" ng-controller="Main"> 
+                                      <h2>AngularJS Example - User Data Grid</h2>
+                                      <h4>via <a href="">RandomUser.me</a> API + <a href="http://www.bootply.com/R8RIDlrbxs">Bootply</a></h4>
+                                      <hr>
+                                      <div class="row" id="userList">
+                                        <table class="table-responsive">
+                                        <thead>
+                                          <tr>
+                                            <th class="col-xs-1"></th> 
+                                            <th class="col-xs-2">Last</th> 
+                                            <th class="col-xs-2">First</th>
+                                            <th class="col-xs-2">Username</th>
+                                            <th class="col-xs-2">Phone</th>
+                                            <th class="col-xs-2">Location</th> 
+                                            <th class="col-xs-1"></th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr ng-repeat-start="u in users" ng-click="showDetail(u.user)" ng-class-odd="'alt'">
+                                            <td class="col-xs-1"><img title="{{u.user.name.first}}" src="{{u.user.picture}}" class="img-thumbnail img-responsive img-circle"></td> 
+                                            <td class="col-xs-2 cap">{{u.user.name.last}}</td> 
+                                            <td class="col-xs-2 cap">{{u.user.name.first}}</td>
+                                            <td class="col-xs-2 strong">{{u.user.username}}</td>
+                                            <td class="col-xs-2">{{u.user.phone}}</td>
+                                            <td class="col-xs-2">{{u.user.location.state}}</td> 
+                                            <td class="col-xs-1"><a href=""><i class="fa fa-plus fa-3x"></i></a></td>
+                                          </tr>
+                                          <tr ng-repeat-end="" ng-show="active==u.user.username" ng-class-odd="'alt'">
+                                            <td></td> 
+                                            <td colspan="6">
+                                              <div class="row">
+                                                <div class="col-xs-12"><h2 class="cap">{{u.user.name.first}} <i ng-show="u.user.gender=='female'" class="fa fa-female"></i><i ng-show="u.user.gender=='male'" class="fa fa-male"></i></h2></div>
+                                                <div class="col-md-3 col-xs-6 small">
+                                                  <label>Username</label> {{u.user.username}}<br>
+                                                  <label>Registered</label> {{u.user.registered | date:'dd/MM/yyyy'}}<br>
+                                                  <label>Email</label> {{u.user.email}}
+                                                </div>
+                                                <div class="col-md-3 col-xs-6 small">
+                                                  <label>Address</label> {{u.user.location.street}}<br>
+                                                  <label>City</label> {{u.user.location.city}}<br>
+                                                  <label>Zip Code</label> {{u.user.location.zip}}<br>
+                                                </div>
+                                                <div class="col-md-3 col-xs-6 small">
+                                                  <label>Birthday</label> {{u.user.dob | date:'MM/dd/yyyy'}}<br>
+                                                  <label>Phone</label> {{u.user.phone}}<br>
+                                                  <label>Cell</label> {{u.user.cell}}<br>
+                                                </div>
+                                                <div class="col-md-2 col-xs-12 text-center">
+                                                  <img title="{{u.user.name.first}}" src="{{u.user.picture}}" class="img-thumbnail img-responsive img-circle center-block">
+                                                </div>
+                                                <div class="col-xs-12"><hr></div>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                        </table>
+  
+                                      </div><!--/row-->
+  
+                                      <div class="row">
+  
+  	
+                                      <hr>
+  
+                                      </div>
+  
+  
+                                    </div>
+                         </div>
+                     </div>
+                 </div>
+                 </div>
+        </section>
+        
+
+        <section class="sectionng" data-perzister-sectiontitle="divider" />
+        <section class="sectionng" data-perzister-sectiontitle="exit" data-url="menu.htm" />
+
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/fastLiveFilter.js"></script>
+        <script src="../js/jquery.backstretch.js"></script>
+        <script src="../js/perzister.js"></script>
+        <script src="../js/jquery.dataTables.min.js"></script>
+        <script src="../js/dataTables.bootstrap.js"></script>
+        <script src="../js/dataTables.responsive.min.js"></script>
+        <script src="../js/jquery.Storage.js"></script>
+
+        <!-- ANGULAR JS  -->
+        <script>
+
+            //$(document).ready(function() {});
+
+
+            var myApp = angular.module('myApp', []);
+            function Main($scope, $http) {
+
+                $http.get('http://api.randomuser.me/0.4/?results=20').success(function (data) {
+                    $scope.users = data.results;
+                    $('#loader').hide();
+                    $('#userList').show();
+                }).error(function (data, status) {
+                    alert('get data error!');
+                });
+
+                $scope.showDetail = function (u) {
+                    $scope.active = u.username;
+                };
+
+                $scope.doPost = function () {
+
+                    $http.get('http://api.randomuser.me/0.4/').success(function (data) {
+
+                        var newUser = data.results[0];
+                        newUser.user.text = $('#inputText').val();
+                        newUser.date = new Date();
+                        $scope.users.push(newUser);
+
+                    }).error(function (data, status) {
+
+                        alert('get data error!');
+
+                    });
+
+                }
+
+            }
+
+        </script>
+        
+    </body>
+</html>

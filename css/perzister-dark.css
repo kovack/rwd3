@@ -1,0 +1,15 @@
+body {  color: #000; background-color : #eee; }
+legend {  color : #fff; }
+.perzister-erroralert { margin-top:10px; margin-bottom:0px; }
+.perzister-dark-container { background-color : #2d3033; padding-top:20px; padding-bottom:10px; }
+.transparent {  color : #fff;  }
+.perzister-newitem-container { background-color : #ccc; padding-top:10px; padding-bottom:10px; }
+.transparent2 {background : url(../bg/transparent-bg.png); }
+.btn-group .btn { background-color : #2d3033; color:#ccc; border-color:#585b5f; }
+.btn-group .btn:hover { color:#fff; }
+.perzister-hr { margin-bottom: 10px;  margin-top: 0px; border-color:#2d3033; }
+.form-control {background-color:#f5f3f3;}
+label {font-weight:100; color : #ccc;   }
+.perzister-h4 {margin-top:10px; margin-bottom:15px; color : #ccc;}
+#topsearchtext { background-color:#2d3033 ; border:0px; color:#ccc; }
+
