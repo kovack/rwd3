@@ -116,7 +116,10 @@
                 $("#actionbutton").append('<li class="divider"></li>');
             }
             else if ($(this).attr('data-perzister-sectiontitle') == 'exit') {
-                $("#actionbutton").append('<li><a href="' + $(this).attr('data-url') + '"><i class="fa fa-sign-out fa-lg "></i> <span class="hidden-sm">exit</span></a></li>');
+                $("#actionbutton").append('<li><a href="' + $(this).attr('data-url') + '"><i class="fa fa-times fa-lg "></i> <span class="hidden-sm">exit</span></a></li>');
+            }
+            else if ($(this).attr('data-perzister-sectiontitle') == 'logout') {
+                $("#actionbutton").append('<li><a href="' + $(this).attr('data-url') + '"><i class="fa fa-sign-out fa-lg "></i> <span class="hidden-sm">logout</span></a></li>');
             }
             else if ($(this).attr('data-perzister-sectiontitle') == 'apps') {
                 

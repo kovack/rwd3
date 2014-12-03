@@ -15,7 +15,7 @@
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
     <link href="../css/dataTables.bootstrap.css" rel="stylesheet" />
-    <link href="../css/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../css/font/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../css/jquery.gritter.css" rel="stylesheet" />
     <link href="../css/dataTables.responsive.css" rel="stylesheet" />
     <link href="../css/perzister.css" rel="stylesheet" />
@@ -77,7 +77,9 @@
         <section class="sectionng" id="sectionapps" data-perzister-sectiontitle="" data-perzister-sectionicon="" >
           
             <!-- FAVORITES  -->
-            <div class="container-fluid perzister-dark-container perzister-backstretch-it perzister-about-container" >                 <div class="container " > 
+            <div class="container-fluid perzister-dark-container perzister-backstretch-it perzister-about-container" >
+
+                 <div class="container " > 
                      <div class="row ">  
                              
                              <div class="col-sm-12  favoritescol">
@@ -92,11 +94,9 @@
                 </div>
 
             <!-- APPS  -->
-            <div class="container-fluid perzister-dark-container transparent" >                 <div class="container" >
-                     <h3><span class="label label-primary">apps</span></h3><br />
-                                <div class="row ">  
-                                        <div id="menuitems1"></div>
-                                </div>
+            <div class="container-fluid perzister-dark-container transparent" >
+                 <div class="container" >
+                            <div id="menuitems1"></div>
                      </div>
                    </div>
                    
@@ -105,7 +105,8 @@
 
         <!-- TOP SEARCH RESULTS  -->
         <section class="sectionng hide" id="sectiontopsearchresults" data-perzister-sectiontitle="" data-perzister-sectionicon=""  >
-                 <div class="container-fluid" >                  <div class="container" >
+                 <div class="container-fluid" >
+                  <div class="container" >
                      <h3><span class="label label-primary">apps</span></h3><br />
                                 <div class="row ">  
                                         <div id="menuitems2"></div>
@@ -206,6 +207,10 @@
                   TopSearch();
 
                   function TopSearch() {
+
+                      var strFormattedTABLE = "";
+                      var strFormattedROWS = "";
+
                       if (localStorage.perzisterURL == 'undefined') { window.location = 'login.htm'; }
                       if (localStorage.perzisterURL == undefined) { window.location = 'login.htm'; }
                       if (localStorage.perzisterURL == '') { window.location = 'login.htm'; }
@@ -216,7 +221,7 @@
                       var strFormattedHTML0 = '';
                       $.ajax({
                           url: localStorage.perzisterURL,
-                          data: "d=" + localStorage.perzisterD + "&app=" + localStorage.perzisterApp + "&g=" + localStorage.perzisterG + "&action=getmenuitems",
+                          data: "d=" + localStorage.perzisterD + "&app=" + localStorage.perzisterApp + "&g=" + localStorage.perzisterG + "&action=mangetmenuitems",
                           dataType: 'jsonp',
                           jsonp: 'jsoncallback',
                           timeout: 30000,
@@ -227,20 +232,83 @@
                               var jsonStr = '{"apps":[{"Parametar":"","Ikona":"","Opis":"","Hint":""}]}';
                               var obj2 = JSON.parse(jsonStr);
 
+                              var strFormattedItem = "";
+                              var strFormattedItem1 = "";
+                              var j = "";
+                              var k = 0;
+                              var rowcount = data.items.length - 1;
+
+
                               $.each(data.items, function (i, item) {
-                                  strFormattedItem = '<div class="forlivesearch">'
+
+
+                                  strFormattedItem1 = '<div class="forlivesearch">'
+                                    + '<div class="col-sm-4 appcol" data-url="' + item.Parametar + '" data-ikona="' + item.Ikona + '" data-opis="' + item.Opis + '" data-hint="' + item.Hint + '" >'
+                                    + '<div><div class="pull-left perzister-dimed appicon"><i class="fa fa-' + item.Ikona + ' fa-3x fa-fw"></i></div><strong>' + item.Opis + '</strong> <div class="text-muted">' + item.Hint + '</div></div>'
+                                    + '</div>'
+                                    + '</div>'
+
+                                  strFormattedHTML = strFormattedHTML + strFormattedItem1;
+                                  if (i < 3) strFormattedHTML0 = strFormattedHTML0 + strFormattedItem1;
+                                  obj2['apps'].push({ "Parametar": "" + item.Parametar + "", "Ikona": "" + item.Ikona + "", "Opis": "" + item.Opis + "", "Hint": "" + item.Hint + "" });
+
+                                  //alert(item.Naziv);
+                                  if (i == 0) { j = item.Naziv };
+
+                                  if (j != item.Naziv) {  // aplikacija
+                                      //alert(j);
+                                      //alert(item.Naziv);
+                                      //alert(strFormattedItem);
+                                      //alert(j);
+
+                                      //alert(item.Naziv);
+                                      //alert(strFormattedItem);
+                                      strFormattedTABLE = strFormattedTABLE + '<h3><span class="label label-primary">' + j + '</span></h3><br /><div class="row "> ' + strFormattedItem + '</div>';
+                                      //alert(strFormattedTABLE);
+                                      strFormattedItem = '';
+
+                                  };
+
+                                  j = item.Naziv;
+
+                                  strFormattedItem = strFormattedItem + '<div class="forlivesearch">'
                                   + '<div class="col-sm-4 appcol" data-url="' + item.Parametar + '" data-ikona="' + item.Ikona + '" data-opis="' + item.Opis + '" data-hint="' + item.Hint + '" >'
                                   + '<div><div class="pull-left perzister-dimed appicon"><i class="fa fa-' + item.Ikona + ' fa-3x fa-fw"></i></div><strong>' + item.Opis + '</strong> <div class="text-muted">' + item.Hint + '</div></div>'
                                   + '</div>'
                                   + '</div>'
-                                  strFormattedHTML = strFormattedHTML + strFormattedItem;
-                                  if (i < 3) strFormattedHTML0 = strFormattedHTML0 + strFormattedItem;
-                                  obj2['apps'].push({ "Parametar": "" + item.Parametar + "", "Ikona": "" + item.Ikona + "", "Opis": "" + item.Opis + "", "Hint": "" + item.Hint + "" });
+                                  //alert(strFormattedItem);
+
+
+                                  if (i == rowcount) { // zadnji
+                                      strFormattedTABLE = strFormattedTABLE + '<h3><span class="label label-primary">' + j + '</span></h3><br /><div class="row "> ' + strFormattedItem + '</div>';
+                                  }
+
+
+
+
+
+                                  //alert(strFormattedItem);
+                                   
+ 
+                                  //alert(i);
+                                  //alert(rowcount);
+                                  //if (i == rowcount) { // zadnji
+                                  //    //alert(rowcount);
+                                  //    strFormattedTABLE = strFormattedTABLE + '<h3><span class="label label-primary">' + item.Naziv + '</span></h3><br /><div class="row "> ' + strFormattedItem + '</div>'
+                                  //}
+
                               });
+
+                              //alert(strFormattedTABLE);
 
                               jsonStr = JSON.stringify(obj2);
                               localStorage.perzisterApps = jsonStr
-                              $("#menuitems1,#menuitems2").html(strFormattedHTML);
+
+                              //alert(strFormattedHTML);
+                              //alert(strFormattedHTML0);
+
+                              //$("#menuitems1,#menuitems2").html(strFormattedHTML);
+                              $("#menuitems1,#menuitems2").html(strFormattedTABLE);
                               $("#menuitems0").html(strFormattedHTML0);
                               //$('#menuitems').show();
                               $("#ajaxloader0").addClass('invisible');
