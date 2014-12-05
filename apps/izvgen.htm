@@ -44,7 +44,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectiontopsearchresults"><i class="fa fa-list-ol "></i> IzvGen <i id="ajaxloader0" class="fa fa-spinner fa-spin invisible" ></i></span>  <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span id="numberofnotifications" >1</span></span> </a>
+              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectiontopsearchresults"><i id="ajaxloader0" class="fa fa-spinner fa-spin hide" ></i><i id="appheadericon" class="fa fa-list-ol "></i> IzvGen </span>  <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span id="numberofnotifications" >1</span></span> </a>
             </div>
 
           
@@ -180,7 +180,7 @@
                   });
 
                   function GetIzvGenReport() {
-                      $("#ajaxloader0").removeClass('invisible');
+                      $("#ajaxloader0,#appheadericon").toggleClass('hide');
                       $('#resultslist').hide();
                       var strFormattedHTML = '';
                       var strTH = '';
@@ -205,11 +205,11 @@
                               strFormattedHTML = '<table id="izvgenlisttable" class="table "><thead><tr>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
 
                               $("#resultslist").html(strFormattedHTML);
-                              $("#ajaxloader0").addClass('invisible');
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
                               $('#resultslist').show();
                           },
                           error: function (xhr, ajaxOptions, thrownError) {
-                              $("#ajaxloader0").addClass('invisible');
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
                           }
                       });
                   }
@@ -226,7 +226,7 @@
                   
 
                   function TopSearch() {
-                      $("#ajaxloader0").removeClass('invisible');
+                      $("#ajaxloader0,#appheadericon").toggleClass('hide');
                       $('#topsearchresultslist').hide();
                       var strFormattedHTML = '';
                       $.ajax({
@@ -248,12 +248,12 @@
 
                               RegisterOnClickEvent();
                               $('#topsearchtext').fastLiveFilter('tbody');
-                              $("#ajaxloader0").addClass('invisible');
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
                               $('#topsearchresultslist').show();
                               
                           },
                           error: function (xhr, ajaxOptions, thrownError) {
-                              $("#ajaxloader0").addClass('invisible');
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
                           }
                       });
                   }

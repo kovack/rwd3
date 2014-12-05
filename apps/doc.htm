@@ -43,7 +43,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectiondocumentedit"><i class="fa fa-file "></i> J-Doc <i id="ajaxloader0" class="fa fa-spinner fa-spin invisible" ></i></span> <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span id="numberofnotifications" >1</span></span></a>
+              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectiondocumentedit"><i id="ajaxloader0" class="fa fa-spinner fa-spin hide" ></i><i id="appheadericon" class="fa fa-file "></i> J-Doc </span> <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span id="numberofnotifications" >1</span></span></a>
             </div>
 
           
@@ -289,7 +289,7 @@
                   });
 
                   function TopSearch() {
-                      $("#ajaxloader0").removeClass('invisible');
+                      $("#ajaxloader0,#appheadericon").toggleClass('hide');
                       $('#topsearchresultslist').hide();
                       var strFormattedHTML = '';
                       $.ajax({
@@ -313,11 +313,11 @@
                                   //$(window).resize();
                               });
                               //if (localStorage.getItem('perzister-fullscreenlistbutton') == '1') { $('#topsearchtable').dataTable(); } else { $('#topsearchtext').fastLiveFilter('tbody'); }
-                              $("#ajaxloader0").addClass('invisible');
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
                               $('#topsearchresultslist').show();
                           },
                           error: function (xhr, ajaxOptions, thrownError) {
-                              $("#ajaxloader0").addClass('invisible');
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
                           }
                       });
                   }
@@ -364,7 +364,7 @@
                   });
 
                   function GetPartneri() {
-                      $("#ajaxloader0").removeClass('invisible');
+                      $("#ajaxloader0,#appheadericon").toggleClass('hide');
                       $('#partnerilist').hide();
                       var strFormattedHTML = '';
                       $.ajax({
@@ -382,17 +382,17 @@
                               $("#partnerilist").html(strFormattedHTML);
                               if (localStorage.getItem('perzister-fullscreenlistbutton') == '1') { $('#partneritable').dataTable(); }
                               $('#partnerilist').show();
-                              $("#ajaxloader0").addClass('invisible');
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
                           },
                           error: function (xhr, ajaxOptions, thrownError) {
-                              $("#ajaxloader0").addClass('invisible');
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
                           }
                       });
                   }
 
                   //GetDocItems();
                   function GetDocItems() {
-                      $("#ajaxloader0,#ajaxloaderlist").removeClass('invisible');
+                      $("#ajaxloader0,#appheadericon").toggleClass('hide');
                       $('#docitemslist,#docitemslist2').hide();
                       var strFormattedHTML = '';
                       $.ajax({
@@ -409,12 +409,12 @@
                               strFormattedHTML = '<table id="docitemstable" class="table table-hover table-condensed"><thead><tr><th>id</th><th>naziv</th><th>kolicina</th><th>mpcijena</th></tr></thead><tbody>' + strFormattedHTML + '</tbody></table>'
                               $("#docitemslist,#docitemslist2").html(strFormattedHTML);
                               if (localStorage.getItem('perzister-fullscreenlistbutton') == '1') { $('#docitemstable').dataTable(); }
-                              $("#ajaxloader0,#ajaxloaderlist").addClass('invisible');
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
                               $('#docitemslist,#docitemslist2').show();
                               $('#topsearchtext').fastLiveFilter('tbody');
                           },
                           error: function (xhr, ajaxOptions, thrownError) {
-                              $("#ajaxloader0,#ajaxloaderlist").addClass('invisible');
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
                           }
                       });
                   }
@@ -426,7 +426,7 @@
                   });
 
                   function AddNewItem() {
-                      $("#ajaxloader0").removeClass('invisible');
+                      $("#ajaxloader0,#appheadericon").toggleClass('hide');
                       var strFormattedHTML = '';
                       var strData = $("#addnewitemform").serialize();
                       $.ajax({
@@ -444,7 +444,7 @@
                               }
                           },
                           error: function (xhr, ajaxOptions, thrownError) {
-                              $("#ajaxloader0").addClass('invisible');
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
                               $("#addnewitemerror").html('Error : ' + thrownError);
                               $("#addnewitemerrorwrapper").removeClass('hide');
                           }

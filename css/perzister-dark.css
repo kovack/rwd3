@@ -12,4 +12,5 @@ legend {  color : #fff; }
 label {font-weight:100; color : #ccc;   }
 .perzister-h4 {margin-top:10px; margin-bottom:15px; color : #ccc;}
 #topsearchtext { background-color:#2d3033 ; border:0px; color:#ccc; }
+.appcolfav,.favoritesrow { background: url("../bg/transparent-bg.png");  }
 

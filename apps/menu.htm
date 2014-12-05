@@ -30,7 +30,6 @@
             .appcol { height : 80px; padding-top:10px; text-align : left;  overflow:hidden;  }
             .appcol:hover { cursor : pointer; background-color:#eee;  }
             .appicon { width:75px;  padding-top:5px;    }
-            .appcolfav,.favoritesrow { background: url("../bg/transparent-bg.png");  }
             .modal { color : #2d3033; }
     </style>
 
@@ -50,7 +49,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectionapps"><i class="fa fa-home "></i> menu <i id="ajaxloader0" class="fa fa-spinner fa-spin invisible" ></i></span> <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span id="numberofnotifications" >1</span></span></a>
+              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectionapps"><i id="ajaxloader0" class="fa fa-spinner fa-spin hide" ></i><i id="appheadericon" class="fa fa-home "></i> menu </span> <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span id="numberofnotifications" >1</span></span></a>
             </div>
 
           
@@ -74,7 +73,7 @@
         </nav> <!-- end of NAV  -->
       
         <!-- ABOUT  -->
-        <section class="sectionng" id="sectionapps" data-perzister-sectiontitle="" data-perzister-sectionicon="" >
+        <section class="sectionng" id="sectionapps" data-perzister-sectiontitle="apps" data-perzister-sectionicon="cubes" >
           
             <!-- FAVORITES  -->
             <div class="container-fluid perzister-dark-container perzister-backstretch-it perzister-about-container" >                 <div class="container " > 
@@ -210,7 +209,7 @@
                       if (localStorage.perzisterURL == undefined) { window.location = 'login.htm'; }
                       if (localStorage.perzisterURL == '') { window.location = 'login.htm'; }
 
-                      $("#ajaxloader0").removeClass('invisible');
+                      $("#ajaxloader0,#appheadericon").toggleClass('hide');
                       //$('#menuitems').hide();
                       var strFormattedHTML = '';
                       var strFormattedHTML0 = '';
@@ -219,7 +218,7 @@
                           data: "d=" + localStorage.perzisterD + "&app=" + localStorage.perzisterApp + "&g=" + localStorage.perzisterG + "&action=getmenuitems",
                           dataType: 'jsonp',
                           jsonp: 'jsoncallback',
-                          timeout: 30000,
+                          timeout: 10000,
                           success: function (data, status) {
 
                               if (data.errnumber != '0') { window.location = 'login.htm'; }
@@ -243,7 +242,7 @@
                               $("#menuitems1,#menuitems2").html(strFormattedHTML);
                               $("#menuitems0").html(strFormattedHTML0);
                               //$('#menuitems').show();
-                              $("#ajaxloader0").addClass('invisible');
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
                               $('#topsearchtext').fastLiveFilter('#sectiontopsearchresults .forlivesearch'); // local fast live search
 
                               $(".appcol").on('click', function () {

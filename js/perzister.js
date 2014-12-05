@@ -32,7 +32,7 @@
 
     $(".printdoc").on('click', function () { window.print(); return false; });
    
-    FillActionButton(); // it's acutally nav items filler
+    FillActionButton(); // it's acutally NAV items filler
 
     FillCombos(); // generic routine for populating select controls within "combobox" classes
 
@@ -47,7 +47,10 @@
     });
 
     // ====================================================================================== populate APPS : ALL, HISTORY & FAVORITES
-    $(".quickapplicationlistbtn").on('click', function () {
+
+    //$('#apptitle').click(function (e) { $(".sectionng").addClass('hide'); $("#" + $(this).attr('data-perzister-showsectiononclick')).toggleClass('hide'); $(window).resize(); });
+
+    $("#apptitle,.quickapplicationlistbtn").on('click', function () {
         var str = '';
         var obj2 = JSON.parse(localStorage.perzisterApps);
         
@@ -107,7 +110,7 @@
 
     // ====================================================================================== populate NAV ACTION button  
 
-    $('#apptitle').click(function (e) { $(".sectionng").addClass('hide'); $("#" + $(this).attr('data-perzister-showsectiononclick')).toggleClass('hide'); $(window).resize(); });
+    
 
     function FillActionButton() {
         ConsoleLog('START FillActionButton()');
@@ -121,10 +124,7 @@
             else if ($(this).attr('data-perzister-sectiontitle') == 'logout') {
                 $("#actionbutton").append('<li><a href="' + $(this).attr('data-url') + '"><i class="fa fa-sign-out fa-lg "></i> <span class="hidden-sm">logout</span></a></li>');
             }
-            else if ($(this).attr('data-perzister-sectiontitle') == 'apps') {
-                
-                
-            }
+            
             else {
                 var str = '';
                 var i = 0;
@@ -253,7 +253,7 @@
     function GetItem(id) {
         ConsoleLog('START GetItem()');
         $("#itemserverresponse").html('');
-        $("#ajaxloader0").removeClass('invisible');
+        $("#ajaxloader0,#appheadericon").toggleClass('hide');
         $("#ajaxloader4").show();
         $.ajax({
             url: localStorage.perzisterURL,
@@ -274,7 +274,7 @@
             error: function (xhr, ajaxOptions, thrownError) {
                 $("#ajaxloader4").hide();
                 $("#itemserverresponse").html("<br/><div class='alert'><h6>" + thrownError + ' ' + xhr.status + '</h4></div>');
-                $("#ajaxloader0").addClass('invisible');
+                $("#ajaxloader0,#appheadericon").toggleClass('hide');
             }
         });
     }
@@ -289,31 +289,37 @@
     }
 
     function FillCombo(controlid, webserviceaction) {
-        $("#ajaxloader0").removeClass('invisible');
-        $.ajax({
-            url: localStorage.perzisterURL,
-            data: "d=" + localStorage.perzisterD + "&action=" + webserviceaction + "&controlid=" + controlid,
-            dataType: 'jsonp',
-            jsonp: 'jsoncallback',
-            timeout: 20000,
-            success: function (data, status) {
-                $.each(data, function (i, item) {
-                    // first recorset
-                    if (i == 0) {
-                        $.each(item, function (i, item) {
-                            controlid = item.controlid
-                        });
-                    }
-                    // second recorset
-                    if (i == 1) {
-                        $.each(item, function (i, item) {
-                            $("#" + controlid).append('<option value="' + item.id + '">' + item.title + '</option>');
-                        });
-                    }
-                });
-                $("#ajaxloader0").addClass('invisible');
-            }
-        });
+        $("#ajaxloader0,#appheadericon").toggleClass('hide');
+        var jsonStr = localStorage.getItem('perzisterCOMBO' + webserviceaction);
+        if (jsonStr == undefined) {
+            $.ajax({
+                url: localStorage.perzisterURL,
+                data: "d=" + localStorage.perzisterD + "&action=" + webserviceaction + "&controlid=" + controlid,
+                dataType: 'jsonp',
+                jsonp: 'jsoncallback',
+                timeout: 20000,
+                success: function (data, status) {
+                    $.each(data, function (i, item) {
+                        // first recorset
+                        if (i == 0) {
+                            $.each(item, function (i, item) {
+                                controlid = item.controlid
+                            });
+                        }
+                        // second recorset
+                        if (i == 1) {
+                            $.each(item, function (i, item) {
+                                $("#" + controlid).append('<option value="' + item.id + '">' + item.title + '</option>');
+                            });
+                        }
+                        localStorage.setItem('perzisterCOMBO' + webserviceaction,$("#" + controlid).html());
+                    });
+                    $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                }
+            });
+        } else {
+            $("#" + controlid).append(jsonStr);
+        }
     }
     
     // ============================================================================= ENTER AS TAB
@@ -427,7 +433,7 @@
     // ================================================================= PUBNUB
 
     if ($("body").attr('data-perzister-notification') == 'true') {
-        //PubNubino();
+        PubNubino();
     }
 
     $("#activenotificationicon,#disablednotificationicon").on('click', function () {

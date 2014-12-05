@@ -6,9 +6,16 @@
 .perzister-docbuttons { margin-bottom :5px;}
  
 #activenotificationicon {color:#d9534f;}
-#quickapplicationlistbtn {color:#888; padding-right:20px;}
+#quickapplicationlistbtn { display:none; color:#888; padding-right:10px;}
+#quickapplicationlistbtn:hover {color:#fff; }
 #disablednotificationicon  {color:#888; }
 #numberofnotifications {left:-12px; top: -3px; position:relative; font-size:0.5em; font-weight:bold;}
 
 .approwicon {color:#777;}
  
+.navbar i {font-size:24px; }
+
+
+
+#apptitle { padding-right:25px;}
+#ajaxloader0,#appheadericon  { width:25px;}
