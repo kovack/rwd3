@@ -25,16 +25,123 @@
     <style>
        body {  padding-top:50px; }
         .perzister-about-container { padding-top : 150px; padding-bottom:100px; text-align: center;}
+
+
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 45px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding-top: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    border-right: 1px solid #777;
+    min-width: 200px;
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+
+
+    .side-nav>li>a {
+        width: 225px;
+        color: #808080;
+    }
+
+.side-nav>li>ul>li>a {
+    color: #808080;
+}
+
+.gmenuitem {    list-style-type: none;  }
+
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 10px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
     </style>
 
     <link rel="shortcut icon" href="../bg/favicon.ico" />
 
   </head>
-  <body data-perzister-login="true" data-perzister-notification="true" >
+  <body data-perzister-login="true" data-perzister-notification="false" >
 
         <!-- NAV -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-          <div class="container">
+          <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header" >
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -43,7 +150,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectionfilterform"><i class="fa fa-list-alt "></i> Report 1 <i id="ajaxloader0" class="fa fa-spinner fa-spin invisible" ></i></span> <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span id="numberofnotifications" >1</span></span></a>
+              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectionfilterform"><i id="ajaxloader0" class="fa fa-spinner fa-spin hide" ></i><i id="appheadericon" class="fa fa-list-alt "></i> Report 1 </span> <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span class="badge" id="numberofnotifications" >1</span></span></a>
             </div>
 
           
@@ -69,11 +176,180 @@
        
          
                  <!-- FILTER FORM -->
-                <section class="sectionng " id="sectionfilterform" data-perzister-sectiontitle="filter" data-perzister-sectionicon="filter" >            <div class="container-fluid perzister-dark-container"  >            <div class="container" >               <div class="row" >                        <div class="col-sm-6 transparent">					      <h4 class="perzister-h4" ><span class="control-label"><i class="fa fa-filter"></i> filter  </span> </h4>                        </div>                        <div class="col-sm-6 ">                                                </div>                </div>                <hr class="perzister-hr"  />                <form class="form-horizontal" role="form" name="filterform" id="filterform" >	            <div class="row">                    	                <div class="col-sm-6 transparent">		                <div class="form-group">						<label class="col-sm-3 control-label" for="partneriFid">Partneri</label>						<div class="col-sm-9">                            <div class="input-group">                                <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>						        <input type="search" id="partneriid" class="col-sm-10 form-control searchtextbox perzistonblur enterastab " name="partneriid" data-perzister-webserviceaction="searchpartners" data-form="filterform" value="" />                            </div>						</div>						</div>                        <div class="form-group">						<label class="col-sm-3 control-label" for="partneriFid">Roba</label>						<div class="col-sm-9">                            <div class="input-group">                                <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>						        <input type="search" id="robaid" class="col-sm-10 form-control searchtextbox perzistonblur enterastab " name="robaid" data-perzister-webserviceaction="searchproducts" data-form="filterform" value="" />                            </div>						</div>						</div>		                                    </div>                    <div class="col-sm-6 transparent">		            <div class="form-group">		            <label class="col-sm-3 control-label" for="orgshemaFid">Org shema</label>		            <div class="col-sm-9">		            <select id="orgshemaFid" class="form-control combobox perzistonblur enterastab" data-perzister-webserviceaction="getorgshema" data-form="filterform" >		            </select>		            </div>		            </div>		            <div class="form-group">		            <label class="col-sm-3 control-label" for="skladisteFid">Skladiste</label>		            <div class="col-sm-9">		            <select id="skladisteFid" class="form-control  combobox perzistonchange enterastab" data-perzister-webserviceaction="getskladista" data-form="filterform" >		            </select>		            </div>		            </div>                                    </div> <!-- end of col -->	            </div> <!-- end of row -->                   
-                <div class="form-actions">		            <button data-ng-click="doRequest()" type="button" id="btngetpartneri" class="btn btn-primary" data-sql="OK" data-form="filterform"  ><span class="glyphicon glyphicon-ok"></span> OK</button>	            </div>
-                                    </form>                </div>         <!-- end of container -->                </div>         <!-- end of container fluid -->              <div class="container" >                  <br />                    <div class="row ">	                    <div class="col-sm-12">                            <div id="partnerilist"></div>                        </div>                    </div>              </div>	      </section>  <!-- end of section filterform -->
+                <section class="sectionng visible-xs" id="sectionfilterform" data-perzister-sectiontitle="filter" data-perzister-sectionicon="filter" >
+            <div class="container-fluid perzister-dark-container"  >
+            <div class="container" >
 
-        
+               <div class="row" >
+                        <div class="col-sm-6 transparent">
+					      <h4 class="perzister-h4" ><span class="control-label"><i class="fa fa-filter"></i> filter  </span> </h4>
+                        </div>
+                        <div class="col-sm-6 ">
+                        
+                        </div>
+                </div>
+
+                <hr class="perzister-hr"  />
+
+                <form class="form-horizontal" role="form" name="filterform" id="filterform" >
+
+	            <div class="row">
+                    
+	                <div class="col-sm-6 transparent">
+
+		                <div class="form-group">
+						<label class="col-sm-3 control-label" for="partneriFid">Partneri</label>
+						<div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+						        <input type="search" id="partneriid" class="col-sm-10 form-control searchtextbox perzistonblur enterastab " name="partneriid" data-perzister-webserviceaction="searchpartners" data-form="filterform" value="" />
+                            </div>
+						</div>
+						</div>
+
+                        <div class="form-group">
+						<label class="col-sm-3 control-label" for="partneriFid">Roba</label>
+						<div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+						        <input type="search" id="robaid" class="col-sm-10 form-control searchtextbox perzistonblur enterastab " name="robaid" data-perzister-webserviceaction="searchproducts" data-form="filterform" value="" />
+                            </div>
+						</div>
+						</div>
+
+		                 
+
+                   </div>
+
+                    <div class="col-sm-6 transparent">
+		            <div class="form-group">
+		            <label class="col-sm-3 control-label" for="orgshemaFid">Org shema</label>
+		            <div class="col-sm-9">
+		            <select id="orgshemaFid" class="form-control combobox perzistonblur enterastab" data-perzister-webserviceaction="getorgshema" data-form="filterform" >
+		            </select>
+		            </div>
+		            </div>
+
+		            <div class="form-group">
+		            <label class="col-sm-3 control-label" for="skladisteFid">Skladiste</label>
+		            <div class="col-sm-9">
+		            <select id="skladisteFid" class="form-control  combobox perzistonchange enterastab" data-perzister-webserviceaction="getskladista" data-form="filterform" >
+		            </select>
+		            </div>
+		            </div>
+
+                    
+                </div> <!-- end of col -->
+	            </div> <!-- end of row -->
+
+
+                   
+                <div class="form-actions">
+		            <button data-ng-click="doRequest()" type="button" id="btngetpartneri" class="btn btn-primary" data-sql="OK" data-form="filterform"  ><span class="glyphicon glyphicon-ok"></span> OK</button>
+	            </div>
+                    
+
+                </form>
+                </div>         <!-- end of container -->
+                </div>         <!-- end of container fluid -->
+
+              <div class="container" >
+                  <br />
+                    <div class="row ">
+	                    <div class="col-sm-12">
+                            <div id="partnerilist"></div>
+                        </div>
+                    </div>
+              </div>
+
+	      </section>  <!-- end of section filterform -->
+
+    <div class="container-fluid hidden-xs perzister-dark-container">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar perzister-dark-container">
+             <div id="menuitems1"></div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+
+<form class="form-horizontal" role="form" name="filterform" id="filterform1">
+
+                    <div class="row">
+
+                        <div class="col-sm-6 transparent">
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="partneriFid">Partneri</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+                                        <input type="search" id="partneriid1" class="col-sm-10 form-control searchtextbox perzistonblur enterastab " name="partneriid" data-perzister-webserviceaction="searchpartners" data-form="filterform" value="" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="partneriFid">Roba</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+                                        <input type="search" id="robaid1" class="col-sm-10 form-control searchtextbox perzistonblur enterastab " name="robaid" data-perzister-webserviceaction="searchproducts" data-form="filterform" value="" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="col-sm-6 transparent">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="orgshemaFid">Org shema</label>
+                                <div class="col-sm-9">
+                                    <select id="orgshemaFid1" class="form-control combobox perzistonblur enterastab" data-perzister-webserviceaction="getorgshema" data-form="filterform">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="skladisteFid">Skladiste</label>
+                                <div class="col-sm-9">
+                                    <select id="skladisteFid1" class="form-control  combobox perzistonchange enterastab" data-perzister-webserviceaction="getskladista" data-form="filterform">
+                                    </select>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- end of col -->
+                    </div>
+                    <!-- end of row -->
+
+
+
+                    <div class="form-actions">
+                        <button data-ng-click="doRequest()" type="button" id="btngetpartneri1" class="btn btn-primary" data-sql="OK" data-form="filterform"><span class="glyphicon glyphicon-ok"></span>OK</button>
+                    </div>
+
+
+                </form>
+                
+<!--                   <div class="container " >
+                <div class="row ">
+                    <div id="partnerilist1"></div>
+                </div>
+            </div>-->
+
+        </div>
+      </div>
+    </div>
+                    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main hidden-xs">
+                   <div class="container " >
+                <div class="row ">
+                    <div id="partnerilist1"></div>
+                </div>
+            </div>
+                        </div>
        
         <!-- MODAL (SEARCHBOX) -->
         <div class="modal fade" id="searchbox" data-caller="">
@@ -167,12 +443,104 @@
                  
                   // ====================================================================================== 
 
+              //$("#wrapper").toggleClass("toggled");
+
                   $("#btngetpartneri").on("click", function () {
                       GetPartneri();
                   });
 
+                  $("#btngetpartneri1").on("click", function () {
+                      GetPartneri();
+                  });
+
+                  TopSearch();
+
+                  function TopSearch() {
+
+                      var strFormattedTABLE = "";
+                      var strFormattedROWS = "";
+
+                      if (localStorage.perzisterURL == 'undefined') { window.location = 'login.htm'; }
+                      if (localStorage.perzisterURL == undefined) { window.location = 'login.htm'; }
+                      if (localStorage.perzisterURL == '') { window.location = 'login.htm'; }
+
+                      $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      //$('#menuitems').hide();
+                      var strFormattedHTML = '';
+                      var strFormattedHTML0 = '';
+                      $.ajax({
+                          url: localStorage.perzisterURL,
+                          data: "d=" + localStorage.perzisterD + "&app=" + localStorage.perzisterApp + "&g=" + localStorage.perzisterG + "&action=mangetmenuitems",
+                          dataType: 'jsonp',
+                          jsonp: 'jsoncallback',
+                          timeout: 30000,
+                          success: function (data, status) {
+
+                              //if (data.errnumber != '0') { window.location = 'login.htm'; }
+
+                              var jsonStr = '{"apps":[{"Parametar":"","Ikona":"","Opis":"","Hint":""}]}';
+                              var obj2 = JSON.parse(jsonStr);
+
+                              var strFormattedItem = "";
+                              var strFormattedItem1 = "";
+                              var j = "";
+                              var k = 0;
+                              var rowcount = data.items.length - 1;
+
+
+                              $.each(data.items, function (i, item) {
+                                  obj2['apps'].push({ "Parametar": "" + item.Parametar + "", "Ikona": "" + item.Ikona + "", "Opis": "" + item.Opis + "", "Hint": "" + item.Hint + "" });
+                                  if (i == 0) { j = item.Naziv };
+
+                                  if (j != item.Naziv) {  // aplikacija
+                                      strFormattedTABLE = strFormattedTABLE + '<li><a data-toggle="collapse" data-target="#' + j + '"> ' + j + '<i class="fa fa-fw fa-caret-down"></i></a><ul id="' + j + '" class="collapse">' + strFormattedItem + '</ul></li>';
+                                      strFormattedItem = '';
+                                  };
+
+                                  j = item.Naziv;
+                                  strFormattedItem = strFormattedItem + '<li class="gmenuitem"><a href="' + item.Parametar + '"><i class="fa fa-' + item.Ikona + ' fa-fw"></i> ' + item.Opis + '</a></li>'
+
+                                  if (i == rowcount) { // zadnji
+                                      strFormattedTABLE = strFormattedTABLE + '<li><a data-toggle="collapse" data-target="#' + j + '"> ' + j + '<i class="fa fa-fw fa-caret-down"></i></a><ul id="' + j + '" class="collapse">' + strFormattedItem + '</ul></li>';
+                                  }
+
+                              });
+
+                              strFormattedTABLE = '<ul class="nav navbar-nav side-nav">' + strFormattedTABLE + '</ul>'
+
+                              jsonStr = JSON.stringify(obj2);
+                              localStorage.perzisterApps = jsonStr
+
+                              
+                              $("#menuitems1,#quickapplicationlist").html(strFormattedTABLE);
+                              $("#menuitems0").html(strFormattedHTML0);
+                              
+                              $('#topsearchtext').fastLiveFilter('#sectiontopsearchresults .forlivesearch'); // local fast live search
+
+                              $(".appcol").on('click', function () {
+                                  var jsonStrApps = localStorage.perzisterAppHistory;
+                                  if (jsonStrApps == undefined) {
+                                      var jsonStrApps = '{"apps":[{"Parametar":"","Ikona":"","Opis":"","Hint":""}]}';
+                                  }
+                                  var objApps = JSON.parse(jsonStrApps);
+                                  while (objApps['apps'].length > 10) {
+                                      objApps['apps'].shift();
+                                  }
+                                  objApps['apps'].push({ "Parametar": "" + $(this).attr('data-url') + "", "Ikona": "" + $(this).attr('data-ikona') + "", "Opis": "" + $(this).attr('data-opis') + "", "Hint": "" + $(this).attr('data-hint') + "" });
+                                  jsonStrApps = JSON.stringify(objApps);
+                                  localStorage.perzisterAppHistory = jsonStrApps
+                                  window.location = '' + $(this).attr('data-url');
+                              });
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                              window.location = 'login.htm';
+                          }
+                      });
+                  }
+
                   function GetPartneri() {
-                      $("#ajaxloader0").removeClass('invisible');
+                      $("#ajaxloader0,#appheadericon").toggleClass('hide');
                       $('#partnerilist').hide();
                       var strFormattedHTML = '';
                       $.ajax({
@@ -188,16 +556,18 @@
                               });
                               strFormattedHTML = '<table id="partneritable" class="table nowrap"><thead><tr><th>id</th><th>naziv</th><th>mat broj</th><th>mjesto</th></tr></thead><tbody>' + strFormattedHTML + '</tbody></table>'
                               $("#partnerilist").html(strFormattedHTML);
+                              $("#partnerilist1").html(strFormattedHTML);
                               if (localStorage.getItem('perzister-fullscreenlistbutton') == '1') { $('#partneritable').dataTable(); }
                               $('#partnerilist').show();
-                              $("#ajaxloader0").addClass('invisible');
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
                           },
                           error: function (xhr, ajaxOptions, thrownError) {
-                              $("#ajaxloader0").addClass('invisible');
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
                           }
                       });
                   }
-
+                
+                 
                   
 
           });

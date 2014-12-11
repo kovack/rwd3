@@ -15,12 +15,18 @@
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
     <link href="../css/dataTables.bootstrap.css" rel="stylesheet" />
+
+      
     <link href="../css/font/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../css/jquery.gritter.css" rel="stylesheet" />
     <link href="../css/dataTables.responsive.css" rel="stylesheet" />
     <link href="../css/perzister.css" rel="stylesheet" />
     <link href="../css/perzister-dark.css" rel="stylesheet" class="additional" />
     <link href="../css/print.css" rel="stylesheet" media="print" />
+
+      <link href="../css/ripples.min.css" rel="stylesheet">
+      <link href="../css/material-wfont.min.css" rel="stylesheet">
+
 
     <style>
        body {  padding-top:50px; }
@@ -43,7 +49,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectiondocumentedit"><i id="ajaxloader0" class="fa fa-spinner fa-spin hide" ></i><i id="appheadericon" class="fa fa-file "></i> J-Doc </span> <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span id="numberofnotifications" >1</span></span></a>
+              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectiondocumentedit"><i id="ajaxloader0" class="fa fa-spinner fa-spin hide" ></i><i id="appheadericon" class="fa fa-file "></i> J-Doc </span> <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span class="badge" id="numberofnotifications" >1</span></span></a>
             </div>
 
           
@@ -56,7 +62,7 @@
                           <div class="input-group">
                             <input type="text"  id="topsearchtext" class="form-control" placeholder="Search">
                             <span class="input-group-btn">
-                            <button class="btn btn-default btn-primary" id="topsearchbutton" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                            <button class="btn" id="topsearchbutton" type="button"><span class="glyphicon glyphicon-search"></span></button>
                             </span>
                          </div><!-- /input-group -->
                       </form>
@@ -208,7 +214,7 @@
         <div class="modal-content">
                 <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title"><span class="glyphicon glyphicon-search"></span> <span id="Span1"></span> <i id="I1" class="fa fa-spinner fa-spin"></i></h4>
+                <h4 class="modal-title"><i class="fa fa-bell-o"></i></h4>
                 </div>
                 <div class="modal-body">
                     <span id="notificationitems"></span>
@@ -227,10 +233,10 @@
         <div class="modal-content">
                 <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title"><i class="fa fa-cube fa-lg "></i> Apps </h4>
+                <h4 class="modal-title"><i class="fa fa-cubes fa-lg "></i> Apps </h4>
                 </div>
                 <div class="modal-body">
-                      <ul class="nav nav-tabs" role="tablist">
+                      <ul class="nav nav-tabs" role="tablist" id="appsmodaltabs">
                         <li role="presentation" class="active"><a href="#allapps" aria-controls="allapps" role="tab" data-toggle="tab"><i class="fa fa-asterisk fa-2x"></i></a></li>
                         <li role="presentation"><a href="#historyapps" aria-controls="historyapps" role="tab" data-toggle="tab"><i class="fa fa-history fa-2x"></i></a></li>
                         <li role="presentation"><a href="#favoritesapps" aria-controls="favoritesapps" role="tab" data-toggle="tab"><i class="fa fa-star fa-2x"></i></a></li>
@@ -268,8 +274,23 @@
         <script src="../js/jquery.gritter.js"></script>
         <script src="../js/pubnub.min.js"></script>
 
+        <script src="../js/ripples.min.js"></script>
+        <script src="../js/material.min.js"></script>  
+
       <script>
           $(document).ready(function () {
+
+              $.material.init();
+
+              if (localStorage.perzisterDOCid != undefined) {
+                  $(".sectionng").addClass('hide');
+                  $("#sectiondocumentedit").toggleClass('hide').find('form:first').find('input:first').focus();
+                  GetDocItems();
+              } else {
+                  $(".sectionng").addClass('hide');
+                  $("#sectionnewitem").toggleClass('hide').find('form:first').find('input:first').focus();
+              }
+
           // ============================================================================= top search
 
                   $('#topsearchtext').on("keypress", function (e) {
@@ -291,7 +312,6 @@
                   function TopSearch() {
                       $("#ajaxloader0,#appheadericon").toggleClass('hide');
                       $('#topsearchresultslist').hide();
-                      var strFormattedHTML = '';
                       $.ajax({
                           url: localStorage.perzisterURL,
                           data: "d=" + localStorage.perzisterD + "&action=searchdocuments&s=" + $('#topsearchtext').val(),
@@ -299,18 +319,11 @@
                           jsonp: 'jsoncallback',
                           timeout: 30000,
                           success: function (data, status) {
-                              $.each(data.items, function (i, item) {
-                                  strFormattedHTML = strFormattedHTML
-                                  + '<tr data-id="' + item.MaloprodajaGlaId + '"><td class="actionbutton" data-perzister-showsectiononclick="sectiondocumentedit"><span class="label label-primary" >' + item.DatumDok + ' #' + item.BrojDok + '</span> ' + FormatStatus(item.Status) + '  ' + item.osoba + '<h4><span class="glyphicon glyphicon-user perzister-dimed"></span> ' + item.partner + '</h4></td><td></td><td class="perzister-alnright">' + item.mpiznos.toFixed(2) + '</td><td class="perzister-rowicon perzister-alnright actionbutton" data-perzister-showsectiononclick="sectionprintprewiev" ><span class="glyphicon glyphicon-print"></span></td></tr>'
-                              });
-                              strFormattedHTML = '<table id="topsearchtable" class="table">'
-                                  + '<thead></thead>'
-                                  + '<tbody>' + strFormattedHTML + '</tbody></table>'
-                              $("#topsearchresultslist").html(strFormattedHTML);
+                              $("#topsearchresultslist").html(FormatDocItems(data));
                               $("#topsearchresultslist .actionbutton").on("click", function (event) {
+                                  localStorage.perzisterDOCid = $(this).parent().attr('data-id');
                                   $(".sectionng").addClass('hide');
                                   $("#" + $(this).attr('data-perzister-showsectiononclick')).toggleClass('hide').find('form:first').find('input:first').focus();
-                                  //$(window).resize();
                               });
                               //if (localStorage.getItem('perzister-fullscreenlistbutton') == '1') { $('#topsearchtable').dataTable(); } else { $('#topsearchtext').fastLiveFilter('tbody'); }
                               $("#ajaxloader0,#appheadericon").toggleClass('hide');
@@ -322,6 +335,51 @@
                       });
                   }
 
+                 // filter form
+                  $("#btngetpartneri").on("click", function () {
+                      GetDocuments();
+                  });
+
+                  function GetDocuments() {
+                      $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      $('#partnerilist').hide();
+                      var strFormattedHTML = '';
+                      $.ajax({
+                          url: localStorage.perzisterURL,
+                          data: "d=" + localStorage.perzisterD + "&action=searchdocuments",
+                          dataType: 'jsonp',
+                          jsonp: 'jsoncallback',
+                          timeout: 30000,
+                          success: function (data, status) {
+                              $("#partnerilist").html(FormatDocItems(data));
+                              $("#partnerilist .actionbutton").on("click", function (event) {
+                                  localStorage.perzisterDOCid = $(this).parent().attr('data-id');
+                                  $(".sectionng").addClass('hide');
+                                  $("#" + $(this).attr('data-perzister-showsectiononclick')).toggleClass('hide').find('form:first').find('input:first').focus();
+                              });
+                              //if (localStorage.getItem('perzister-fullscreenlistbutton') == '1') { $('#topsearchtable').dataTable(); } else { $('#topsearchtext').fastLiveFilter('tbody'); }
+                              $('#partnerilist').show();
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          }
+                      });
+                  }
+
+                  function FormatDocItems(data) {
+                      var strFormattedHTML = '';
+                      $.each(data.items, function (i, item) {
+                          strFormattedHTML = strFormattedHTML
+                          + '<tr data-id="' + item.MaloprodajaGlaId + '"><td class="actionbutton" data-perzister-showsectiononclick="sectiondocumentedit"><span class="label label-primary" >' + item.DatumDok + ' #' + item.BrojDok + '</span> ' + FormatStatus(item.Status) + '  ' + item.osoba + '<h4><span class="glyphicon glyphicon-user perzister-dimed"></span> ' + item.partner + '</h4></td><td></td><td class="perzister-alnright">' + item.mpiznos.toFixed(2) + '</td><td class="perzister-rowicon perzister-alnright actionbutton" data-perzister-showsectiononclick="sectionprintprewiev" ><span class="glyphicon glyphicon-print"></span></td></tr>'
+                      });
+                      strFormattedHTML = '<table id="topsearchtable" class="table">'
+                          + '<thead></thead>'
+                          + '<tbody>' + strFormattedHTML + '</tbody></table>'
+                      
+                      return strFormattedHTML;
+                  }
+
                   function FormatStatus(status) {
                       var str = '';
                       if (status == '1') { str = '<span class="label label-success"><span class="glyphicon glyphicon-edit"></span></span>'; }
@@ -330,7 +388,7 @@
                       return str;
                   }
 
-                  // ============================================================================= app specific
+              // ============================================================================= app specific
 
                   $("#addnewitembutton").on('click', function () {
                       $(':input', '#filterformaddnewitem').not(':button, :submit, :reset, :hidden').val('').removeAttr('checked').removeAttr('selected');
@@ -359,36 +417,7 @@
                   });
                   // ====================================================================================== GetItems & TABLE FORMAT JSON
 
-                  $("#btngetpartneri").on("click", function () {
-                      GetPartneri();
-                  });
-
-                  function GetPartneri() {
-                      $("#ajaxloader0,#appheadericon").toggleClass('hide');
-                      $('#partnerilist').hide();
-                      var strFormattedHTML = '';
-                      $.ajax({
-                          url: localStorage.perzisterURL,
-                          data: "d=" + localStorage.perzisterD + "&action=getpartneri",
-                          dataType: 'jsonp',
-                          jsonp: 'jsoncallback',
-                          timeout: 30000,
-                          success: function (data, status) {
-                              $.each(data, function (i, item) {
-                                  strFormattedHTML = strFormattedHTML
-                                  + '<tr><td>' + item.partneriid + '</td><td>' + item.naziv + '</td><td>' + item.matbroj + '</td><td>' + item.mjestanaziv + '</td></tr>'
-                              });
-                              strFormattedHTML = '<table id="partneritable" class="table nowrap"><thead><tr><th>id</th><th>naziv</th><th>mat broj</th><th>mjesto</th></tr></thead><tbody>' + strFormattedHTML + '</tbody></table>'
-                              $("#partnerilist").html(strFormattedHTML);
-                              if (localStorage.getItem('perzister-fullscreenlistbutton') == '1') { $('#partneritable').dataTable(); }
-                              $('#partnerilist').show();
-                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
-                          },
-                          error: function (xhr, ajaxOptions, thrownError) {
-                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
-                          }
-                      });
-                  }
+                  
 
                   //GetDocItems();
                   function GetDocItems() {

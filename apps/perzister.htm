@@ -43,7 +43,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectiondocumentedit"><i id="ajaxloader0" class="fa fa-spinner fa-spin hide" ></i><i id="appheadericon" class="fa fa-cloud-upload "></i> perzister </span> <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span id="numberofnotifications" >1</span></span></a>
+              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectiondocumentedit"><i id="ajaxloader0" class="fa fa-spinner fa-spin hide" ></i><i id="appheadericon" class="fa fa-cloud-upload "></i> perzister </span> <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span class="badge" id="numberofnotifications" >1</span></span></a>
             </div>
 
           
@@ -246,7 +246,7 @@
         <div class="modal-content">
                 <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title"><span class="glyphicon glyphicon-search"></span> <span id="Span1"></span> <i id="I1" class="fa fa-spinner fa-spin"></i></h4>
+                <h4 class="modal-title"><i class="fa fa-bell-o"></i></h4>
                 </div>
                 <div class="modal-body">
                         <span id="notificationitems"></span>
@@ -265,10 +265,10 @@
         <div class="modal-content">
                 <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title"><i class="fa fa-cube fa-lg "></i> Apps </h4>
+                <h4 class="modal-title"><i class="fa fa-cubes fa-lg "></i> Apps </h4>
                 </div>
                 <div class="modal-body">
-                      <ul class="nav nav-tabs" role="tablist">
+                      <ul class="nav nav-tabs" role="tablist" id="appsmodaltabs">
                         <li role="presentation" class="active"><a href="#allapps" aria-controls="allapps" role="tab" data-toggle="tab"><i class="fa fa-asterisk fa-2x"></i></a></li>
                         <li role="presentation"><a href="#historyapps" aria-controls="historyapps" role="tab" data-toggle="tab"><i class="fa fa-history fa-2x"></i></a></li>
                         <li role="presentation"><a href="#favoritesapps" aria-controls="favoritesapps" role="tab" data-toggle="tab"><i class="fa fa-star fa-2x"></i></a></li>
@@ -307,6 +307,7 @@
     <script>
         $(document).ready(function () {
             //$.backstretch(["bg/1.jpg"]);
+            $('.perzister-backstretch-it').backstretch(["../bg/3.jpg"]);
             $('#topsearchtext').fastLiveFilter('ul'); // local fast live search
             $(".popover2").popover();
             $('#apptitle').on("click", function (e) {

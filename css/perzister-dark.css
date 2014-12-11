@@ -9,8 +9,8 @@ legend {  color : #fff; }
 .btn-group .btn:hover { color:#fff; }
 .perzister-hr { margin-bottom: 10px;  margin-top: 0px; border-color:#2d3033; }
 .form-control {background-color:#f5f3f3;}
-label {font-weight:100; color : #ccc;   }
+label {font-weight:100; color : #ccc !important;   }
 .perzister-h4 {margin-top:10px; margin-bottom:15px; color : #ccc;}
-#topsearchtext { background-color:#2d3033 ; border:0px; color:#ccc; }
+#topsearchtext222 { background-color:#2d3033 ; border:0px; color:#ccc; }
 .appcolfav,.favoritesrow { background: url("../bg/transparent-bg.png");  }
 

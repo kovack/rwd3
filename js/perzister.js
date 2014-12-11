@@ -48,47 +48,68 @@
 
     // ====================================================================================== populate APPS : ALL, HISTORY & FAVORITES
 
+    $('#appsmodaltabs a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+
+    // store the currently selected tab in the hash value
+    $("#appsmodaltabs a").on("shown.bs.tab", function (e) {
+        var id = $(e.target).attr("href").substr(1);
+        //window.location.hash = id;
+        localStorage.perzisterAPPMODALTAB = id
+    });
+
+
     //$('#apptitle').click(function (e) { $(".sectionng").addClass('hide'); $("#" + $(this).attr('data-perzister-showsectiononclick')).toggleClass('hide'); $(window).resize(); });
 
     $("#apptitle,.quickapplicationlistbtn").on('click', function () {
-        var str = '';
-        var obj2 = JSON.parse(localStorage.perzisterApps);
-        
-        $.each(obj2.apps, function (i, item) {
-            if (item.Parametar != '') {
-                str = str
-                        + '<tr class="approw" data-url="' + item.Parametar + '" data-ikona="' + item.Ikona + '" data-opis="' + item.Opis + '" data-hint="' + item.Hint + '" >'
-                        + '<td>'
-                        + '<div class="pull-left perzister-dimed "><i class="fa fa-' + item.Ikona + ' fa-3x fa-fw approwicon"></i></div>'
-                        + '</td>'
-                        + '<td>'
-                        + '<strong>' + item.Opis + '</strong> <div class="text-muted">' + item.Hint + '</div>'
-                        + '<td>'
-                        + '</tr>'
+       
+        if ($("#quickapplicationlist").html() == '') {
+            if (localStorage.perzisterApps != undefined) {
+                var str = '';
+                var obj2 = JSON.parse(localStorage.perzisterApps);
+                $.each(obj2.apps, function (i, item) {
+                    if (item.Parametar != '') {
+                        str = str
+                                + '<tr class="approw" data-url="' + item.Parametar + '" data-ikona="' + item.Ikona + '" data-opis="' + item.Opis + '" data-hint="' + item.Hint + '" >'
+                                + '<td>'
+                                + '<div class="pull-left perzister-dimed "><i class="fa fa-' + item.Ikona + ' fa-3x fa-fw approwicon"></i></div>'
+                                + '</td>'
+                                + '<td>'
+                                + '<strong>' + item.Opis + '</strong> <div class="text-muted">' + item.Hint + '</div>'
+                                + '<td>'
+                                + '</tr>'
+                    }
+                }
+                );
+                $("#quickapplicationlist").html('<table class="table table-hover"><tbody>' + str + '</tbody></table>');
             }
         }
-        );
-        $("#quickapplicationlist").html('<table class="table table-hover"><tbody>' + str + '</tbody></table>');
 
-        str = '';
-        var obj3 = JSON.parse(localStorage.perzisterAppHistory);
-        var i = obj3.apps.length;  
-        while (i--) {
-            item = obj3.apps[i];
-            if (item.Parametar != '') {
-                str = str
-                            + '<tr class="approw" data-url="' + item.Parametar + '" data-ikona="' + item.Ikona + '" data-opis="' + item.Opis + '" data-hint="' + item.Hint + '" >'
-                            + '<td>'
-                            + '<div class="pull-left perzister-dimed "><i class="fa fa-' + item.Ikona + ' fa-3x fa-fw approwicon"></i></div>'
-                            + '</td>'
-                            + '<td>'
-                            + '<strong>' + item.Opis + '</strong> <div class="text-muted">' + item.Hint + '</div>'
-                            + '<td>'
-                            + '</tr>'
+        if ($("#quickapplicationlisthistory").html() == '') {
+            if (localStorage.perzisterAppHistory != undefined) {
+                str = '';
+                var obj3 = JSON.parse(localStorage.perzisterAppHistory);
+                var i = obj3.apps.length;
+                while (i--) {
+                    item = obj3.apps[i];
+                    if (item.Parametar != '') {
+                        str = str
+                                    + '<tr class="approw" data-url="' + item.Parametar + '" data-ikona="' + item.Ikona + '" data-opis="' + item.Opis + '" data-hint="' + item.Hint + '" >'
+                                    + '<td>'
+                                    + '<div class="pull-left perzister-dimed "><i class="fa fa-' + item.Ikona + ' fa-3x fa-fw approwicon"></i></div>'
+                                    + '</td>'
+                                    + '<td>'
+                                    + '<strong>' + item.Opis + '</strong> <div class="text-muted">' + item.Hint + '</div>'
+                                    + '<td>'
+                                    + '</tr>'
+                    }
+                }
+
+                $("#quickapplicationlisthistory").html('<table class="table table-hover"><tbody>' + str + '</tbody></table>');
             }
         }
-        
-        $("#quickapplicationlisthistory").html('<table class="table table-hover"><tbody>' + str + '</tbody></table>');
 
         $(".approw").on('click', function () { // first save click for history list then redirect to url
             var jsonStrApps = localStorage.perzisterAppHistory;
@@ -106,6 +127,9 @@
         });
 
         $("#quickapplicationlistdialog").modal("show");
+        var hash = localStorage.perzisterAPPMODALTAB;
+        $('#appsmodaltabs a[href="#' + hash + '"]').tab('show');
+
     });
 
     // ====================================================================================== populate NAV ACTION button  

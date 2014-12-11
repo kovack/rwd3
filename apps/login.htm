@@ -161,6 +161,13 @@
                 Login();
             });
 
+            function StartAppWithDelay(strURL) {
+                //$(".fa-spin").hide();
+                setTimeout(function () {
+                    window.location = strURL;
+                }, 1500);
+            }
+
             function Login() {
                 //ConsoleLog('START Login()');
                 if ($("#w").val() == '') { alert('No web service URL !'); return; }
@@ -187,21 +194,39 @@
                             $("#loginform").hide();
                             $("#usernamenav").html(data.username);
                             $("#wellcomeuser,.perzister-hiddeniflogoff").removeClass('hide');
-                            localStorage.perzisterURL = $("#w").val();
+                            localStorage.perzisterO = $("#o").val(); // device
+                            localStorage.perzisterURL = $("#w").val(); // web service
                             localStorage.perzisterG = data.userguid;
-                            localStorage.perzisterE = $("#e").val();
-                            localStorage.perzisterP = $("#p").val();
-                            localStorage.perzisterD = $("#d").val();
-                            localStorage.perzisterO = $("#o").val();
-                            localStorage.perzisterU = data.username;
-                            // $(window).resize();
-                            // window.location = '../index.htm';
-                            if (localStorage.perzisterApp != undefined) {
-                                if (localStorage.perzisterApp != 'login.htm') {
-                                    window.location = localStorage.perzisterApp;
+                            localStorage.perzisterE = $("#e").val(); // user name
+                            localStorage.perzisterP = $("#p").val(); // user app password
+                            localStorage.perzisterD_before = localStorage.perzisterD;
+                            localStorage.perzisterD = $("#d").val(); // database name
+                            // easter egg
+                            if ((localStorage.perzisterD_before != localStorage.perzisterD) || localStorage.perzisterO=='reset' ) {
+                                for (var j = localStorage.length - 1; j >= 0; j--) {
+                                    if ((localStorage.key(j) + '                 ').substr(0, 14) == 'perzisterCOMBO') {
+                                        localStorage.removeItem(localStorage.key(j));
+                                    }
                                 }
                             }
-                            window.location = 'menu.htm';
+                            localStorage.perzisterU = data.username;
+                            localStorage.perzisterAPPaftersuccessfullogin = data.appaftersuccessfullogin;
+                            localStorage.perzisterAPPrequired = data.apprequired;
+                            localStorage.perzisterAPPrequiredonce = data.apprequiredonce;
+                            // $(window).resize();
+                            // window.location = '../index.htm';
+                            var strAppToStart = 'menu.htm';
+                            if (localStorage.perzisterApp != undefined) {
+                                if (localStorage.perzisterApp != 'login.htm') {
+                                    //window.location = localStorage.perzisterApp;
+                                    strAppToStart = localStorage.perzisterApp;
+                                }
+                            }
+                            if (localStorage.perzisterAPPaftersuccessfullogin != '') { strAppToStart = localStorage.perzisterAPPaftersuccessfullogin; }
+                            if (localStorage.perzisterAPPrequired != '') { strAppToStart = localStorage.perzisterAPPrequired; }
+                            StartAppWithDelay(strAppToStart);
+                            //window.location = 'menu.htm';
+                            //StartAppWithDelay('menu.htm');
                         }
                         else { $("#loginbutton").removeClass('disabled').removeAttr('disabled', 'disabled'); }
                         $("#ajaxloader0,#appheadericon").toggleClass('hide');

@@ -5,11 +5,13 @@
 .actionbutton:hover { cursor : pointer; }
 .perzister-docbuttons { margin-bottom :5px;}
  
-#activenotificationicon {color:#d9534f;}
+
 #quickapplicationlistbtn { display:none; color:#888; padding-right:10px;}
 #quickapplicationlistbtn:hover {color:#fff; }
-#disablednotificationicon  {color:#888; }
-#numberofnotifications {left:-12px; top: -3px; position:relative; font-size:0.5em; font-weight:bold;}
+
+#activenotificationicon222 {color:#d9534f;}
+#disablednotificationicon222  {color:#888; }
+#numberofnotifications {left:-13px; top: -9px; position:relative; font-size:0.5em; font-weight:bold;}
 
 .approwicon {color:#777;}
  

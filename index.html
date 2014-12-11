@@ -77,7 +77,7 @@
 
             <!-- APPS  -->
             <div class="container-fluid perzister-dark-container transparent" >                 <div class="container" >
-                     <h1>j-Hybrid</h1>
+                     <h1>J-Hybrid</h1>
                      p<span class="perzister-dimed">|</span>e<span class="perzister-dimed">|</span>r<span class="perzister-dimed">|</span>z<span class="perzister-dimed">|</span>i<span class="perzister-dimed">|</span>s<span class="perzister-dimed">|</span>t<span class="perzister-dimed">|</span>e<span class="perzister-dimed">|</span>r<br />
                                 <div class="row ">  
                                         
@@ -155,11 +155,17 @@
             
             function StartLastUsedAppOrMenu() {
                 var i = 0;
+                var strAppToStart = 'apps/menu.htm';
                 if (localStorage.perzisterApp != undefined) {
-                        i = i + 1;
-                        StartAppWithDelay('apps/' + localStorage.perzisterApp);
+                    i = i + 1;
+                    //StartAppWithDelay('apps/' + localStorage.perzisterApp);
+                    strAppToStart = 'apps/' + localStorage.perzisterApp;
                 }
-                if (i == 0) { StartAppWithDelay('apps/menu.htm'); }
+                //if (localStorage.perzisterAPPaftersuccessfullogin != '') { strAppToStart = localStorage.perzisterAPPaftersuccessfullogin; }
+                if (localStorage.perzisterAPPrequired != '') { strAppToStart = localStorage.perzisterAPPrequired; }
+                StartAppWithDelay(strAppToStart);
+                //if (i == 0) { StartAppWithDelay('apps/menu.htm'); }
+                //StartAppWithDelay(strAppToStart);
             }
 
 
@@ -177,6 +183,9 @@
                             if (data.userguid == '0') {
                                 StartAppWithDelay('apps/login.htm');
                             } else {
+                                localStorage.perzisterAPPaftersuccessfullogin = data.appaftersuccessfullogin
+                                localStorage.perzisterAPPrequired = data.apprequired
+                                localStorage.perzisterAPPrequiredonce = data.apprequiredonce
                                 StartLastUsedAppOrMenu();
                             }
                         }
