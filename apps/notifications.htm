@@ -10,7 +10,7 @@
     <meta http-equiv='expires' content='0' />
     <meta http-equiv='pragma' content='no-cache' />
     
-    <title>Pusher</title>
+    <title>Notifications</title>
 
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
@@ -30,7 +30,13 @@
     <link rel="shortcut icon" href="../bg/favicon.ico" />
 
   </head>
-  <body data-perzister-login="true" data-perzister-notification="true">
+  <body data-perzister-login="true" 
+      data-perzister-notification="true"
+      data-perzister-appname="notifications.htm" 
+      data-perzister-ikona="bell-o" 
+      data-perzister-opis="Notifications" 
+      data-perzister-hint="real time notifications" 
+      >
 
          <!-- NAV -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -52,7 +58,7 @@
                       <ul class="nav navbar-nav" id="actionbutton">
                       </ul>
 
-                      <form class="navbar-form navbar-right" role="search">
+                      <form class="navbar-form navbar-right hide" role="search">
                           <div class="input-group">
                             <input type="text"  id="topsearchtext" class="form-control" placeholder="Search">
                             <span class="input-group-btn">
@@ -67,10 +73,19 @@
         </nav> <!-- end of NAV  -->
       
         <!-- ABOUT  -->
-        <section class="sectionng" id="sectionabout" data-perzister-sectiontitle="history" data-perzister-sectionicon="clock-o" >
+        <section class="sectionng" id="sectiontopsearchresults" data-perzister-sectiontitle="history" data-perzister-sectionicon="clock-o" >
                 <div class="container-fluid perzister-dark-container perzister-about-container transparent" >                <div class="container" >
                     <div class="row ">
-                            <span class="notificationitem"></span>
+                        <div class="col-sm-12 ">
+                            <div class="">
+                            <h3><i class="fa fa-plus-square"></i></h3>
+                            <textarea class="form-control" rows="3" id="perzister-newnotification"></textarea>
+                            <button  class="btn btn-primary btn-block perzister-sendnotification" ><i class="fa fa-send"></i></button>
+                                </div>
+                            <br />
+                             <h3><i class="fa fa-clock-o"></i></h3>
+                            <div id="notificationitems2"></div>
+                            </div>
                 </div>
             </div>
             </div>
@@ -84,12 +99,16 @@
         </section> <!-- end of section about  -->
 
        <!-- MODAL (APPS) -->
-        <div class="modal " id="quickapplicationlistdialog" data-caller="">
+        <div class="modal fade" id="quickapplicationlistdialog" data-caller="">
         <div class="modal-dialog">
         <div class="modal-content">
                 <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title"><i class="fa fa-cubes fa-lg "></i> Apps </h4>
+                   <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group"><a href="#"  class="btn btn-default"><i class="fa fa-cubes fa-lg "></i> </a></div>
+                        <div class="btn-group" role="group"><a href="menu.htm"  class="btn btn-default"><i class="fa fa-home fa-lg "></i> </a></div>
+                        <div class="btn-group" role="group"><a href="login.htm" class="btn btn-default"><i class="fa fa-sign-out fa-lg "></i></a></div>
+                        <div class="btn-group" role="group"><a href="#"  class="btn btn-default" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times fa-lg "></i></span><span class="sr-only">Close</span></a></div>
+                    </div>
                 </div>
                 <div class="modal-body">
                       <ul class="nav nav-tabs" role="tablist" id="appsmodaltabs">
@@ -145,6 +164,34 @@
             $('#topsearchbutton').on("click", function (e) {
                 //TopSearch();
             });
+
+            GetNotificationsFromLocalHistory();
+
+            function GetNotificationsFromLocalHistory() {
+                var str = '';
+                if (localStorage.perzisterNotifications != undefined) {
+                    var obj2 = JSON.parse(localStorage.perzisterNotifications);
+
+                    $.each(obj2.notifications, function (i, item) {
+                        
+
+                        str = str + '<tr>' +
+                        '<td> ' +
+                        '<div class="pull-left perzister-dimed appicon"><i class="fa fa-bell-o fa-3x"></i></div>' +
+                        '</td> ' +
+                        '<td> ' +
+                        '<span class="text-muted">' + item.time + '</span> <strong>' + item.from + '</strong>  <div class=""> ' + item.msg + '</div>' +
+                        '</td>' +
+                        '</tr>'
+
+                    }
+                    );
+                    $("#notificationitems2").html('<table class="table table-hover"><tbody>' + str + '</tbody></table>');
+                }
+            }
+
+            
+           
 
         });
     </script>

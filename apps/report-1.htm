@@ -23,121 +23,132 @@
     <link href="../css/print.css" rel="stylesheet" media="print" />
 
     <style>
-       body {  padding-top:50px; }
-        .perzister-about-container { padding-top : 150px; padding-bottom:100px; text-align: center;}
+            body {  padding-top:50px; }
+
+            .modal.fade:not(.in) .modal-dialog {
+                                                    -webkit-transform: translate3d(-50%, 0, 0);
+                                                    transform: translate3d(-50%, 0, 0);
+                                                }
+
+            .perzister-about-container { padding-top : 150px; padding-bottom:100px; text-align: center;}
+
+            /*
+             * Global add-ons
+             */
+
+            .sub-header {
+              padding-bottom: 10px;
+              border-bottom: 1px solid #eee;
+            }
+
+            /*
+             * Top navigation
+             * Hide default border to remove 1px line.
+             */
+            .navbar-fixed-top {
+              border: 0;
+            }
+
+            /*
+             * Sidebar
+             */
+
+            /* Hide for mobile, show later */
+            .sidebar {
+              display: none;
+            }
+            @media (min-width: 768px) {
+              .sidebar {
+                position: fixed;
+                top: 45px;
+                bottom: 0;
+                left: 0;
+                z-index: 1000;
+                display: block;
+                padding: 20px;
+                overflow-x: hidden;
+                overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+                border-right: 1px solid #777;
+                min-width: 200px;
+              }
+            }
+
+            /* Sidebar navigation */
+            .nav-sidebar {
+              margin-right: -21px; /* 20px padding + 1px border */
+              margin-bottom: 20px;
+              margin-left: -20px;
+            }
+            .nav-sidebar > li > a {
+              padding-right: 20px;
+              padding-left: 20px;
+            }
 
 
 
+                .side-nav>li>a {
+                    width: 225px;
+                    color: #808080;
+                }
 
-/*
- * Global add-ons
- */
+            .side-nav>li>ul>li>a {
+                color: #808080;
+            }
 
-.sub-header {
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-/*
- * Top navigation
- * Hide default border to remove 1px line.
- */
-.navbar-fixed-top {
-  border: 0;
-}
-
-/*
- * Sidebar
- */
-
-/* Hide for mobile, show later */
-.sidebar {
-  display: none;
-}
-@media (min-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 45px;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    display: block;
-    padding-top: 20px;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    border-right: 1px solid #777;
-    min-width: 200px;
-  }
-}
-
-/* Sidebar navigation */
-.nav-sidebar {
-  margin-right: -21px; /* 20px padding + 1px border */
-  margin-bottom: 20px;
-  margin-left: -20px;
-}
-.nav-sidebar > li > a {
-  padding-right: 10px;
-  padding-left: 10px;
-}
+            .gmenuitem {    list-style-type: none;  }
+            .gmenuitem1 {    list-style-type: none;  }
 
 
+            /*
+             * Main content
+             */
 
-    .side-nav>li>a {
-        width: 225px;
-        color: #808080;
-    }
-
-.side-nav>li>ul>li>a {
-    color: #808080;
-}
-
-.gmenuitem {    list-style-type: none;  }
-
-
-/*
- * Main content
- */
-
-.main {
-  padding: 10px;
-}
-@media (min-width: 768px) {
-  .main {
-    padding-right: 40px;
-    padding-left: 40px;
-  }
-}
-.main .page-header {
-  margin-top: 0;
-}
+            .main {
+              padding: 20px;
+            }
+            @media (min-width: 768px) {
+              .main {
+                padding-right: 40px;
+                padding-left: 40px;
+              }
+            }
+            .main .page-header {
+              margin-top: 0;
+            }
 
 
-/*
- * Placeholder dashboard ideas
- */
+            /*
+             * Placeholder dashboard ideas
+             */
 
-.placeholders {
-  margin-bottom: 30px;
-  text-align: center;
-}
-.placeholders h4 {
-  margin-bottom: 0;
-}
-.placeholder {
-  margin-bottom: 20px;
-}
-.placeholder img {
-  display: inline-block;
-  border-radius: 50%;
-}
+            .placeholders {
+              margin-bottom: 30px;
+              text-align: center;
+            }
+            .placeholders h4 {
+              margin-bottom: 0;
+            }
+            .placeholder {
+              margin-bottom: 20px;
+            }
+            .placeholder img {
+              display: inline-block;
+              border-radius: 50%;
+            }
 
     </style>
 
     <link rel="shortcut icon" href="../bg/favicon.ico" />
 
   </head>
-  <body data-perzister-login="true" data-perzister-notification="false" >
+
+  <body     data-perzister-login="true" 
+            data-perzister-notification="false" 
+            data-perzister-appname="report-1.htm" 
+            data-perzister-ikona="list-alt" 
+            data-perzister-opis="report 1" 
+            data-perzister-hint="report 1"  
+      >
 
         <!-- NAV -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -150,7 +161,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectionfilterform"><i id="ajaxloader0" class="fa fa-spinner fa-spin hide" ></i><i id="appheadericon" class="fa fa-list-alt "></i> Report 1 </span> <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span class="badge" id="numberofnotifications" >1</span></span></a>
+                <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectionfilterform"><i id="ajaxloader0" class="fa fa-spinner fa-spin hide"></i><i id="appheadericon" class="fa fa-list-alt "></i> Report 1 </span><i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i><i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i><span id="activenotificationicon" class="hide"><i class="fa fa-bell-o"></i><span id="numberofnotifications">1</span></span></a>
             </div>
 
           
@@ -159,7 +170,7 @@
                       <ul class="nav navbar-nav" id="actionbutton">
                       </ul>
 
-                      <form class="navbar-form navbar-right" role="search">
+                      <form id="topsearchform" class="navbar-form navbar-right hide" role="search">
                           <div class="input-group">
                             <input type="text"  id="topsearchtext" class="form-control" placeholder="Search">
                             <span class="input-group-btn">
@@ -167,16 +178,15 @@
                             </span>
                          </div><!-- /input-group -->
                       </form>
+
                     </div><!-- /.navbar-collapse -->
               
 
           </div><!-- /.container-fluid -->
         </nav> <!-- end of NAV  -->
-      
-       
-         
-                 <!-- FILTER FORM -->
-                <section class="sectionng visible-xs" id="sectionfilterform" data-perzister-sectiontitle="filter" data-perzister-sectionicon="filter" >
+ 
+        <!-- FILTER FORM -->
+        <section class="sectionng visible-xs" id="sectionfilterform" data-perzister-sectiontitle="" data-perzister-sectionicon="" >
             <div class="container-fluid perzister-dark-container"  >
             <div class="container" >
 
@@ -198,45 +208,28 @@
 	                <div class="col-sm-6 transparent">
 
 		                <div class="form-group">
-						<label class="col-sm-3 control-label" for="partneriFid">Partneri</label>
+						<label class="col-sm-3 control-label" >Datum od:</label>
 						<div class="col-sm-9">
                             <div class="input-group">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-						        <input type="search" id="partneriid" class="col-sm-10 form-control searchtextbox perzistonblur enterastab " name="partneriid" data-perzister-webserviceaction="searchpartners" data-form="filterform" value="" />
+                                <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                <input type="date" id="datumod" class="col-sm-10 form-control perzistonblur enterastab " name="datumod"  data-form="filterform" value="2013-09-01" />
                             </div>
 						</div>
 						</div>
-
-                        <div class="form-group">
-						<label class="col-sm-3 control-label" for="partneriFid">Roba</label>
-						<div class="col-sm-9">
-                            <div class="input-group">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-						        <input type="search" id="robaid" class="col-sm-10 form-control searchtextbox perzistonblur enterastab " name="robaid" data-perzister-webserviceaction="searchproducts" data-form="filterform" value="" />
-                            </div>
-						</div>
-						</div>
-
-		                 
-
                    </div>
 
                     <div class="col-sm-6 transparent">
 		            <div class="form-group">
-		            <label class="col-sm-3 control-label" for="orgshemaFid">Org shema</label>
+		            <label class="col-sm-3 control-label" >Datum do:</label>
 		            <div class="col-sm-9">
-		            <select id="orgshemaFid" class="form-control combobox perzistonblur enterastab" data-perzister-webserviceaction="getorgshema" data-form="filterform" >
-		            </select>
+                                <div class="input-group">
+                                       <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                        <input type="date" id="datumdo" class="col-sm-10 form-control perzistonblur enterastab " name="datumdo"  data-form="filterform" value="2013-09-02" />
+                                </div>
 		            </div>
 		            </div>
 
-		            <div class="form-group">
-		            <label class="col-sm-3 control-label" for="skladisteFid">Skladiste</label>
-		            <div class="col-sm-9">
-		            <select id="skladisteFid" class="form-control  combobox perzistonchange enterastab" data-perzister-webserviceaction="getskladista" data-form="filterform" >
-		            </select>
-		            </div>
-		            </div>
+
 
                     
                 </div> <!-- end of col -->
@@ -253,7 +246,7 @@
                 </div>         <!-- end of container -->
                 </div>         <!-- end of container fluid -->
 
-              <div class="container" >
+              <div class="container" id="sectiontopsearchresults">
                   <br />
                     <div class="row ">
 	                    <div class="col-sm-12">
@@ -264,13 +257,21 @@
 
 	      </section>  <!-- end of section filterform -->
 
-    <div class="container-fluid hidden-xs perzister-dark-container">
+        <div class="container-fluid hidden-xs perzister-dark-container">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar perzister-dark-container">
              <div id="menuitems1"></div>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
+               <div class="row" >
+                        <div class="col-sm-6 transparent">
+					      <h4 class="perzister-h4" ><span class="control-label"><i class="fa fa-filter"></i> filter  </span> </h4>
+                        </div>
+                        <div class="col-sm-6 ">
+                        
+                        </div>
+                </div>
 
 <form class="form-horizontal" role="form" name="filterform" id="filterform1">
 
@@ -279,24 +280,16 @@
                         <div class="col-sm-6 transparent">
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="partneriFid">Partneri</label>
+                                <label class="col-sm-3 control-label" for="partneriFid">Datum od:</label>
                                 <div class="col-sm-9">
                                     <div class="input-group">
-                                        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-                                        <input type="search" id="partneriid1" class="col-sm-10 form-control searchtextbox perzistonblur enterastab " name="partneriid" data-perzister-webserviceaction="searchpartners" data-form="filterform" value="" />
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                        <input type="date" id="datumod1" class="col-sm-10 form-control perzistonblur enterastab " name="datumod"  data-form="filterform" value="2013-09-01" />
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="partneriFid">Roba</label>
-                                <div class="col-sm-9">
-                                    <div class="input-group">
-                                        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-                                        <input type="search" id="robaid1" class="col-sm-10 form-control searchtextbox perzistonblur enterastab " name="robaid" data-perzister-webserviceaction="searchproducts" data-form="filterform" value="" />
-                                    </div>
-                                </div>
-                            </div>
+
 
 
 
@@ -304,21 +297,14 @@
 
                         <div class="col-sm-6 transparent">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="orgshemaFid">Org shema</label>
+                                <label class="col-sm-3 control-label" for="orgshemaFid">Datum do:</label>
                                 <div class="col-sm-9">
-                                    <select id="orgshemaFid1" class="form-control combobox perzistonblur enterastab" data-perzister-webserviceaction="getorgshema" data-form="filterform">
-                                    </select>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+                                        <input type="date" id="datumdo1" class="col-sm-10 form-control perzistonblur enterastab " name="datumdo"  data-form="filterform" value="2013-09-02" />
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="skladisteFid">Skladiste</label>
-                                <div class="col-sm-9">
-                                    <select id="skladisteFid1" class="form-control  combobox perzistonchange enterastab" data-perzister-webserviceaction="getskladista" data-form="filterform">
-                                    </select>
-                                </div>
-                            </div>
-
 
                         </div>
                         <!-- end of col -->
@@ -343,10 +329,15 @@
         </div>
       </div>
     </div>
-                    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main hidden-xs">
-                   <div class="container " >
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main hidden-xs">
+                   <div class="container-fluid " id="sectiontopsearchresults1">
                 <div class="row ">
+                    <div class="col-sm-12" >
+                    <div class="table-responsive">
                     <div id="partnerilist1"></div>
+                    </div>
+                        </div>
                 </div>
             </div>
                         </div>
@@ -389,16 +380,20 @@
         </div><!-- /.modal-dialog -->
         </div> <!-- end of modal -->
 
-        <!-- MODAL (APPS) -->
-        <div class="modal " id="quickapplicationlistdialog" data-caller="">
+       <!-- MODAL (APPS) -->
+        <div class="modal fade" id="quickapplicationlistdialog" data-caller="">
         <div class="modal-dialog">
         <div class="modal-content">
                 <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title"><i class="fa fa-cube fa-lg "></i> Apps </h4>
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group"><a href="#"  class="btn btn-default"><i class="fa fa-cubes fa-lg "></i> </a></div>
+                        <div class="btn-group" role="group"><a href="menu.htm"  class="btn btn-default"><i class="fa fa-home fa-lg "></i> </a></div>
+                        <div class="btn-group" role="group"><a href="login.htm" class="btn btn-default"><i class="fa fa-sign-out fa-lg "></i></a></div>
+                        <div class="btn-group" role="group"><a href="#"  class="btn btn-default" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times fa-lg "></i></span><span class="sr-only">Close</span></a></div>
+                    </div>
                 </div>
                 <div class="modal-body">
-                      <ul class="nav nav-tabs" role="tablist">
+                      <ul class="nav nav-tabs" role="tablist" id="appsmodaltabs">
                         <li role="presentation" class="active"><a href="#allapps" aria-controls="allapps" role="tab" data-toggle="tab"><i class="fa fa-asterisk fa-2x"></i></a></li>
                         <li role="presentation"><a href="#historyapps" aria-controls="historyapps" role="tab" data-toggle="tab"><i class="fa fa-history fa-2x"></i></a></li>
                         <li role="presentation"><a href="#favoritesapps" aria-controls="favoritesapps" role="tab" data-toggle="tab"><i class="fa fa-star fa-2x"></i></a></li>
@@ -422,7 +417,8 @@
 
          
         <section class="sectionng" data-perzister-sectiontitle="divider" />
-        <section class="sectionng" data-perzister-sectiontitle="exit" data-url="g-menu.htm" />
+
+        <section class="sectionng" data-perzister-sectiontitle="exit" data-url="login.htm" />
 
         <script src="../js/jquery-1.11.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
@@ -435,6 +431,7 @@
         <script src="../js/pusher.min.js"></script>
         <script src="../js/jquery.gritter.js"></script>
         <script src="../js/pubnub.min.js"></script>
+        <!--<script src="../js/moment.js"></script>-->
 
       <script>
           $(document).ready(function () {
@@ -445,6 +442,10 @@
 
               //$("#wrapper").toggleClass("toggled");
 
+                // document.getElementById("datumod").value = new Date().toJSON().slice(0, 10)
+
+                
+
                   $("#btngetpartneri").on("click", function () {
                       GetPartneri();
                   });
@@ -453,11 +454,32 @@
                       GetPartneri();
                   });
 
+                  //Datumi();
+
+                  function Datumi() {
+
+                      var today = new Date();
+                      var dd = today.getDate();
+                      var mm = today.getMonth() + 1; //January is 0!
+
+                      var yyyy = today.getFullYear();
+                      if (dd < 10) {
+                          dd = '0' + dd
+                      }
+                      if (mm < 10) {
+                          mm = '0' + mm
+                      }
+                      var today = dd + '/' + mm + '/' + yyyy;
+                      document.getElementById("datumod").value = today;
+
+                  }
+
                   TopSearch();
 
                   function TopSearch() {
 
                       var strFormattedTABLE = "";
+                      var strFormattedTABLE1 = "";
                       var strFormattedROWS = "";
 
                       if (localStorage.perzisterURL == 'undefined') { window.location = 'login.htm'; }
@@ -468,6 +490,7 @@
                       //$('#menuitems').hide();
                       var strFormattedHTML = '';
                       var strFormattedHTML0 = '';
+                      
                       $.ajax({
                           url: localStorage.perzisterURL,
                           data: "d=" + localStorage.perzisterD + "&app=" + localStorage.perzisterApp + "&g=" + localStorage.perzisterG + "&action=mangetmenuitems",
@@ -476,13 +499,14 @@
                           timeout: 30000,
                           success: function (data, status) {
 
-                              //if (data.errnumber != '0') { window.location = 'login.htm'; }
+                              if (data.errnumber != '0') { window.location = 'login.htm'; }
 
                               var jsonStr = '{"apps":[{"Parametar":"","Ikona":"","Opis":"","Hint":""}]}';
                               var obj2 = JSON.parse(jsonStr);
 
                               var strFormattedItem = "";
                               var strFormattedItem1 = "";
+                              var strFormattedItem2 = "";
                               var j = "";
                               var k = 0;
                               var rowcount = data.items.length - 1;
@@ -495,42 +519,37 @@
                                   if (j != item.Naziv) {  // aplikacija
                                       strFormattedTABLE = strFormattedTABLE + '<li><a data-toggle="collapse" data-target="#' + j + '"> ' + j + '<i class="fa fa-fw fa-caret-down"></i></a><ul id="' + j + '" class="collapse">' + strFormattedItem + '</ul></li>';
                                       strFormattedItem = '';
+                                      strFormattedTABLE1 = strFormattedTABLE1 + '<li><a data-toggle="collapse" data-target="#' + j + '1"> ' + j + '<i class="fa fa-fw fa-caret-down"></i></a><ul id="' + j + '1" class="collapse">' + strFormattedItem2 + '</ul></li>';
+                                      strFormattedItem2 = '';
                                   };
 
                                   j = item.Naziv;
                                   strFormattedItem = strFormattedItem + '<li class="gmenuitem"><a href="' + item.Parametar + '"><i class="fa fa-' + item.Ikona + ' fa-fw"></i> ' + item.Opis + '</a></li>'
+                                  strFormattedItem2 = strFormattedItem2 + '<li class="gmenuitem1"><a href="' + item.Parametar + '"><i class="fa fa-' + item.Ikona + ' fa-fw"></i> ' + item.Opis + '</a></li>'
 
                                   if (i == rowcount) { // zadnji
                                       strFormattedTABLE = strFormattedTABLE + '<li><a data-toggle="collapse" data-target="#' + j + '"> ' + j + '<i class="fa fa-fw fa-caret-down"></i></a><ul id="' + j + '" class="collapse">' + strFormattedItem + '</ul></li>';
+                                      strFormattedTABLE1 = strFormattedTABLE1 + '<li><a data-toggle="collapse" data-target="#' + j + '1"> ' + j + '<i class="fa fa-fw fa-caret-down"></i></a><ul id="' + j + '1" class="collapse">' + strFormattedItem2 + '</ul></li>';
                                   }
 
                               });
 
                               strFormattedTABLE = '<ul class="nav navbar-nav side-nav">' + strFormattedTABLE + '</ul>'
+                              strFormattedTABLE1 = '<ul class="nav navbar-nav side-nav">' + strFormattedTABLE1 + '</ul>'
 
                               jsonStr = JSON.stringify(obj2);
                               localStorage.perzisterApps = jsonStr
 
                               
-                              $("#menuitems1,#quickapplicationlist").html(strFormattedTABLE);
+                              $("#menuitems1").html(strFormattedTABLE);
+                              $("#quickapplicationlist").html(strFormattedTABLE1);
                               $("#menuitems0").html(strFormattedHTML0);
                               
-                              $('#topsearchtext').fastLiveFilter('#sectiontopsearchresults .forlivesearch'); // local fast live search
+                              //$('#topsearchtext').fastLiveFilter('#sectiontopsearchresults .forlivesearch'); // local fast live search
+                              //$('#topsearchtext').fastLiveFilter('tbody');
+                              $('#topsearchtext').fastLiveFilter('forlivesearch');
 
-                              $(".appcol").on('click', function () {
-                                  var jsonStrApps = localStorage.perzisterAppHistory;
-                                  if (jsonStrApps == undefined) {
-                                      var jsonStrApps = '{"apps":[{"Parametar":"","Ikona":"","Opis":"","Hint":""}]}';
-                                  }
-                                  var objApps = JSON.parse(jsonStrApps);
-                                  while (objApps['apps'].length > 10) {
-                                      objApps['apps'].shift();
-                                  }
-                                  objApps['apps'].push({ "Parametar": "" + $(this).attr('data-url') + "", "Ikona": "" + $(this).attr('data-ikona') + "", "Opis": "" + $(this).attr('data-opis') + "", "Hint": "" + $(this).attr('data-hint') + "" });
-                                  jsonStrApps = JSON.stringify(objApps);
-                                  localStorage.perzisterAppHistory = jsonStrApps
-                                  window.location = '' + $(this).attr('data-url');
-                              });
+                              
                               $("#ajaxloader0,#appheadericon").toggleClass('hide');
                           },
                           error: function (xhr, ajaxOptions, thrownError) {
@@ -539,26 +558,44 @@
                       });
                   }
 
+
                   function GetPartneri() {
                       $("#ajaxloader0,#appheadericon").toggleClass('hide');
                       $('#partnerilist').hide();
+                      var strData = $("#filterform").serialize();
                       var strFormattedHTML = '';
                       $.ajax({
                           url: localStorage.perzisterURL,
-                          data: "d=" + localStorage.perzisterD + "&action=getpartneri",
+                          data: "d=" + localStorage.perzisterD + "&app=" + localStorage.perzisterApp + "&g=" + localStorage.perzisterG + "&action=robapotrgovinama&" + strData,
                           dataType: 'jsonp',
                           jsonp: 'jsoncallback',
                           timeout: 30000,
                           success: function (data, status) {
-                              $.each(data, function (i, item) {
+
+                              //if (data.errnumber != '0') {
+                              //    $("#partnerilist").html(data[0].errdescription);
+                              //    $("#partnerilist1").html(data[0].errdescription);
+                              //    $('#partnerilist').show();
+                              //    alert(data[0].errdescription);
+                              //    $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                              //    return;
+                              //}
+
+                              if (data.errnumber != '0') {
+                                  window.location = 'login.htm';
+                              }
+
+                              $.each(data.items, function (i, item) {
                                   strFormattedHTML = strFormattedHTML
-                                  + '<tr><td>' + item.partneriid + '</td><td>' + item.naziv + '</td><td>' + item.matbroj + '</td><td>' + item.mjestanaziv + '</td></tr>'
+                                  + '<tr class="forlivesearch"><td>' + item.roba + '</td><td style="text-align:center;">' + item.netovrijednost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + '</td><td style="text-align:center;">' + item.netovrijednost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + '</td></tr>'
                               });
-                              strFormattedHTML = '<table id="partneritable" class="table nowrap"><thead><tr><th>id</th><th>naziv</th><th>mat broj</th><th>mjesto</th></tr></thead><tbody>' + strFormattedHTML + '</tbody></table>'
+                              strFormattedHTML = '<table id="partneritable" class="table nowrap"><thead><tr><th>naziv</th><th style="text-align:center;">iznos1</th><th style="text-align:center;">iznos2</th></tr></thead><tbody>' + strFormattedHTML + '</tbody></table>'
                               $("#partnerilist").html(strFormattedHTML);
                               $("#partnerilist1").html(strFormattedHTML);
                               if (localStorage.getItem('perzister-fullscreenlistbutton') == '1') { $('#partneritable').dataTable(); }
                               $('#partnerilist').show();
+                              $('#topsearchform').toggleClass('hide');
+                              $('#topsearchtext').fastLiveFilter('tbody');
                               $("#ajaxloader0,#appheadericon").toggleClass('hide');
                           },
                           error: function (xhr, ajaxOptions, thrownError) {
@@ -566,6 +603,8 @@
                           }
                       });
                   }
+
+
                 
                  
                   

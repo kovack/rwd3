@@ -24,13 +24,21 @@
        body {  padding-top:50px; }
         .perzister-about-container { padding-top : 150px; padding-bottom:100px; text-align: center;}
         .popover { color:#30373c }
-        
+         .modal.fade:not(.in) .modal-dialog {
+                                                    -webkit-transform: translate3d(-50%, 0, 0);
+                                                    transform: translate3d(-50%, 0, 0);
+                                                }
     </style>
 
     <link rel="shortcut icon" href="../bg/favicon.ico" />
 
   </head>
-  <body data-perzister-notification="true" >
+  <body data-perzister-notification="true" 
+      data-perzister-appname="perzister.htm" 
+      data-perzister-ikona="cloud-upload" 
+      data-perzister-opis="Perzister" 
+      data-perzister-hint="about persisting  + technology overview" 
+      >
 
         <!-- NAV -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -49,7 +57,14 @@
           
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                      <ul class="nav navbar-nav" id="actionbutton">
+
+                      <ul class="nav navbar-nav" >
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Index <span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu" id="actionbutton">
+             
+                              </ul>
+                            </li>
                       </ul>
 
                       <form class="navbar-form navbar-right" role="search">
@@ -60,6 +75,7 @@
                             </span>
                          </div><!-- /input-group -->
                       </form>
+
                     </div><!-- /.navbar-collapse -->
               
 
@@ -241,7 +257,7 @@
         </section>  
 
         <!-- MODAL (NOTIFICATIONS) -->
-        <div class="modal " id="notificationdialog" data-caller="">
+        <div class="modal fade" id="notificationdialog" data-caller="">
         <div class="modal-dialog">
         <div class="modal-content">
                 <div class="modal-header">
@@ -260,12 +276,16 @@
         </div> <!-- end of modal -->
 
         <!-- MODAL (APPS) -->
-        <div class="modal " id="quickapplicationlistdialog" data-caller="">
+        <div class="modal fade" id="quickapplicationlistdialog" data-caller="">
         <div class="modal-dialog">
         <div class="modal-content">
                 <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title"><i class="fa fa-cubes fa-lg "></i> Apps </h4>
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group"><a href="#"  class="btn btn-default"><i class="fa fa-cubes fa-lg "></i> </a></div>
+                    <div class="btn-group" role="group"><a href="menu.htm"  class="btn btn-default"><i class="fa fa-home fa-lg "></i> </a></div>
+                    <div class="btn-group" role="group"><a href="login.htm" class="btn btn-default"><i class="fa fa-sign-out fa-lg "></i></a></div>
+                    <div class="btn-group" role="group"><a href="#"  class="btn btn-default" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times fa-lg "></i></span><span class="sr-only">Close</span></a></div>
+                </div>
                 </div>
                 <div class="modal-body">
                       <ul class="nav nav-tabs" role="tablist" id="appsmodaltabs">
@@ -331,6 +351,7 @@
             $('#topsearchbutton').on("click", function (e) {
                 //TopSearch();
             });
+
 
         });
     </script>

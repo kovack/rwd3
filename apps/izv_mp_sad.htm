@@ -1,0 +1,813 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="html5 javascript applications" />
+    <meta name="author" content="kovack@gmail.com" />
+    <meta http-equiv='cache-control' content='no-cache' />
+    <meta http-equiv='expires' content='0' />
+    <meta http-equiv='pragma' content='no-cache' />
+    
+    <title>Promet maloprodaje</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="../css/font/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../css/jquery.gritter.css" rel="stylesheet" />
+    <link href="../css/dataTables.responsive.css" rel="stylesheet" />
+    <link href="../css/perzister.css" rel="stylesheet" />
+    <link href="../css/perzister-dark.css" rel="stylesheet" class="additional" />
+    <link href="../css/print.css" rel="stylesheet" media="print" />
+
+    <style>
+       body {  padding-top:45px; }
+       .table>tbody>tr:hover  { background-color : #ccc !important; cursor:pointer; }
+       .table>tbody>tr>td { padding-top:10px; padding-bottom:10px; border-top:0px ;}
+       .actionbutton2:hover , .actionbutton3:hover  {  cursor:pointer; background-color : #ccc !important;}
+       .actionbutton2 , .actionbutton3 {   font-size : 16px; border-bottom : 1px solid #ccc;padding-top:5px; padding-bottom:5px; }
+        h3 { margin-top : 5px; }
+    </style>
+
+    <link rel="shortcut icon" href="../bg/favicon.ico" />
+
+  </head>
+
+  <body data-perzister-login="true" 
+      data-perzister-notification="false" 
+      data-perzister-appname="izv_mp_sad.htm" 
+      data-perzister-ikona="list-alt" 
+      data-perzister-opis="Promet maloprodaje" 
+      data-perzister-hint="Promet maloprodaje" 
+      >
+
+        <!-- NAV -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" >
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <!--<span class="icon-bar"></span>-->
+              </button>
+              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectiontopsearchresults"><i id="ajaxloader0" class="fa fa-spinner fa-spin hide" ></i><i id="appheadericon" class="fa fa-list-alt "></i> Promet MP </span>  <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span class="badge" id="numberofnotifications" >1</span></span> </a>
+            </div>
+
+          
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav" id="actionbutton">
+                      </ul>
+
+                      <form class="navbar-form navbar-right" role="search">
+                          <div class="input-group">
+                            <input type="text"  id="topsearchtext" class="form-control" placeholder="trgovine" >
+                            <span class="input-group-btn">
+                            <button class="btn btn-default btn-primary" id="topsearchbutton" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                         </div><!-- /input-group -->
+                      </form>
+                    </div><!-- /.navbar-collapse -->
+              
+
+          </div><!-- /.container-fluid -->
+        </nav> <!-- end of NAV  -->
+
+        
+      
+        <!-- TOTALS  -->
+        <section class="sectionng" id="sectionresultslist" data-perzister-sectiontitle="totali" data-perzister-sectionicon="clock-o"  >
+                 <div class="container-fluid perzister-dark-container" >                 <div class="container" >
+                     <div class="row ">
+                         <div class="col-sm-12 transparent">
+                      <div class="btn-group">
+                        <h4 class="refreshtototals perzister-h4" ><i class="fa fa-refresh btn btn-primary"></i> totali za danas, jučer, prije 7 dana </h4>
+                      </div>
+                         </div>
+                          </div>
+                     <div class="row ">
+                         <div class="col-sm-12 transparent">
+                              <div id="resultslist"></div>
+                             <br />
+                             <div id="chartcontainer"></div>
+                             <br /><br />
+                         </div>
+                     </div>
+                 </div>
+                 </div>
+        </section>
+
+        <!-- sectionresultslist DET -->
+        <section class="sectionng hide" id="sectionresultslistdet" data-perzister-sectiontitle="" data-perzister-sectionicon=""  >
+                 <div class="container-fluid perzister-dark-container" >                 <div class="container" >
+                      
+                          <span class="btn-group">
+                          <h4 class="perzister-h4" >
+                              <span class="btn btn-primary  backtototals" ><i class="fa fa-chevron-left"></i></span>
+                               <span id="imefirmezadet"></span> : pregled po trgovinama danas   
+                                 
+                          </h4>
+                       </span>
+                      
+                     <div class="row ">
+                         <div class="col-sm-12 transparent">
+                             
+                              <div id="resultslistdet"></div>
+                         </div>
+                     </div>
+                     <br />
+                     <div class="btn-group">
+                        <div class="btn btn-primary backtototals" ><i class="fa fa-chevron-left"></i></div>
+                      </div>
+                 </div>
+                 </div>
+        </section>
+      
+        
+        <!-- TOP SEARCH RESULTS  -->
+        <section class="sectionng hide" id="sectiontopsearchresults" data-perzister-sectiontitle="trgovine" data-perzister-sectionicon="search"  >
+                 <div class="container-fluid perzister-dark-container" >                 <div class="container" >
+                     <div class="row ">
+                         <div class="col-sm-12 transparent">
+                              <div class="btn-group">
+                              <h4 class="perzister-h4 backtototals" ><i class="fa fa-chevron-left  btn btn-primary"></i> lista trgovina   </h4>
+                              </div>
+                             
+                              <div id="topsearchresultslist"></div>
+
+                         </div>
+                     </div>
+                      <div class="clearfix"></div>
+                     <br /><br />
+                 </div>
+                 </div>
+        </section>
+
+
+        <!-- section last 7 days -->
+        <section class="sectionng hide" id="sectionlast7days" data-perzister-sectiontitle="" data-perzister-sectionicon=""  >
+                 <div class="container-fluid perzister-dark-container" >                 <div class="container" >
+                     
+
+                     
+
+                     <div class="row">
+                         <div class="col-sm-12 transparent">
+
+                             <div class="btn-group">
+                         <h4 class="perzister-h4" > 
+                             <span class="btn btn-primary backtoshops hide" ><i class="fa fa-chevron-left"></i></span><span class="btn btn-primary backtoshopsfromtotals hide" ><i class="fa fa-chevron-left"></i></span>
+                             <span class="control-label"> 7 dana : <span id="trgovinaopis"></span> </span> 
+                         </h4>
+                     </div>
+
+                              <div id="last7daysresultslist"></div>
+                              <br /><br />
+                              <div id="last7daysresultschart"></div>
+                             <br /> 
+
+                             <div class="btn-group">
+                              <div class="btn btn-primary backtoshops hide" ><i class="fa fa-chevron-left"></i></div>
+                             </div>
+                             <div class="btn-group">
+                              <div class="btn btn-primary backtoshopsfromtotals hide" ><i class="fa fa-chevron-left"></i></div>
+                             </div>
+
+                         </div>
+                     </div>
+                     
+                     <div class="clearfix"></div>
+                     <br /><br />
+                 </div>
+                 </div>
+        </section>
+
+
+        <!-- MODAL (NOTIFICATIONS) -->
+        <div class="modal fade" id="notificationdialog" data-caller="">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title"><i class="fa fa-bell-o"></i> notifications</h4>
+                        </div>
+                        <div class="modal-body">
+                            <span id="notificationitems"></span>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
+
+
+        <!-- MODAL (APPS) -->
+        <div class="modal fade" id="quickapplicationlistdialog" data-caller="">
+        <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group"><a href="#"  class="btn btn-default"><i class="fa fa-cubes fa-lg "></i> </a></div>
+                        <div class="btn-group" role="group"><a href="menu.htm"  class="btn btn-default"><i class="fa fa-home fa-lg "></i> </a></div>
+                        <div class="btn-group" role="group"><a href="login.htm" class="btn btn-default"><i class="fa fa-sign-out fa-lg "></i></a></div>
+                        <div class="btn-group" role="group"><a href="#"  class="btn btn-default" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times fa-lg "></i></span><span class="sr-only">Close</span></a></div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                      <ul class="nav nav-tabs" role="tablist" id="appsmodaltabs">
+                        <li role="presentation" class="active"><a href="#allapps" aria-controls="allapps" role="tab" data-toggle="tab"><i class="fa fa-asterisk fa-2x"></i></a></li>
+                        <li role="presentation"><a href="#historyapps" aria-controls="historyapps" role="tab" data-toggle="tab"><i class="fa fa-history fa-2x"></i></a></li>
+                        <li role="presentation"><a href="#favoritesapps" aria-controls="favoritesapps" role="tab" data-toggle="tab"><i class="fa fa-star fa-2x"></i></a></li>
+                      </ul>
+
+                      <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="allapps"><span id="quickapplicationlist"></span></div>
+                        <div role="tabpanel" class="tab-pane" id="historyapps"><span id="quickapplicationlisthistory"></span></div>
+                        <div role="tabpanel" class="tab-pane" id="favoritesapps"><span id="quickapplicationlistfavorites"></span></div>
+                      </div>
+
+                    
+                </div>
+            <div class="clearfix"></div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                </div>
+        </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
+
+        <section class="sectionng" data-perzister-sectiontitle="divider" />
+        <section class="sectionng" data-perzister-sectiontitle="exit" data-url="menu.htm" />
+
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/fastLiveFilter.js"></script>
+        <script src="../js/jquery.backstretch.js"></script>
+        <script src="../js/perzister.js"></script>
+        <script src="../js/jquery.dataTables.min.js"></script>
+        <script src="../js/dataTables.bootstrap.js"></script>
+        <script src="../js/dataTables.responsive.min.js"></script>
+        <script src="../js/pusher.min.js"></script>
+        <script src="../js/jquery.gritter.js"></script>
+        <script src="../js/pubnub.min.js"></script>
+
+        <script src="http://code.highcharts.com/highcharts.js"></script>
+        
+
+
+      <script>
+          $(document).ready(function () {
+
+              // ============================================================================= format number
+
+              function isNumeric(n) {
+                  return !isNaN(parseFloat(n)) && isFinite(n);
+              }
+
+
+              Number.prototype.formatMoney = function (c, d, t) {
+                  var n = this,
+                      c = isNaN(c = Math.abs(c)) ? 2 : c,
+                      d = d == undefined ? "." : d,
+                      t = t == undefined ? "," : t,
+                      s = n < 0 ? "-" : "",
+                      i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+                      j = (j = i.length) > 3 ? j % 3 : 0;
+                  return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+              };
+
+              // ============================================================================= back buttons
+
+              $(".backtototals").on("click", function (event) {
+                  $(".sectionng").addClass('hide');
+                  $("#sectionresultslist").toggleClass('hide');
+              });
+
+              $(".backtoshops").on("click", function (event) {
+                  $(".sectionng").addClass('hide');
+                  $("#sectiontopsearchresults").toggleClass('hide');
+              });
+
+              $(".backtoshopsfromtotals").on("click", function (event) {
+                  $(".sectionng").addClass('hide');
+                  $("#sectionresultslistdet").toggleClass('hide');
+              });
+
+              $(".refreshtototals").on("click", function (event) {
+                  $(".sectionng").addClass('hide');
+                  $("#sectionresultslist").toggleClass('hide');
+                  GetIzvMPSadKaoCol();
+              });
+
+              
+              // ============================================================================= top search
+
+              $('#topsearchtext').on("keypress", function (e) {
+                  if (e.keyCode == 13) {
+                      $('#topsearchbutton').trigger('click');
+                      return false;
+                  }
+              });
+
+              $('#topsearchbutton,#topsearchtext').on("focus", function (e) {
+                  $(".sectionng").addClass('hide');
+                  $("#sectiontopsearchresults").toggleClass('hide');
+              });
+
+              $('#topsearchbutton').on("click", function (e) {
+                  TopSearch();
+              });
+
+              function TopSearch() {
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                  $(".sectionng").addClass('hide');
+                  $("#sectiontopsearchresults").toggleClass('hide');
+                  $("#topsearchresultslist").html('');
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=searchshops2&s=" + $('#topsearchtext').val() + "&",
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          if (data.errnumber == '-2') { window.location = 'login.htm'; }
+                          $("#topsearchresultslist").html(TopSearchFormat(data));
+                          $('#topsearchtext').fastLiveFilter('.forlivesearch');
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          $(".actionbutton3").off();
+                          $(".actionbutton3").on("click", function (event) {
+                              $(".backtoshopsfromtotals,.backtoshops").addClass('hide');
+                              $(".backtoshops").removeClass('hide');
+                              GetShop7($(this).attr('data-firma'), $(this).attr('data-id'), $(this).attr('data-opis'));
+                          });
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      }
+                  });
+              }
+
+              TopSearchDefault();
+
+              function TopSearchDefault() {
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=searchshops2&s=" + $('#topsearchtext').val() + "&",
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          if (data.errnumber == '-2') { window.location = 'login.htm'; }
+                          $("#topsearchresultslist").html(TopSearchFormat(data));
+                          $('#topsearchtext').fastLiveFilter('.forlivesearch');
+                          $(".actionbutton3").off();
+                          $(".actionbutton3").on("click", function (event) {
+                              $(".backtoshopsfromtotals,.backtoshops").addClass('hide');
+                              $(".backtoshops").removeClass('hide');
+                              GetShop7($(this).attr('data-firma'), $(this).attr('data-id'), $(this).attr('data-opis'));
+                          });
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //$("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      }
+                  });
+              }
+
+
+              function TopSearchFormat(data) {
+                  var strFormattedHTML = '';
+                  $.each(data.items, function (i, item) {
+                      strFormattedHTML = strFormattedHTML + '<div class="forlivesearch"><div class="row actionbutton3" data-id="' + item.trgovinaid + '" data-firma="' + item.firma + '" data-opis="' + item.opis + '"><div class="col-sm-6">' + item.opis + ' </div><div class="col-sm-6">' + item.naziv + ' ' + item.firma + ' </div></div></div>';
+                  });
+                  return strFormattedHTML;
+              }
+              
+              var s0 = 0;
+              var s1 = 0;
+              var s2 = 0;
+              var s3 = 0;
+              var s4 = 0;
+              var s5 = 0;
+              var s6 = 0;
+              var s7 = 0;
+
+              var dani = [];
+
+              function GetShop7(firma,id,opis) {
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                  $(".sectionng").addClass('hide');
+                  $("#sectionlast7days").toggleClass('hide');
+                  $("#last7daysresultslist").html('');
+                  $("#last7daysresultschart").addClass('hide');
+                  $("#trgovinaopis").html(opis + ' (' + firma + ')');
+                  dani = [];
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getshop7&s=" + id + "&firma=" + firma,
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          if (data.errnumber == '-2') { window.location = 'login.htm'; }
+                          var strFormattedHTML = '';
+                          $.each(data.items, function (i, item) {
+                              strFormattedHTML = strFormattedHTML + '<div class="forlivesearch actionbutton3 clearfix"><div class=""><div class="col-xs-6">' + item.datum + ' ' + item.dan + ' </div><div class="col-xs-3"><div class="pull-right">' + item.iznos.formatMoney(2) + '</div></div><div class="col-xs-3"><div class="pull-right">(' + item.brojracuna + ')</div></div></div></div>';
+
+                              if (i > 0) { dani.push(item.dan) } else { dani.push('danas') }
+
+                              if (i == 0) s0 = parseInt(item.iznos);
+                              if (i == 1) s1 = parseInt(item.iznos);
+                              if (i == 2) s2 = parseInt(item.iznos);
+                              if (i == 3) s3 = parseInt(item.iznos);
+                              if (i == 4) s4 = parseInt(item.iznos);
+                              if (i == 5) s5 = parseInt(item.iznos);
+                              if (i == 6) s6 = parseInt(item.iznos);
+                              if (i == 7) s7 = parseInt(item.iznos);
+
+                          });
+                          $("#last7daysresultschart").removeClass('hide');
+                          Chart7();
+                          $("#last7daysresultslist").html(strFormattedHTML);
+                          //$(window).resize();
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      }
+                  });
+              }
+
+
+
+              // ============================================================================= first page : totals
+
+              var m0 = 0;
+              var m1 = 0;
+              var m7 = 0;
+
+              var k0 = 0;
+              var k1 = 0;
+              var k7 = 0;
+
+
+                  var dt = new Date();
+                  var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                  var day = dt.getDate() + '.' + (Number(dt.getMonth()) + 1) + '.' + dt.getFullYear();
+                   
+                  $("#currenttime").html(day + ' ' + time + 'h');
+
+              // ============================================================================= first page : totals kao col
+                  
+
+                  GetIzvMPSadKaoCol();
+
+                  function GetIzvMPSadKaoCol() {
+                      $("#ajaxloader0,#appheadericon,.refreshtototals,#chartcontainer").toggleClass('hide');
+                      var strFormattedHTML = '';
+                      var strTH = '';
+                      var j = '';
+                      $("#resultslist").html('');
+                      $.ajax({
+                          url: localStorage.perzisterURL,
+                          data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getizvmpsad&" + $('#filterform').serialize(),
+                          dataType: 'jsonp',
+                          jsonp: 'jsoncallback',
+                          timeout: 30000,
+                          success: function (data, status) {
+                              if (data.errnumber == '-2') { window.location = 'login.htm'; }
+                              var rowcount = data.items.length - 1;
+                              var strTD = '';
+                              $.each(data.items, function (i, item) {
+
+                                  if (j != item.datum) { // group header
+                                      strTD = strTD + '<div class="col-sm-4"><h4><i class="fa fa-clock-o"></i> ' + item.datum + '</h4>'
+                                  }
+                                  j = item.datum;
+
+                                  if (item.opis == 'total') {
+                                      strTD = strTD + '<div class="col-xs-6"></div><div class="col-xs-6"><div class="pull-right"><h3><span class="label label-primary">= ' + item.Iznos.formatMoney(2) + '</span></h3></div></div>';
+                                      strTD = strTD + '<div class="clearfix"></div><br/></div>';
+                                  } else {
+                                      strTD = strTD + '<div class="col-xs-6 actionbutton2"  data-firma="' + item.opis + '" ><div class="pull-left">' + item.opis + '</div></div><div class="col-xs-6 actionbutton2" data-firma="' + item.opis + '"><div class="pull-right"> ' + item.Iznos.formatMoney(2) + '</div></div>';
+                                      if (i == 0) m0 = parseInt(item.Iznos);
+                                      if (i == 3) m1 = parseInt(item.Iznos);
+                                      if (i == 6) m7 = parseInt(item.Iznos);
+                                      if (i == 1) k0 = parseInt(item.Iznos);
+                                      if (i == 4) k1 = parseInt(item.Iznos);
+                                      if (i == 7) k7 = parseInt(item.Iznos);
+                                  }
+
+                                  if (i == rowcount) { // last item
+
+                                  }
+
+                              });
+                              strFormattedHTML = '<div class="row">' + strTD + '</div>';
+
+                              $("#resultslist").html(strFormattedHTML);
+                              $("#ajaxloader0,#appheadericon,.refreshtototals,#chartcontainer").toggleClass('hide');
+
+
+                              $(".actionbutton2").on("click", function (event) {
+                                  GetIzvMPSadDet($(this).attr('data-firma'));
+                              });
+
+                              Chart();
+
+                          },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          }
+                      });
+                  }
+
+
+
+
+                  // ============================================================================= first page : totals kao tablica
+    
+
+
+              /*
+                  GetIzvMPSadKaoTablica();
+
+                  function GetIzvMPSadKaoTablica() {
+                      $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      var strFormattedHTML = '';
+                      var strTH = '';
+                      var j = '';
+                      $.ajax({
+                          url: localStorage.perzisterURL,
+                          data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getizvmpsad&" + $('#filterform').serialize(),
+                          dataType: 'jsonp',
+                          jsonp: 'jsoncallback',
+                          timeout: 30000,
+                          success: function (data, status) {
+                              var rowcount = data.items.length - 1;
+                              var strTD = '';
+                              $.each(data.items, function (i, item) {
+                                  
+                                  if (j != item.datum) { // group header
+                                      strTD = strTD + '<tr data-id="0"><td width="200px"><h4><i class="fa fa-clock-o"></i>  ' + item.datum + '    </h4></td><td width="200px"> </td><td> </td></tr>'
+                                  }
+                                  j = item.datum;
+                                  
+                                  if (item.opis == 'total') {
+                                      strTD = strTD + '<tr data-id="1" ><td> </td><td style="border-top:4px double;" ><h4><span class="label label-primary">= ' + item.Iznos.formatMoney(2) + '</span></h4></td><td> </td></tr>';
+                                  } else
+                                  {
+                                      strTD = strTD + '<tr data-id="1" ><td class="pull-right">' + item.opis + '</td><td>' + item.Iznos.formatMoney(2) + '</td><td> </td></tr>';
+                                      if (i == 0) m0 = parseInt(item.Iznos);
+                                      if (i == 3) m1 = parseInt(item.Iznos);
+                                      if (i == 6) m7 = parseInt(item.Iznos);
+                                      if (i == 1) k0 = parseInt(item.Iznos);
+                                      if (i == 4) k1 = parseInt(item.Iznos);
+                                      if (i == 7) k7 = parseInt(item.Iznos);
+                                  }
+                                  
+                                  if (i == rowcount) { // last item
+                                      
+                                  }
+
+                              });
+                              strFormattedHTML = '<table id="izvgenlisttable" class="table  "><tbody>' + strTD + '</tbody></table>';
+
+                              $("#resultslist").html(strFormattedHTML);
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
+
+                              $("#izvgenlisttable td").on("click", function (event) {
+                                  GetIzvMPSadDet();
+                              });
+
+                              Chart();
+
+                          },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          }
+                      });
+                  }
+
+                  */
+
+
+                  function GetIzvMPSadDet(firma) {
+                      $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      $(".sectionng").addClass('hide');
+                      $("#sectionresultslistdet").toggleClass('hide');
+                      $("#resultslistdet").html('');
+                      $("#imefirmezadet").html(firma);
+                      var strFormattedHTML = '';
+                      $.ajax({
+                          url: localStorage.perzisterURL,
+                          data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getizvmpsaddet&s=" + firma ,
+                          dataType: 'jsonp',
+                          jsonp: 'jsoncallback',
+                          timeout: 30000,
+                          success: function (data, status) {
+                              if (data.errnumber == '-2') { window.location = 'login.htm'; }
+                              $.each(data.items, function (i, item) {
+                                  strFormattedHTML = strFormattedHTML + '<div class="actionbutton3 clearfix" data-id="' + item.trgovinaid + '" data-firma="' + item.firma + '" data-opis="' + item.Trgovina + '" ><div class="col-xs-6">' + item.Trgovina + ' </div><div class="col-xs-4"><span class="pull-right">' + item.iznos.formatMoney(2) + '</span> </div>  <div class="col-xs-2"><span class="pull-right">' + ' (' + item.brojracuna + ') </span> </div> </div>';
+                              });
+                              $("#resultslistdet").html(strFormattedHTML);
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                              $(".actionbutton3").off();
+                              $(".actionbutton3").on("click", function (event) {
+                                  $(".backtoshops,.backtoshopsfromtotals").addClass('hide');
+                                  $(".backtoshopsfromtotals").removeClass('hide');
+                                  GetShop7($(this).attr('data-firma'), $(this).attr('data-id'), $(this).attr('data-opis'));
+                              });
+                          },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          }
+                      });
+                  }
+
+                  /* generic
+
+                  function GetIzvMPSadDet() {
+                      $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      $(".sectionng").addClass('hide');
+                      $("#sectionresultslistdet").toggleClass('hide');
+                      $("#resultslistdet").html('');
+                      var strFormattedHTML = '';
+                      var strTH = '';
+                      $.ajax({
+                          url: localStorage.perzisterURL,
+                          data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getizvmpsaddet&" + $('#filterform').serialize(),
+                          dataType: 'jsonp',
+                          jsonp: 'jsoncallback',
+                          timeout: 30000,
+                          success: function (data, status) {
+                              $.each(data.items, function (i, item) {
+                                  $("#itemcounter").html(i);
+
+                                  var strTD = '';
+                                  for (var key in item) {
+                                      var attrName = key;
+                                      if (i == 1) { strTH = strTH + "<th>" + attrName + "</th>"; }
+                                      var attrValue = item[key];
+                                      strTD = strTD + "<td>" + attrValue + "</td>";
+                                  }
+                                  strFormattedHTML = strFormattedHTML + '<tr data-id="1" >' + strTD + '</tr>';
+                              });
+                              strFormattedHTML = '<table id="izvgenlisttabledet" class="table "><thead><tr>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
+
+                              $("#resultslistdet").html(strFormattedHTML);
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
+
+
+                          },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                              $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          }
+                      });
+                  }
+                  */
+
+
+
+                  // ============================================================================= chart
+
+
+                  function Chart() {
+                      $('#chartcontainer').highcharts({
+                          chart: {
+                              type: 'column'
+                          },
+                          title: {
+                              text: 'promet maloprodaje'
+                          },
+                          xAxis: {
+                              categories: ['danas', 'jučer', 'prije 7 dana']
+                          },
+                          yAxis: {
+                              min: 0,
+                              title: {
+                                  text: 'kn'
+                              },
+                              stackLabels: {
+                                  enabled: true,
+                                  style: {
+                                      fontWeight: 'bold',
+                                      color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                                  }
+                              }
+                          },
+                          legend: {
+                              align: 'right',
+                              x: -30,
+                              verticalAlign: 'top',
+                              y: 25,
+                              floating: true,
+                              backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                              borderColor: '#CCC',
+                              borderWidth: 1,
+                              shadow: false
+                          },
+                          tooltip: {
+                              formatter: function () {
+                                  return '<b>' + this.x + '</b><br/>' +
+                                      this.series.name + ': ' + this.y + '<br/>' +
+                                      'Total: ' + this.point.stackTotal;
+                              }
+                          },
+                          plotOptions: {
+                              column: {
+                                  stacking: 'normal',
+                                  dataLabels: {
+                                      enabled: true,
+                                      color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                                      style: {
+                                          textShadow: '0 0 3px black'
+                                      }
+                                  }
+                              }
+                          },
+                          series: [{
+                              name: 'mlinar',
+                              data: [m0, m1 , m7]
+                          }, {
+                              name: 'kruna',
+                              data: [k0, k1, k7]
+                          }]
+                      });
+                  }
+
+
+                  function Chart7() {
+                      $('#last7daysresultschart').highcharts({
+                          chart: {
+                              type: 'column'
+                          },
+                          title: {
+                              text: 'promet trgovine'
+                          },
+                          xAxis: {
+                              categories: dani 
+                          },
+                          yAxis: {
+                              min: 0,
+                              title: {
+                                  text: 'kn'
+                              },
+                              stackLabels: {
+                                  enabled: true,
+                                  style: {
+                                      fontWeight: 'bold',
+                                      color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                                  }
+                              }
+                          },
+                          legend: {
+                              align: 'right',
+                              x: -30,
+                              verticalAlign: 'top',
+                              y: 25,
+                              floating: true,
+                              backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                              borderColor: '#CCC',
+                              borderWidth: 1,
+                              shadow: false
+                          },
+                          tooltip: {
+                              formatter: function () {
+                                  return '<b>' + this.x + '</b><br/>' +
+                                      this.series.name + ': ' + this.y + '<br/>' +
+                                      'Total: ' + this.point.stackTotal;
+                              }
+                          },
+                          plotOptions: {
+                              column: {
+                                  stacking: 'normal',
+                                  dataLabels: {
+                                      enabled: false,
+                                      color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                                      style: {
+                                          textShadow: '0 0 3px black'
+                                      }
+                                  }
+                              }
+                          },
+                          series: [{
+                              name: 'trgovina',
+                              data: [ s0,s1,s2,s3,s4,s5,s6,s7]
+                          }]
+                      });
+                  }
+
+
+
+          });
+
+      </script>
+   
+
+  </body>
+</html>

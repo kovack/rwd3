@@ -21,3 +21,10 @@
 
 #apptitle { padding-right:25px;}
 #ajaxloader0,#appheadericon  { width:25px;}
+
+.modal-header {  border-bottom :0px; }
+
+.modal.fade:not(.in) .modal-dialog {
+                -webkit-transform: translate3d(-50%, 0, 0);
+                transform: translate3d(-50%, 0, 0);
+            }

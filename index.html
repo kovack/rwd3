@@ -78,7 +78,7 @@
             <!-- APPS  -->
             <div class="container-fluid perzister-dark-container transparent" >                 <div class="container" >
                      <h1>J-Hybrid</h1>
-                     p<span class="perzister-dimed">|</span>e<span class="perzister-dimed">|</span>r<span class="perzister-dimed">|</span>z<span class="perzister-dimed">|</span>i<span class="perzister-dimed">|</span>s<span class="perzister-dimed">|</span>t<span class="perzister-dimed">|</span>e<span class="perzister-dimed">|</span>r<br />
+                     s<span class="perzister-dimed">|</span>p<span class="perzister-dimed">|</span>i<span class="perzister-dimed">|</span>n
                                 <div class="row ">  
                                         
                                 </div>
@@ -115,6 +115,36 @@
 
            insert into ssmeni(aplikacijeid,opis,hint,parametar,ikona,nivo,tag,sideon) values(1,'G Menu','Gogo''s menu','g-menu.htm','home','83','htm',1)
            insert into ssmeni(aplikacijeid,opis,hint,parametar,ikona,nivo,tag,sideon) values(1,'KUP','Knjiga ulazne pošte - odobravanje','kup.htm','book','82','htm',1)
+
+
+         insert into jupitersystem..jupiterobject(opis,hint,parametar,ikona8,kod,ikona) values('Perzister','about persisting + tehnology overview','perzister.htm','cloud-upload','perzister.htm','')
+		 insert into jupitersystem..jupiterobject(opis,hint,parametar,ikona8,kod,ikona) values('Notifications','real-time notifications','notifications.htm','bell-o','notifications.htm','')
+		 insert into jupitersystem..jupiterobject(opis,hint,parametar,ikona8,kod,ikona) values('IzvGen','one and only dummy proof reporting tool','izvgen.htm','list-ol','izvgen.htm','')
+		 insert into jupitersystem..jupiterobject(opis,hint,parametar,ikona8,kod,ikona) values('Angular 1 report','Multiple Layout Grid','ang.htm','coffee','ang.htm','')
+		 insert into jupitersystem..jupiterobject(opis,hint,parametar,ikona8,kod,ikona) values('KUP','Knjiga ulazne pošte - odobravanje','kup.htm','book','kup.htm','')
+		 insert into jupitersystem..jupiterobject(opis,hint,parametar,ikona8,kod,ikona) values('J-Doc','test jupiter document application','doc.htm','file-o','doc.htm','')
+		 insert into jupitersystem..jupiterobject(opis,hint,parametar,ikona8,kod,ikona) values('report-1','report-1','report-1.htm','cloud-upload','report-1.htm','')
+		 insert into jupitersystem..jupiterobject(opis,hint,parametar,ikona8,kod,ikona) values('Angular 2 User Data Grid','Angular 2  User Data Grid','ang2.htm','coffee','ang2.htm','')
+
+            
+select * from ssaplikacije
+select * from slmenop
+select * from slgrumen
+
+select * from JupiterSystem..ssPermissionObjekti
+select * from JupiterSystem..JupiterObject
+
+            insert into slMenOp (meniid,OperateriID,Status,Locked) values(1867,90,0,0)
+
+            select m.*, 
+				datalength(rtrim(ltrim(Nivo))) as Len,
+				row_number() over (partition by opis order by nivo) as rn
+			from ssMeni m 
+			inner join slmenop o on m.meniid = o.meniid
+			where m.AplikacijeID = 1 
+				and o.operateriid = 90
+				and o.status = '0'
+
 
         -->
 
@@ -183,9 +213,11 @@
                             if (data.userguid == '0') {
                                 StartAppWithDelay('apps/login.htm');
                             } else {
-                                localStorage.perzisterAPPaftersuccessfullogin = data.appaftersuccessfullogin
-                                localStorage.perzisterAPPrequired = data.apprequired
-                                localStorage.perzisterAPPrequiredonce = data.apprequiredonce
+                                localStorage.perzisterAPPaftersuccessfullogin = data.appaftersuccessfullogin;
+                                localStorage.perzisterAPPrequired = data.apprequired;
+                                localStorage.perzisterAPPrequiredonce = data.apprequiredonce;
+                                localStorage.perzisterPUBNUB_publish_key = data.PUBNUB_publish_key;
+                                localStorage.perzisterPUBNUB_subscribe_key = data.PUBNUB_subscribe_key;
                                 StartLastUsedAppOrMenu();
                             }
                         }

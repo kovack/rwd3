@@ -4,6 +4,7 @@
     // ================================================================================== general ... 
 
     var strAppName = '';
+    var PUBNUB_demo;
     strAppName = $('body').attr('data-perzister-appname');
     data = document.location.pathname.match(/[^\/]+$/);
     if (data != null && data !== undefined) {
@@ -11,6 +12,25 @@
     } else { strAppName = 'index.html';}
     
     if (strAppName != 'login.htm' && strAppName != 'index.html') { localStorage.perzisterApp = strAppName; }
+
+    // save app to history
+    if ($('body').attr('data-perzister-opis') != undefined) {
+        var dt = new Date();
+        var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+        var day = dt.getDate() + '.' + (Number(dt.getMonth()) + 1) + '.' + dt.getFullYear();
+
+        var jsonStrApps = localStorage.perzisterAppHistory;
+        if (jsonStrApps == undefined) {
+            var jsonStrApps = '{"apps":[{"Parametar":"","Ikona":"","Opis":"","Hint":""}]}';
+        }
+        var objApps = JSON.parse(jsonStrApps);
+        while (objApps['apps'].length > 10) {
+            objApps['apps'].shift();
+        }
+        objApps['apps'].push({ "Parametar": "" + strAppName + "", "Ikona": "" + $('body').attr('data-perzister-ikona') + "", "Opis": "" + $('body').attr('data-perzister-opis') + "", "Hint": "" + day + ' ' + time + "" });
+        jsonStrApps = JSON.stringify(objApps);
+        localStorage.perzisterAppHistory = jsonStrApps
+    }
 
 
     if (localStorage.perzisterURL != undefined) { $("#w").val(localStorage.perzisterURL) };
@@ -41,9 +61,15 @@
     });
 
     $(document).on('click', '.navbar-collapse.in', function (e) { // close dropdown after item click
+
+        if ($(e.target).is('i') || $(e.target).is('span') || $(e.target).is('button')) {
+            $(this).collapse('hide');
+        }
+
         if ($(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle') {
             $(this).collapse('hide');
         }
+
     });
 
     // ====================================================================================== populate APPS : ALL, HISTORY & FAVORITES
@@ -112,17 +138,17 @@
         }
 
         $(".approw").on('click', function () { // first save click for history list then redirect to url
-            var jsonStrApps = localStorage.perzisterAppHistory;
-            if (jsonStrApps == undefined) {
-                var jsonStrApps = '{"apps":[{"Parametar":"","Ikona":"","Opis":"","Hint":""}]}';
-            }
-            var objApps = JSON.parse(jsonStrApps);
-            while (objApps['apps'].length > 10) {
-                objApps['apps'].shift();
-            }
-            objApps['apps'].push({ "Parametar": "" + $(this).attr('data-url') + "", "Ikona": "" + $(this).attr('data-ikona') + "", "Opis": "" + $(this).attr('data-opis') + "", "Hint": "" + $(this).attr('data-hint') + "" });
-            jsonStrApps = JSON.stringify(objApps);
-            localStorage.perzisterAppHistory = jsonStrApps
+            //var jsonStrApps = localStorage.perzisterAppHistory;
+            //if (jsonStrApps == undefined) {
+            //    var jsonStrApps = '{"apps":[{"Parametar":"","Ikona":"","Opis":"","Hint":""}]}';
+            //}
+            //var objApps = JSON.parse(jsonStrApps);
+            //while (objApps['apps'].length > 10) {
+            //    objApps['apps'].shift();
+            //}
+            //objApps['apps'].push({ "Parametar": "" + $(this).attr('data-url') + "", "Ikona": "" + $(this).attr('data-ikona') + "", "Opis": "" + $(this).attr('data-opis') + "", "Hint": "" + $(this).attr('data-hint') + "" });
+            //jsonStrApps = JSON.stringify(objApps);
+            //localStorage.perzisterAppHistory = jsonStrApps
             window.location = '' + $(this).attr('data-url');
         });
 
@@ -462,25 +488,41 @@
 
     $("#activenotificationicon,#disablednotificationicon").on('click', function () {
         //$("#notificationitems").html(localStorage.perzisterNotifications);
-        var str = '';
-        var obj2 = JSON.parse(localStorage.perzisterNotifications);
-        
-        $.each(obj2.notifications, function (i, item) {
-            str = str + '<tr>' +
-                     '<td> ' +
-                     '<div class="pull-left perzister-dimed appicon"><i class="fa fa-bell-o fa-3x"></i></div>' +
-                     '</td> ' +
-                     '<td> ' +
-                     '<span class="text-muted">' + item.time + '</span> <strong>' + item.from + '</strong>  <div class=""> ' + item.msg + '</div>' +
-                     '</td>' +
-                     '</tr>'
+        if (localStorage.perzisterNotifications != undefined) {
+            var str = '';
+            var obj2 = JSON.parse(localStorage.perzisterNotifications);
+
+            $.each(obj2.notifications, function (i, item) {
+                str = str + '<tr>' +
+                         '<td> ' +
+                         '<div class="pull-left perzister-dimed appicon"><i class="fa fa-bell-o fa-3x"></i></div>' +
+                         '</td> ' +
+                         '<td> ' +
+                         '<span class="text-muted">' + item.time + '</span> <strong>' + item.from + '</strong>  <div class=""> ' + item.msg + '</div>' +
+                         '</td>' +
+                         '</tr>'
+            }
+            );
+            $("#notificationitems").html('<table class="table table-hover"><tbody>' + str + '</tbody></table>');
         }
-        );
-        $("#notificationitems").html('<table class="table table-hover"><tbody>' + str + '</tbody></table>');
         $("#notificationdialog").modal("show");
     });
     
     //var Msg = {}
+
+    $('.perzister-sendnotification').on("click", function (e) {
+        if ($("#perzister-newnotification").val() != '') {
+            PubNubPublish($("#perzister-newnotification").val());
+            $("#perzister-newnotification").val('');
+        }
+    });
+
+    function PubNubPublish(msg) {
+        PUBNUB_demo.publish({
+            channel: 'kc',
+            message: { "from":  localStorage.perzisterE , "msg":  msg }
+        });
+    }
 
     function PubNubino() {
 
@@ -488,9 +530,14 @@
 
         ConsoleLog('START PubNubino()');
 
-        var PUBNUB_demo = PUBNUB.init({
-            publish_key: 'pub-c-d7ea558c-9ed2-499a-8813-9c8d0a44259f',
-            subscribe_key: 'sub-c-138a37b2-6712-11e4-814d-02ee2ddab7fe'
+        if (localStorage.perzisterPUBNUB_publish_key == undefined) { ConsoleLog('NO PUBNUB_publish_key !!!'); return }
+        if (localStorage.perzisterPUBNUB_publish_key == '') { ConsoleLog('NO PUBNUB_publish_key !!!'); return }
+        if (localStorage.perzisterPUBNUB_subscribe_key == undefined) { ConsoleLog('NO perzisterPUBNUB_subscribe_key !!!'); return }
+        if (localStorage.perzisterPUBNUB_subscribe_key == '') { ConsoleLog('NO perzisterPUBNUB_subscribe_key !!!'); return }
+
+         PUBNUB_demo = PUBNUB.init({
+             publish_key: localStorage.perzisterPUBNUB_publish_key,
+             subscribe_key: localStorage.perzisterPUBNUB_subscribe_key
         });
 
         $("#disablednotificationicon").toggleClass('invisible');
@@ -518,7 +565,16 @@
                       '</div>' +
                       '</div>'
 
-                //$("#notificationitems").prepend(str);
+                str =  '<tr>' +
+                        '<td> ' +
+                        '<div class="pull-left perzister-dimed appicon"><i class="fa fa-bell-o fa-3x"></i></div>' +
+                        '</td> ' +
+                        '<td> ' +
+                        '<span class="text-muted">' + time + '</span> <strong>' + obj.from + '</strong>  <div class=""> ' + obj.msg + '</div>' +
+                        '</td>' +
+                        '</tr>'
+
+                $("#notificationitems tbody,#notificationitems2 tbody").prepend(str);
 
                 $("#disablednotificationicon").addClass('hide');
                 $("#activenotificationicon").removeClass('hide');

@@ -9,5 +9,6 @@ legend {  color : #000; }
 .perzister-hr { margin-bottom: 10px;  margin-top: 0px; border-color:#fcfcfc; }
 .form-control {background-color:#fbfafa;}
 label {  font-weight:100;    }
-.perzister-h4 {margin-top:10px; color : #666;}
+.perzister-h4 {margin-top:15px; color : #666;}
 .appcolfav,.favoritesrow { background: url("../bg/wash-white-30.png");  }
+#menuitems2 a , #menuitems1 a , #menuitems0 a  {  color : #2d3033 !important; }
