@@ -152,6 +152,7 @@
             window.location = '' + $(this).attr('data-url');
         });
 
+        $(".dbanduser").html(localStorage.perzisterE + ' <i class="fa fa-at"></i> ' + localStorage.perzisterD)
         $("#quickapplicationlistdialog").modal("show");
         var hash = localStorage.perzisterAPPMODALTAB;
         $('#appsmodaltabs a[href="#' + hash + '"]').tab('show');

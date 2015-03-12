@@ -92,7 +92,7 @@
                      <div class="row ">  
                              
                              <div class="col-sm-12  favoritescol">
-                                 <h3> <span class="glyphicon glyphicon-star"></span> <strong>J-Hybrid</strong> </h3>
+                                 <h3> <strong class="dbanduser">J-Hybrid</strong> </h3>
                                  <br />
                                    <div class="row favoritesrow">
                                       <div id="menuitems0"></div>
@@ -159,6 +159,7 @@
                      
                 </div>
                 <div class="modal-body">
+                    
                       <ul class="nav nav-tabs" role="tablist" id="appsmodaltabs">
                         <li role="presentation" class="active"><a href="#allapps" aria-controls="allapps" role="tab" data-toggle="tab"><i class="fa fa-asterisk fa-2x"></i></a></li>
                         <li role="presentation"><a href="#historyapps" aria-controls="historyapps" role="tab" data-toggle="tab"><i class="fa fa-history fa-2x"></i></a></li>
@@ -225,6 +226,8 @@
                       if (localStorage.perzisterURL == 'undefined') { window.location = 'login.htm'; }
                       if (localStorage.perzisterURL == undefined) { window.location = 'login.htm'; }
                       if (localStorage.perzisterURL == '') { window.location = 'login.htm'; }
+
+                      $(".dbanduser").html( localStorage.perzisterE + ' <i class="fa fa-at"></i> ' + localStorage.perzisterD)
 
                       $("#ajaxloader0,#appheadericon").toggleClass('hide');
                       //$('#menuitems').hide();
