@@ -29,6 +29,7 @@
        .actionbutton2:hover , .actionbutton3:hover  {  cursor:pointer; background-color : #ccc !important;}
        .actionbutton2 , .actionbutton3 {   font-size : 16px; border-bottom : 1px solid #ccc;padding-top:5px; padding-bottom:5px; }
         h3 { margin-top : 5px; }
+        .modal { overflow-y: scroll;}  /* fix scroll problem on modal over another modal */
     </style>
 
     <link rel="shortcut icon" href="../bg/favicon.ico" />
@@ -65,7 +66,7 @@
 
                       <form class="navbar-form navbar-right" role="search">
                           <div class="input-group">
-                            <input type="text"  id="topsearchtext" class="form-control" placeholder="trgovine" >
+                            <input type="text"  id="topsearchtext" class="form-control" placeholder="trgovine i kase" >
                             <span class="input-group-btn">
                             <button class="btn btn-default btn-primary" id="topsearchbutton" type="button"><span class="glyphicon glyphicon-search"></span></button>
                             </span>
@@ -92,40 +93,48 @@
                      <div class="row ">
                          <div class="col-sm-12 transparent">
                               <div id="resultslist"></div>
+                              
+                              <p class="text-muted"><small>* klik gore na ime baze (firme) ili iznos, otvara listu trgovina sa trenutnim iznosima i brojem izdanih računa u modalnom prozoru
+                              </small></p>
                              <br />
                              <div id="chartcontainer"></div>
                              <br /><br />
+                             <br />
+                            <p class="text-muted"><small>* podaci za današnji dan su informativni i dobivaju se iz tzv. "brzog" prijenosa gdje se kase javljaju cca svakih pola sata sa ukupnim današnjim prometom, a podaci od jučer i prije 7 dana su iz centralnih baza dobiveni standardnim prijenosom podataka iz kasa  
+                                <br /><br />
+                                * lista trgovina i kasa sa vremenima zadnjeg odziva dobije se klikom na "trgovine" ili na tražilicu "trgovine i kase" na gornjem izborniku
+                                                  </small></p>
                          </div>
                      </div>
                  </div>
                  </div>
         </section>
+ 
+      
+        <!-- MODAL (pregled po trgovinama danas) -->
+        <div class="modal fade" id="modalshopsaggregate" data-caller="">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title"><i class="fa fa-list"></i>  <span id="imefirmezadet"></span> : pregled po trgovinama danas  </h4>
+                        </div>
+                        <div class="modal-body">
+                                  <div id="resultslistdet"></div>
+                            <br />
+                            <p class="text-muted"><small>
+                                * klik na trgovinu otvara novi modalni prozor sa tabličnim i grafičkim prikazom prometa i brojem izdanih računa zadnjih 7 dana
+                                <br /><br />
+                                * gornji prikaz uzima podatke iz standardnog "sporijeg" prijenosa podataka, ukupan iznos za današnji dan može varirati od onog na početnom zaslonu dobivenog "brzim" prijenosom
 
-        <!-- sectionresultslist DET -->
-        <section class="sectionng hide" id="sectionresultslistdet" data-perzister-sectiontitle="" data-perzister-sectionicon=""  >
-                 <div class="container-fluid perzister-dark-container" >                 <div class="container" >
-                      
-                          <span class="btn-group">
-                          <h4 class="perzister-h4" >
-                              <span class="btn btn-primary  backtototals" ><i class="fa fa-chevron-left"></i></span>
-                               <span id="imefirmezadet"></span> : pregled po trgovinama danas   
-                                 
-                          </h4>
-                       </span>
-                      
-                     <div class="row ">
-                         <div class="col-sm-12 transparent">
-                             
-                              <div id="resultslistdet"></div>
-                         </div>
-                     </div>
-                     <br />
-                     <div class="btn-group">
-                        <div class="btn btn-primary backtototals" ><i class="fa fa-chevron-left"></i></div>
-                      </div>
-                 </div>
-                 </div>
-        </section>
+                                                  </small></p>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
       
         
         <!-- TOP SEARCH RESULTS  -->
@@ -134,10 +143,14 @@
                      <div class="row ">
                          <div class="col-sm-12 transparent">
                               <div class="btn-group">
-                              <h4 class="perzister-h4 backtototals" ><i class="fa fa-chevron-left  btn btn-primary"></i> lista trgovina   </h4>
+                              <h4 class="perzister-h4 backtototals" ><i class="fa fa-chevron-left  btn btn-primary"></i> lista trgovina  i kasa  </h4>
                               </div>
-                             
-                              <div id="topsearchresultslist"></div>
+                                 <div id="topsearchresultslist"></div>
+                             <br /><br />
+                             <p class="text-muted"><small>* za osvježavanje cijele liste klik na tražilicu "trgovine i kase" u gornjem izborniku i ENTER 
+                                <br /><br />
+                                * kucanjem slova i brojeva u tražilici "trgovine i kase" program radi lokalni filter, pritiskom na ENTER izvršava se serversko pretraživanje i osvježavanje liste
+                                                  </small></p>
 
                          </div>
                      </div>
@@ -148,43 +161,31 @@
         </section>
 
 
-        <!-- section last 7 days -->
-        <section class="sectionng hide" id="sectionlast7days" data-perzister-sectiontitle="" data-perzister-sectionicon=""  >
-                 <div class="container-fluid perzister-dark-container" >                 <div class="container" >
-                     
 
-                     
 
-                     <div class="row">
-                         <div class="col-sm-12 transparent">
-
-                             <div class="btn-group">
-                         <h4 class="perzister-h4" > 
-                             <span class="btn btn-primary backtoshops hide" ><i class="fa fa-chevron-left"></i></span><span class="btn btn-primary backtoshopsfromtotals hide" ><i class="fa fa-chevron-left"></i></span>
-                             <span class="control-label"> 7 dana : <span id="trgovinaopis"></span> </span> 
-                         </h4>
-                     </div>
-
-                              <div id="last7daysresultslist"></div>
+        <!-- MODAL (last 7 days ) -->
+        <div class="modal fade" id="modallast7days" data-caller="">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title"><i class="fa fa-list"></i> <span class="control-label"> 7 dana : <span id="trgovinaopis"></span> </span>  </h4>
+                        </div>
+                        <div class="modal-body">
+                               <div id="last7daysresultslist"></div>
                               <br /><br />
                               <div id="last7daysresultschart"></div>
                              <br /> 
+                            
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
 
-                             <div class="btn-group">
-                              <div class="btn btn-primary backtoshops hide" ><i class="fa fa-chevron-left"></i></div>
-                             </div>
-                             <div class="btn-group">
-                              <div class="btn btn-primary backtoshopsfromtotals hide" ><i class="fa fa-chevron-left"></i></div>
-                             </div>
-
-                         </div>
-                     </div>
-                     
-                     <div class="clearfix"></div>
-                     <br /><br />
-                 </div>
-                 </div>
-        </section>
+       
 
 
         <!-- MODAL (NOTIFICATIONS) -->
@@ -367,8 +368,8 @@
                           $('#topsearchtext').fastLiveFilter('.forlivesearch');
                           $(".actionbutton3").off();
                           $(".actionbutton3").on("click", function (event) {
-                              $(".backtoshopsfromtotals,.backtoshops").addClass('hide');
-                              $(".backtoshops").removeClass('hide');
+                              //$(".backtoshopsfromtotals,.backtoshops").addClass('hide');
+                              //$(".backtoshops").removeClass('hide');
                               GetShop7($(this).attr('data-firma'), $(this).attr('data-id'), $(this).attr('data-opis'));
                           });
                       },
@@ -382,7 +383,30 @@
               function TopSearchFormat(data) {
                   var strFormattedHTML = '';
                   $.each(data.items, function (i, item) {
-                      strFormattedHTML = strFormattedHTML + '<div class="forlivesearch"><div class="row actionbutton3" data-id="' + item.trgovinaid + '" data-firma="' + item.firma + '" data-opis="' + item.opis + '"><div class="col-sm-6">' + item.opis + ' </div><div class="col-sm-6">' + item.naziv + ' ' + item.firma + ' </div></div></div>';
+                      mydatediffmins = '';
+                      myicons = '';
+                      if (item.mydatediffmin < 31)
+                        {
+                            mydatediffmins = '<p class="text-success">Zadnji poslani iznos :' + item.ukupno + '<br/> ' + 'Odziv uredan, zadnji kontakt prije ' + item.mydatediffmin + 'min</p>';
+                            myicons = '<i class="fa fa-check"></i>';
+                        }
+                      else if (item.mydatediffmin > 1440 || item.mydatediffmin == '? ')
+                      {
+                          mydatediffmins = '<p class="text-muted">Zadnji poslani iznos :' + item.ukupno + '<br/> ' + 'Kasa nedostupna, zadnji kontakt prije ' + item.mydatediffmin + 'min<i class="fa fa-chain-broken"></i> </p>';
+                          myicons = '<i class="fa fa-chain-broken"></i>';
+                      }
+                      else if (item.mydatediffmin > 120)
+                      {
+                          mydatediffmins = '<strong><p class="text-danger">Zadnji poslani iznos :' + item.ukupno + '<br/> ' + 'Problem u odzivu, zadnji kontakt prije ' + item.mydatediffmin + 'min <i class="fa fa-exclamation-circle"></i><i class="fa fa-exclamation-circle"></i></p></strong>';
+                          myicons = '<i class="fa fa-exclamation-circle"></i><i class="fa fa-exclamation-circle"></i>';
+                      }
+                      else
+                      {
+                          mydatediffmins = '<p class="text-danger">Zadnji poslani iznos :' + item.ukupno + '<br/> ' + 'Spori odziv, zadnji kontakt prije ' + item.mydatediffmin + 'min <i class="fa fa-exclamation-circle"></i></p>';
+                          myicons = '<i class="fa fa-exclamation-circle"></i>';
+                      }
+
+                      strFormattedHTML = strFormattedHTML + '<div class="forlivesearch"><div class="row actionbutton3" data-id="' + item.trgovinaid + '" data-firma="' + item.firma + '" data-opis="' + item.opis + '"><div class="col-sm-5">' + myicons + ' '  + item.opis + ' [kasa: ' + item.kasa + '] </div><div class="col-sm-3">' + item.naziv + ' ' + item.firma + ' </div><div class="col-sm-4">' + mydatediffmins + ' </div></div></div>';
                   });
                   return strFormattedHTML;
               }
@@ -398,10 +422,18 @@
 
               var dani = [];
 
+              $('#modallast7days').on('hidden.bs.modal', function (e) {
+                  // alert(1);
+                  //$("#modalshopsaggregate").modal("handleUpdate");
+                 // $("#modalshopsaggregate").modal("show");
+              })
+
               function GetShop7(firma,id,opis) {
                   $("#ajaxloader0,#appheadericon").toggleClass('hide');
-                  $(".sectionng").addClass('hide');
-                  $("#sectionlast7days").toggleClass('hide');
+                  //$(".sectionng").addClass('hide');
+                  //$("#sectionlast7days").toggleClass('hide');
+                 // $("#modalshopsaggregate").modal("hide");
+                  $("#modallast7days").modal("show");
                   $("#last7daysresultslist").html('');
                   $("#last7daysresultschart").addClass('hide');
                   $("#trgovinaopis").html(opis + ' (' + firma + ')');
@@ -450,6 +482,14 @@
               var m1 = 0;
               var m7 = 0;
 
+              var ms0 = 0;
+              var ms1 = 0;
+              var ms7 = 0;
+
+              var md0 = 0;
+              var md1 = 0;
+              var md7 = 0;
+
               var k0 = 0;
               var k1 = 0;
               var k7 = 0;
@@ -494,12 +534,23 @@
                                       strTD = strTD + '<div class="clearfix"></div><br/></div>';
                                   } else {
                                       strTD = strTD + '<div class="col-xs-6 actionbutton2"  data-firma="' + item.opis + '" ><div class="pull-left">' + item.opis + '</div></div><div class="col-xs-6 actionbutton2" data-firma="' + item.opis + '"><div class="pull-right"> ' + item.Iznos.formatMoney(2) + '</div></div>';
-                                      if (i == 0) m0 = parseInt(item.Iznos);
-                                      if (i == 3) m1 = parseInt(item.Iznos);
-                                      if (i == 6) m7 = parseInt(item.Iznos);
-                                      if (i == 1) k0 = parseInt(item.Iznos);
-                                      if (i == 4) k1 = parseInt(item.Iznos);
-                                      if (i == 7) k7 = parseInt(item.Iznos);
+
+                                      if (i == 1) m0 = parseInt(item.Iznos);
+                                      if (i == 6) m1 = parseInt(item.Iznos);
+                                      if (i == 11) m7 = parseInt(item.Iznos);
+
+                                      if (i == 0) k0 = parseInt(item.Iznos);
+                                      if (i == 5) k1 = parseInt(item.Iznos);
+                                      if (i == 10) k7 = parseInt(item.Iznos);
+
+                                      if (i == 2) md0 = parseInt(item.Iznos);
+                                      if (i == 7) md1 = parseInt(item.Iznos);
+                                      if (i == 12) md7 = parseInt(item.Iznos);
+
+                                      if (i == 3) ms0 = parseInt(item.Iznos);
+                                      if (i == 8) ms1 = parseInt(item.Iznos);
+                                      if (i == 13) ms7 = parseInt(item.Iznos);
+
                                   }
 
                                   if (i == rowcount) { // last item
@@ -598,8 +649,10 @@
 
                   function GetIzvMPSadDet(firma) {
                       $("#ajaxloader0,#appheadericon").toggleClass('hide');
-                      $(".sectionng").addClass('hide');
-                      $("#sectionresultslistdet").toggleClass('hide');
+                      //$(".sectionng").addClass('hide');
+                      //$("#sectionresultslistdet").toggleClass('hide');
+                      //$("#sectionresultslistdet").removeClass('hide');
+                      $("#modalshopsaggregate").modal("show");
                       $("#resultslistdet").html('');
                       $("#imefirmezadet").html(firma);
                       var strFormattedHTML = '';
@@ -612,10 +665,12 @@
                           success: function (data, status) {
                               if (data.errnumber == '-2') { window.location = 'login.htm'; }
                               $.each(data.items, function (i, item) {
-                                  strFormattedHTML = strFormattedHTML + '<div class="actionbutton3 clearfix" data-id="' + item.trgovinaid + '" data-firma="' + item.firma + '" data-opis="' + item.Trgovina + '" ><div class="col-xs-6">' + item.Trgovina + ' </div><div class="col-xs-4"><span class="pull-right">' + item.iznos.formatMoney(2) + '</span> </div>  <div class="col-xs-2"><span class="pull-right">' + ' (' + item.brojracuna + ') </span> </div> </div>';
+                                  //strFormattedHTML = strFormattedHTML + '<div class="actionbutton3 clearfix" data-id="' + item.trgovinaid + '" data-firma="' + item.firma + '" data-opis="' + item.Trgovina + '" ><div class="col-xs-6">' + item.Trgovina + ' </div><div class="col-xs-4"><span class="pull-right">' + item.iznos.formatMoney(2) + '</span> </div>  <div class="col-xs-2"><span class="pull-right">' + ' (' + item.brojracuna + ') </span> </div> </div>';
+                                  strFormattedHTML = strFormattedHTML + '<tr class="actionbutton3 clearfix" data-id="' + item.trgovinaid + '" data-firma="' + item.firma + '" data-opis="' + item.Trgovina + '" ><td>' + item.Trgovina + ' </td><td ><span class="pull-right">' + item.iznos.formatMoney(2) + '</span> </td>  <td ><span class="pull-right">' + ' (' + item.brojracuna + ') </span> </td> </tr>';
                               });
-                              $("#resultslistdet").html(strFormattedHTML);
+                              $("#resultslistdet").html('<table class="table"><tbody>' + strFormattedHTML + '</tbody></table>');
                               $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                             
                               $(".actionbutton3").off();
                               $(".actionbutton3").on("click", function (event) {
                                   $(".backtoshops,.backtoshopsfromtotals").addClass('hide');
@@ -736,7 +791,16 @@
                           }, {
                               name: 'kruna',
                               data: [k0, k1, k7]
-                          }]
+                          },
+                          {
+                              name: 'mlinarD',
+                              data: [md0, md1, md7]
+                          },
+                          {
+                              name: 'mlinarSLO',
+                              data: [ms0, ms1, ms7]
+                          }
+                          ]
                       });
                   }
 
