@@ -86,7 +86,7 @@
                      <div class="row ">
                          <div class="col-sm-12 transparent">
                       <div class="btn-group">
-                        <h4 class="refreshtototals perzister-h4" ><i class="fa fa-refresh btn btn-primary"></i> totali za danas, jučer, prije 7 dana </h4>
+                        <h4 class="refreshtototals perzister-h4" > <div class="btn btn-primary"> <i class="fa fa-refresh "></i> <span id="time"></span> </div> totali za danas, jučer i prije 7 dana </h4>
                       </div>
                          </div>
                           </div>
@@ -94,16 +94,28 @@
                          <div class="col-sm-12 transparent">
                               <div id="resultslist"></div>
                               
-                              <p class="text-muted"><small>* klik gore na ime baze (firme) ili iznos, otvara listu trgovina sa trenutnim iznosima i brojem izdanih računa u modalnom prozoru
-                              </small></p>
+                             <div class="alert alert-info alert-dismissible" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                   <small>* za listu trgovina sa trenutnim iznosima i brojem izdanih računa u modalnom prozoru klik gore na ime baze (firme) ili iznos
+                              </small>  
+                                </div>
+
+                              
                              <br />
                              <div id="chartcontainer"></div>
                              <br /><br />
                              <br />
-                            <p class="text-muted"><small>* podaci za današnji dan su informativni i dobivaju se iz tzv. "brzog" prijenosa gdje se kase javljaju cca svakih pola sata sa ukupnim današnjim prometom, a podaci od jučer i prije 7 dana su iz centralnih baza dobiveni standardnim prijenosom podataka iz kasa  
+
+                              <div class="alert alert-info alert-dismissible" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <small>* podaci za današnji dan su informativni i kreiraju se iz tzv. "brzog" prijenosa gdje se kase javljaju cca svakih pola sata sa ukupnim današnjim prometom, a podaci od jučer i prije 7 dana su iz centralnih baza dobiveni standardnim prijenosom podataka iz kasa  
                                 <br /><br />
                                 * lista trgovina i kasa sa vremenima zadnjeg odziva dobije se klikom na "trgovine" ili na tražilicu "trgovine i kase" na gornjem izborniku
-                                                  </small></p>
+                                                  </small> 
+                             
+                                </div>
+
+                           
                          </div>
                      </div>
                  </div>
@@ -122,12 +134,19 @@
                         <div class="modal-body">
                                   <div id="resultslistdet"></div>
                             <br />
-                            <p class="text-muted"><small>
-                                * klik na trgovinu otvara novi modalni prozor sa tabličnim i grafičkim prikazom prometa i brojem izdanih računa zadnjih 7 dana
-                                <br /><br />
-                                * gornji prikaz uzima podatke iz standardnog "sporijeg" prijenosa podataka, ukupan iznos za današnji dan može varirati od onog na početnom zaslonu dobivenog "brzim" prijenosom
 
-                                                  </small></p>
+                             <div class="alert alert-info alert-dismissible" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                   <small>
+                                * za tablični i grafički prikaz prometa sa brojem izdanih računa u zadnjih 7 dana klik na trgovinu u gornjoj listi
+                                <br /><br />
+                                * gornji prikaz kreiran je iz podataka iz centralnih baza dobivenih standardnim prijenosom podataka, ukupan iznos za današnji dan može varirati od onog na početnom zaslonu dobivenog "brzim" prijenosom
+
+                                                  </small> 
+                             
+                                </div>
+
+                           
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
@@ -147,10 +166,18 @@
                               </div>
                                  <div id="topsearchresultslist"></div>
                              <br /><br />
-                             <p class="text-muted"><small>* za osvježavanje cijele liste klik na tražilicu "trgovine i kase" u gornjem izborniku i ENTER 
+                              <div class="alert alert-info alert-dismissible" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <small>
+                                  * za tablični i grafički prikaz prometa sa brojem izdanih računa u zadnjih 7 dana klik na trgovinu u gornjoj listi
+                                  <br /><br />
+                                 * za osvježavanje cijele liste klik na tražilicu "trgovine i kase" u gornjem izborniku i ENTER 
                                 <br /><br />
                                 * kucanjem slova i brojeva u tražilici "trgovine i kase" program radi lokalni filter, pritiskom na ENTER izvršava se serversko pretraživanje i osvježavanje liste
-                                                  </small></p>
+                                                  </small> 
+                             
+                                </div>
+                            
 
                          </div>
                      </div>
@@ -177,6 +204,18 @@
                               <div id="last7daysresultschart"></div>
                              <br /> 
                             
+                             <br />
+                            <div class="alert alert-info alert-dismissible" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <small>
+                               
+                                * gornji prikaz kreiran je iz podataka iz centralnih baza dobivenih standardnim prijenosom podataka, ukupan iznos za današnji dan može varirati od onog dobivenog "brzim" prijenosom
+
+                                                  </small> 
+                             
+                                </div>
+                           
+
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
@@ -353,7 +392,7 @@
                   });
               }
 
-              TopSearchDefault();
+              //TopSearchDefault();
 
               function TopSearchDefault() {
                   $.ajax({
@@ -505,9 +544,32 @@
                   
 
                   GetIzvMPSadKaoCol();
+                
+                  var startTimerID;
+                  function startTimer(duration, display) {
+                      var timer = duration, minutes, seconds;
+                     
+                      startTimerID = setInterval(function () {
+                          minutes = parseInt(timer / 60, 10)
+                          seconds = parseInt(timer % 60, 10);
+
+                          minutes = minutes < 10 ? "0" + minutes : minutes;
+                          seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                          $('#time').text(minutes + ":" + seconds);
+
+                          if (--timer < 0) {
+                              timer = duration;
+                              GetIzvMPSadKaoCol();
+                          }
+                      }, 1000);
+                  }
+
+                  //startTimer(10);
 
                   function GetIzvMPSadKaoCol() {
-                      $("#ajaxloader0,#appheadericon,.refreshtototals,#chartcontainer").toggleClass('hide');
+                      clearInterval(startTimerID);
+                      $("#ajaxloader0,#appheadericon,.refreshtototals,#chartcontainer,#sectionresultslist").toggleClass('hide');
                       var strFormattedHTML = '';
                       var strTH = '';
                       var j = '';
@@ -535,21 +597,17 @@
                                   } else {
                                       strTD = strTD + '<div class="col-xs-6 actionbutton2"  data-firma="' + item.opis + '" ><div class="pull-left">' + item.opis + '</div></div><div class="col-xs-6 actionbutton2" data-firma="' + item.opis + '"><div class="pull-right"> ' + item.Iznos.formatMoney(2) + '</div></div>';
 
-                                      if (i == 1) m0 = parseInt(item.Iznos);
-                                      if (i == 6) m1 = parseInt(item.Iznos);
-                                      if (i == 11) m7 = parseInt(item.Iznos);
+                                      if (i == 0) m0 = parseInt(item.Iznos);
+                                      if (i == 4) m1 = parseInt(item.Iznos);
+                                      if (i == 8) m7 = parseInt(item.Iznos);
 
-                                      if (i == 0) k0 = parseInt(item.Iznos);
-                                      if (i == 5) k1 = parseInt(item.Iznos);
-                                      if (i == 10) k7 = parseInt(item.Iznos);
+                                      if (i == 1) md0 = parseInt(item.Iznos);
+                                      if (i == 5) md1 = parseInt(item.Iznos);
+                                      if (i == 9) md7 = parseInt(item.Iznos);
 
-                                      if (i == 2) md0 = parseInt(item.Iznos);
-                                      if (i == 7) md1 = parseInt(item.Iznos);
-                                      if (i == 12) md7 = parseInt(item.Iznos);
-
-                                      if (i == 3) ms0 = parseInt(item.Iznos);
-                                      if (i == 8) ms1 = parseInt(item.Iznos);
-                                      if (i == 13) ms7 = parseInt(item.Iznos);
+                                      if (i == 2) ms0 = parseInt(item.Iznos);
+                                      if (i == 6) ms1 = parseInt(item.Iznos);
+                                      if (i == 10) ms7 = parseInt(item.Iznos);
 
                                   }
 
@@ -561,15 +619,16 @@
                               strFormattedHTML = '<div class="row">' + strTD + '</div>';
 
                               $("#resultslist").html(strFormattedHTML);
-                              $("#ajaxloader0,#appheadericon,.refreshtototals,#chartcontainer").toggleClass('hide');
+                              $("#ajaxloader0,#appheadericon,.refreshtototals,#chartcontainer,#sectionresultslist").toggleClass('hide');
 
 
                               $(".actionbutton2").on("click", function (event) {
                                   GetIzvMPSadDet($(this).attr('data-firma'));
                               });
 
+                              startTimer(10 * 60);
                               Chart();
-
+                              TopSearchDefault()
                           },
                           error: function (xhr, ajaxOptions, thrownError) {
                               $("#ajaxloader0,#appheadericon").toggleClass('hide');
@@ -788,10 +847,7 @@
                           series: [{
                               name: 'mlinar',
                               data: [m0, m1 , m7]
-                          }, {
-                              name: 'kruna',
-                              data: [k0, k1, k7]
-                          },
+                          }, 
                           {
                               name: 'mlinarD',
                               data: [md0, md1, md7]
