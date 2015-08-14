@@ -4,6 +4,7 @@ legend {  color : #000; }
 .perzister-dark-container { background-color : #fcfcfc !important; padding-top:15px; padding-bottom:5px; }
 .perzister-newitem-container { background-color : #f6f6f6   ; padding-top:10px; padding-bottom:10px; border-top: 1px solid #fff; border-bottom: 1px solid #e7e7e7; }
 .transparent {  color : #333; }
+.transparent2 {background : url(../bg/transparent-bg.png); }
 .btn-group .btn { background-color : #fbfafa; color:#777; border-color:#d9d8d8; }
 .btn-group .btn:hover { color:#000; }
 .perzister-hr { margin-bottom: 10px;  margin-top: 0px; border-color:#fcfcfc; }

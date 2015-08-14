@@ -1,0 +1,1494 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="html5 javascript applications" />
+    <meta name="author" content="kovack@gmail.com" />
+    <meta http-equiv='cache-control' content='no-cache' />
+    <meta http-equiv='expires' content='0' />
+    <meta http-equiv='pragma' content='no-cache' />
+    
+    <title>Jupiter audit overview</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="../css/font/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../css/jquery.gritter.css" rel="stylesheet" />
+    <link href="../css/dataTables.responsive.css" rel="stylesheet" />
+    <link href="../css/perzister.css" rel="stylesheet" />
+    <link href="../css/perzister-dark.css" rel="stylesheet" class="additional" />
+    <link href="../css/print.css" rel="stylesheet" media="print" />
+
+     
+
+    <style>
+       body {  padding-top:45px; }
+       .table>tbody>tr:hover  { background-color : #ccc !important; cursor:pointer; }
+       .table>tbody>tr>td { padding-top:10px; padding-bottom:10px; border-top:0px ;}
+       .actionbutton2:hover , .actionbutton3:hover  {  cursor:pointer; background-color : #ccc !important;}
+       .actionbutton2 , .actionbutton3 {   font-size : 16px; border-bottom : 1px solid #ccc;padding-top:5px; padding-bottom:5px; }
+        h3 { margin-top : 5px; }
+        .glide__slide {min-height: 800px; margin-bottom : 100px; padding-top:50px;}
+    </style>
+
+    <link rel="shortcut icon" href="../bg/favicon.ico" />
+
+  </head>
+
+  <body data-perzister-login="true" 
+      data-perzister-notification="false" 
+      data-perzister-appname="jupiter-audit.htm" 
+      data-perzister-ikona="bullseye" 
+      data-perzister-opis="jupiter applications audit overview" 
+      data-perzister-hint="jupiter applications audit overview" 
+      >
+
+        <!-- NAV -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" >
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <!--<span class="icon-bar"></span>-->
+              </button>
+              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectiontopsearchresults"><i id="ajaxloader0" class="fa fa-spinner fa-spin hide" ></i><i id="appheadericon" class="fa fa-bullseye "></i> jupiter   audit </span>  <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span class="badge" id="numberofnotifications" >1</span></span> </a>
+            </div>
+
+          
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav" id="actionbutton">
+                      </ul>
+
+                     
+                    </div><!-- /.navbar-collapse -->
+              
+
+          </div><!-- /.container-fluid -->
+        </nav> <!-- end of NAV  -->
+
+        
+       <!-- APP HEADER  -->
+        <div class="container-fluid perzister-dark-container perzister-backstretch-it perzister-about-container" >                <div class="container " > 
+                    <div class="row ">  
+                               <div class="col-sm-12 ">
+                             <section style="min-height:350px;">
+                                            
+                                      
+                                 <div class="btn-group transparent2">
+                                                <h4 class="perzister-h4 "  ><strong> &nbsp;  year <span style="color:#fff;" id="godina"></span>  &nbsp; </strong></h4>
+                                              </div>
+
+                                 <br /> <br />
+                                 <div class="btn-group transparent2">
+                                                <h4 class="perzister-h4 " ><strong> &nbsp;  host <span style="color:#fff;" id="host"></span>  &nbsp; </strong></h4>
+                                              </div>
+
+                                                 
+                                           <br />
+                                          </section>
+                </div>
+                         </div>
+            </div>
+            </div>
+
+
+        <!-- section genpiechart -->
+        <section class="sectionng glide "  data-perzister-sectiontitle="" data-perzister-sectionicon=""  >
+
+          
+            
+
+                 <div class="container-fluid perzister-dark-container " >                 <div class="container " >
+                     
+                     <div class="row">
+                         <div class="col-sm-12 transparent">
+                                
+                               <section class="glide__slide hide">
+                                                <h4 class="perzister-h4 " >  Jupiter technology & applications audit overview     </h4>
+                                              
+
+                             <div class="perzister-h4 ">
+
+
+                                 <p>Today <span id="ukupnokorisnikad"></span> users has used <span id="ukupnoaplikacijad"></span> applications with total of  <span id="ukupnopokretanjad"></span> launches.</p>
+                                 <p>This month <span id="ukupnokorisnikam"></span> users has used <span id="ukupnoaplikacijam"></span> applications with total of  <span id="ukupnopokretanjam"></span> launches.</p>
+                                 <p>In the year <span id="year"></span> , <span id="ukupnokorisnika"></span> users has used <span id="ukupnoaplikacija"></span> applications with total of  <span id="ukupnopokretanja"></span> launches. </p>
+                                            <p>Scroll down for more in depth analysis</p>  
+                                 <ul>
+                                     <li>Audit</li>
+                                     <li>App activity by DB (current month)</li>
+                                     <li>App activity by DB (year)</li>
+                                     <li>.NET vs VB6 vs HTML (unique)</li>
+                                     <li>.NET vs VB6 vs HTML (launches)</li>
+                                     <li><a href="#appgroupssection2" >App groups activity & technology overview</a></li>
+                                     <li>asm:GENs vs asm: NOT GENs (unique)</li>
+                                     <li>asm:GENs vs asm: NOT GENs (launches)</li>
+                                     <li>GENs (unique)</li>
+                                     <li>GENs (launches)</li>
+                                     <li><a href="#topuserssection2" >Top users list overall</a></li>
+                                     <li>Top app list overall</li>
+                                 </ul>       
+                                                 </div>
+
+                                                 <br /> <br />
+                                     
+                                   </section>
+
+                              <section class="glide__slide hide">
+                                                 <div class="btn-group">
+                                                 <h4  class="perzister-h4" >  <span id="refreshbutton" class="btn btn-primary"> <i class="fa fa-refresh "></i> <span id="time"></span> </span> audit  </h4>
+                                                 </div>
+                                                        <form>
+                                                        <div class="input-group">
+                                                        <input type="text"  id="auditsearchtext" class="form-control enterastab" placeholder="filter" >
+                                                        <span class="input-group-btn">
+                                                        <button class="btn btn-default btn-primary enterastab" id="refreshbutton2" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                                                        </span> </div>
+                                                        </form>
+                                                    
+                                                 <div id="audit"></div>
+                                                 
+                                                 <br /> <br /> <br />
+                                         </section>
+
+                             
+
+                                        <section class="glide__slide  hide">
+                                                 <div class="btn-group">
+                                                 <h4 id="getmonthdbauditactivitysection" class="perzister-h4" >  Current month app activity by DB <small>(according to the number of app launches)</small> </h4>
+                                                 </div>
+                                     
+                                                 <div id="getmonthdbauditactivitylist"></div>
+                                                 <div id="getmonthdbauditactivitylistchart"  ></div>
+                                                 <br /> <br /> <br />
+                                         </section>
+                             
+                                         <section class="glide__slide  hide">
+                                                 <div class="btn-group">
+                                                 <h4 id="getdbauditactivitysection" class="perzister-h4" >  App activity by DB <small>(according to the number of app launches)</small> </h4>
+                                                 </div>
+                                     
+                                                 <div id="getdbauditactivitylist"></div>
+                                                 <div id="getdbauditactivitylistchart"  ></div>
+                                                 <br /> <br /> <br />
+                                         </section>
+
+                                         <section class="glide__slide  hide">
+                                               <div class="btn-group">
+                                               <h4 id="getvb6vsnetuniquesection" class="perzister-h4" >  .NET vs VB6 vs HTML <small>(according to the nuber of unique used apps)</small> </h4>
+                                               </div>
+                                                  <div id="getvb6vsnetunique"></div>
+                                                  <div id="getvb6vsnetuniquechart"  ></div>
+                                               <br /> 
+                                               <br />  <br />
+                                         </section>
+
+                                         <section  class="glide__slide  hide">
+                                               <div class="btn-group">
+                                               <h4 id="getvb6vsnetbynumberoflounchingsection" class="perzister-h4" >  .NET vs VB6 vs HTML <small>(according to the number of app launches)</small> </h4>
+                                               </div>
+                                                  <div id="getvb6vsnetbynumberoflounching"></div>
+                                                  <div id="getvb6vsnetbynumberoflounchingchart" ></div>
+                                                <br /> 
+                                                <br />  <br />
+                                         </section>
+
+
+                                        <section   id="appgroupssection2" class="glide__slide  hide">
+                                               <div class="btn-group">
+                                               <h4 id="appgroupssection" class="perzister-h4" >    App groups activity & technology overview  </h4>
+                                               </div>
+                                                  <div id="appgroupslist"></div>
+                                                <br /> 
+                                                <br />  <br />
+                                         </section>
+
+
+                           
+
+                                         <section  class="glide__slide  hide">
+                                            <div class="btn-group">
+                                             <h4 id="asmuniquesection" class="perzister-h4" >  asm:GENs vs asm: NOT GENs<small>(according to the nuber of unique used apps)</small> </h4>
+                                             </div>
+                                             <div id="asmunique" ></div>
+                                             <br /><br />
+                                             <div id="asmuniquechart"></div>
+                                             <br />  <br /> <br />
+                                        </section>
+
+                                         <section  class="glide__slide  hide">
+                                            <div class="btn-group">
+                                             <h4 id="asmlaunchessection" class="perzister-h4">  asm:GENs vs asm: NOT GENs<small>(according to the number of app launches)</small> </h4>
+                                             </div>
+                                             <div id="asmlaunches"></div>
+                                             <br /><br />
+                                             <div id="asmlauncheschart"></div>
+                                             <br />  <br /> <br />
+                                        </section>
+
+
+                                         <section  class="glide__slide  hide">
+                                            <div class="btn-group">
+                                             <h4 id="gensuniquesection" class="perzister-h4" >  GENs <small>(according to the nuber of unique used apps)</small> </h4>
+                                             </div>
+                                             <div id="gensunique" ></div>
+                                             <br /><br />
+                                             <div id="gensuniquechart"></div>
+                                             <br />  <br /> <br />
+                                        </section>
+
+                                        <section  class="glide__slide  hide">
+                                              <div class="btn-group">
+                                              <h4 id="genslaunchessection" class="perzister-h4" >  GENs <small>(according to the number of apps launches)</small> </h4>
+                                              </div>
+                                              <div id="genslaunches"></div>
+                                              <div id="genslauncheschart"></div>
+                                             <br />  <br /> <br />
+                                        </section>
+
+
+                                      <section id="topuserssection2" class="glide__slide  hide">
+                                                         <div class="btn-group">
+
+                                                             <h4 id="topuserssection" class=" perzister-h4" >  Top users list overall <small>(according to the number of apps launches)</small> </h4>
+                                                     
+                                                             <div class="input-group">
+                                                                <input type="text"  id="topuserssearchtext" class="form-control" placeholder="filter" >
+                                                                <span class="input-group-btn">
+                                                                <button class="btn btn-default btn-primary" id="Button1" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                                                </span>
+                                                             </div><!-- /input-group -->
+                                                    </div>
+                              
+                                                 <div id="topusers"></div>
+                                                <small>* click app for top apps list</small>
+                                                 <br />  <br /> <br />
+                                       </section>
+
+
+                                       <section  class="glide__slide  hide">
+                                                 <div class="btn-group">
+                                                <h4 id="top100section" class=" perzister-h4" >  Top app list overall <small>(according to the number of apps launches)</small> </h4>
+                                                     
+                                                     <div class="input-group">
+                                                        <input type="text"  id="top100searchtext" class="form-control" placeholder="filter" >
+                                                        <span class="input-group-btn">
+                                                        <button class="btn btn-default btn-primary" id="topsearchbutton" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                                        </span>
+                                                     </div><!-- /input-group -->
+                                                    </div>
+                              
+                                                 <div id="top100"></div>
+                                                <small>* click app for top users list</small>
+                                                 <br />  <br /> <br />
+                                      </section>
+
+                                 
+                         </div>
+                     </div>
+                     
+                     <div class="clearfix"></div>
+                     <br /><br />
+                 </div>
+                 </div>
+            <ul class="glide__bullets"></ul>
+        </section>
+       
+
+      <!-- MODAL (asms) -->
+        <div class="modal fade" id="modalasms">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title"><span id="modalasmsheader"></span></h4>
+                        </div>
+                        <div class="modal-body">
+                            <span id="modalasmslist"></span>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
+
+
+        <!-- MODAL (NOTIFICATIONS) -->
+        <div class="modal fade" id="notificationdialog" data-caller="">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title"><i class="fa fa-bell-o"></i> notifications</h4>
+                        </div>
+                        <div class="modal-body">
+                            <span id="notificationitems"></span>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
+
+
+        <!-- MODAL (APPS) -->
+        <div class="modal fade" id="quickapplicationlistdialog" data-caller="">
+        <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group"><a href="#"  class="btn btn-default"><i class="fa fa-cubes fa-lg "></i> </a></div>
+                        <div class="btn-group" role="group"><a href="menu.htm"  class="btn btn-default"><i class="fa fa-home fa-lg "></i> </a></div>
+                        <div class="btn-group" role="group"><a href="login.htm" class="btn btn-default"><i class="fa fa-sign-out fa-lg "></i></a></div>
+                        <div class="btn-group" role="group"><a href="#"  class="btn btn-default" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times fa-lg "></i></span><span class="sr-only">Close</span></a></div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                      <ul class="nav nav-tabs" role="tablist" id="appsmodaltabs">
+                        <li role="presentation" class="active"><a href="#allapps" aria-controls="allapps" role="tab" data-toggle="tab"><i class="fa fa-asterisk fa-2x"></i></a></li>
+                        <li role="presentation"><a href="#historyapps" aria-controls="historyapps" role="tab" data-toggle="tab"><i class="fa fa-history fa-2x"></i></a></li>
+                        <li role="presentation"><a href="#favoritesapps" aria-controls="favoritesapps" role="tab" data-toggle="tab"><i class="fa fa-star fa-2x"></i></a></li>
+                      </ul>
+                      <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="allapps"><span id="quickapplicationlist"></span></div>
+                        <div role="tabpanel" class="tab-pane" id="historyapps"><span id="quickapplicationlisthistory"></span></div>
+                        <div role="tabpanel" class="tab-pane" id="favoritesapps"><span id="quickapplicationlistfavorites"></span></div>
+                      </div>
+                </div>
+            <div class="clearfix"></div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                </div>
+        </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
+
+        <section class="sectionng" data-perzister-sectiontitle="divider" />
+        
+
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/fastLiveFilter.js"></script>
+        <script src="../js/jquery.backstretch.js"></script>
+        <script src="../js/perzister.js"></script>
+        <script src="../js/jquery.dataTables.min.js"></script>
+        <script src="../js/dataTables.bootstrap.js"></script>
+        <script src="../js/dataTables.responsive.min.js"></script>
+        <script src="../js/pusher.min.js"></script>
+        <script src="../js/jquery.gritter.js"></script>
+        <script src="../js/pubnub.min.js"></script>
+        
+
+        <script src="../js/highcharts.js"></script>
+
+        
+        
+
+
+      <script>
+
+         
+
+          $(document).ready(function () {
+
+              audit();
+
+              function isElementInViewport(el) {
+                  var rect = el.getBoundingClientRect();
+                  return (
+                      rect.top >= 0 &&
+                      rect.left >= 0   &&
+                       rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
+                       rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
+                  );
+              }
+
+              
+              $('.perzister-backstretch-it').backstretch(["../bg/1.jpg"]);
+
+             
+
+              // ============================================================================= format number
+
+              function isNumeric(n) {
+                  return !isNaN(parseFloat(n)) && isFinite(n);
+              }
+
+
+              Number.prototype.formatMoney = function (c, d, t) {
+                  var n = this,
+                      c = isNaN(c = Math.abs(c)) ? 2 : c,
+                      d = d == undefined ? "." : d,
+                      t = t == undefined ? "," : t,
+                      s = n < 0 ? "-" : "",
+                      i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+                      j = (j = i.length) > 3 ? j % 3 : 0;
+                  return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+              };
+
+
+
+              var s0 = 0;
+              var s1 = 0;
+              var s2 = 0;
+              var s3 = 0;
+              var s4 = 0;
+              var s5 = 0;
+              var s6 = 0;
+              var s7 = 0;
+
+              var dani = [];
+
+              // =========================================== TIMER ===========================================
+              var startTimerID;
+
+              function startTimer(duration, display) {
+                  var timer = duration, minutes, seconds;
+
+                  startTimerID = setInterval(function () {
+                      minutes = parseInt(timer / 60, 10)
+                      seconds = parseInt(timer % 60, 10);
+
+                      minutes = minutes < 10 ? "0" + minutes : minutes;
+                      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                      $('#time').text(minutes + ":" + seconds);
+
+                      if (--timer < 0) {
+                          timer = duration;
+                          audit();
+                      }
+                  }, 1000);
+              }
+
+              //   put this somewhere :
+              //   clearInterval(startTimerID);
+              //   startTimer(10 * 60);
+
+              $("#refreshbutton,#refreshbutton2").on("click", function (event) {
+                  audit();
+              });
+            
+
+              // =========================================== END OF TIMER ===========================================
+
+
+              // =========================================== uvod
+              getUvod();
+              function getUvod() {
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getquery&s=spJHybridJupiterAudit 0",
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          if (data.errnumber == '-2') { window.location = 'login.htm'; }
+                          $.each(data.items, function (i, item) {
+                              $("#ukupnokorisnikad").html(item.ukupnokorisnikad);
+                              $("#ukupnoaplikacijad").html(item.ukupnoaplikacijad);
+                              $("#ukupnopokretanjad").html(item.ukupnopokretanjad);
+
+                              $("#ukupnokorisnikam").html(item.ukupnokorisnikam);
+                              $("#ukupnoaplikacijam").html(item.ukupnoaplikacijam);
+                              $("#ukupnopokretanjam").html(item.ukupnopokretanjam);
+
+                              $("#ukupnokorisnika").html(item.ukupnokorisnika);
+                              $("#ukupnoaplikacija").html(item.ukupnoaplikacija);
+                              $("#ukupnopokretanja").html(item.ukupnopokretanja);
+
+                              $("#host").html(item.host);
+                              $("#godina,#year").html(item.godina);
+
+                          });
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          $(".glide__slide").removeClass('hide');
+                          // ako je prvi kontakt sa bazom prošao OK priprema za ostale ...
+                          $(window).on('DOMContentLoaded load resize scroll', function () {
+                              if (isElementInViewport(document.getElementById('getmonthdbauditactivitysection')) == true) { getmonthdbauditactivitylist() };
+                              if (isElementInViewport(document.getElementById('getdbauditactivitysection')) == true) { getdbauditactivitylist() };
+                              if (isElementInViewport(document.getElementById('getvb6vsnetuniquesection')) == true) { getvb6vsnetunique() };
+                              if (isElementInViewport(document.getElementById('getvb6vsnetbynumberoflounchingsection')) == true) { getvb6vsnetbynumberoflounching() };
+                              if (isElementInViewport(document.getElementById('asmuniquesection')) == true) { asmunique() };
+                              if (isElementInViewport(document.getElementById('asmlaunchessection')) == true) { asmlaunches() };
+                              if (isElementInViewport(document.getElementById('genslaunchessection')) == true) { genslaunches() };
+                              if (isElementInViewport(document.getElementById('gensuniquesection')) == true) { gensunique() };
+                              if (isElementInViewport(document.getElementById('top100section')) == true) { top100() };
+                              if (isElementInViewport(document.getElementById('appgroupssection')) == true) { appgroups() };
+                              if (isElementInViewport(document.getElementById('topuserssection')) == true) { topusers() };
+                          });
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                      }
+                  });
+              }
+
+              // =========================================== MONTH DB list
+             // getmonthdbauditactivitylist();
+              var getmonthdbauditactivitylistind = 0;
+              function getmonthdbauditactivitylist() {
+                  if (getmonthdbauditactivitylistind == 1) { return; }
+                  getmonthdbauditactivitylistind = 1;
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                  $("#getmonthdbauditactivitylist").fadeTo("", 0);
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getquery&s=spJHybridJupiterAudit 66,"+ $("#godina").html(),
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          var data2 = [];
+                          $.each(data.items, function (i, item) {
+                              var strTD = '';
+                              for (var key in item) {
+                                  var attrName = key;
+                                  if (i == 1) { strTH = strTH + "<th>" + attrName + "</th>"; }
+                                  var attrValue = item[key];
+                                  strTD = strTD + "<td>" + attrValue + "</td>";
+
+                              }
+                              strFormattedHTML = strFormattedHTML + '<tr>' + strTD + '</tr>';
+                              data2.push({ name: item.DB, y: item.Percentage })
+                          });
+                          strFormattedHTML = '<table class="table table-condensed"><thead><tr>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
+
+                          $("#getmonthdbauditactivitylist").html(strFormattedHTML);
+                        
+                          $("#getmonthdbauditactivitylist").fadeTo("slow", 1);
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          getmonthdbauditactivitylistchart(data2);
+
+                          //$("#Glide").glide({ type: "carousel" }).removeClass('hide');
+
+                         
+
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                      }
+                  });
+              }
+
+
+
+
+
+              function getmonthdbauditactivitylistchart(data2) {
+                  // Build the chart
+
+                  Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+                      return {
+                          radialGradient: {
+                              cx: 0.5,
+                              cy: 0.3,
+                              r: 0.7
+                          },
+                          stops: [
+                              [0, color],
+                              [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+                          ]
+                      };
+
+                  });
+                  $('#getmonthdbauditactivitylistchart').highcharts({
+                      chart: {
+                          plotBackgroundColor: null,
+                          plotBorderWidth: null,
+                          plotShadow: false,
+                          type: 'pie',
+                          backgroundColor: null
+                      },
+                      title: {
+                          text: 'App activity by DB'
+                      },
+                      tooltip: {
+                          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                      },
+                      plotOptions: {
+                          pie: {
+                              allowPointSelect: true,
+                              cursor: 'pointer',
+                              dataLabels: {
+                                  enabled: true,
+                                  format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                  style: {
+                                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                  },
+                                  connectorColor: 'silver'
+                              }
+                          }
+                      },
+                      series: [{
+                          name: "Brands",
+                          data: data2
+                      }]
+                  });
+
+              }
+
+
+
+
+
+              // =========================================== YEAR DB list
+              //getdbauditactivitylist();
+              var getdbauditactivitylistind = 0;
+              function getdbauditactivitylist() {
+                  if (getdbauditactivitylistind == 1) { return; }
+                  getdbauditactivitylistind = 1;
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                  $("#getdbauditactivitylist").fadeTo("", 0);
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getquery&s=spJHybridJupiterAudit 6," + $("#godina").html(),
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          var data2 = [];
+                          $.each(data.items, function (i, item) {
+                              var strTD = '';
+                              for (var key in item) {
+                                  var attrName = key;
+                                  if (i == 1) { strTH = strTH + "<th>" + attrName + "</th>"; }
+                                  var attrValue = item[key];
+                                  strTD = strTD + "<td>" + attrValue + "</td>";
+
+                              }
+                              strFormattedHTML = strFormattedHTML + '<tr>' + strTD + '</tr>';
+                              data2.push({ name : item.DB , y: item.Percentage })
+                          });
+                          strFormattedHTML = '<table class="table table-condensed"><thead><tr>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
+
+                          $("#getdbauditactivitylist").html(strFormattedHTML);
+                          $("#Glide").removeClass('hide');
+                          $("#getdbauditactivitylist").fadeTo("slow", 1);
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          getdbauditactivitylistchart(data2);
+
+                          //$("#Glide").glide({ type: "carousel" }).removeClass('hide');
+
+                           
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      }
+                  });
+              }
+
+
+
+
+
+              function getdbauditactivitylistchart(data2) {
+                  // Build the chart
+
+                 
+                  $('#getdbauditactivitylistchart').highcharts({
+                      chart: {
+                          plotBackgroundColor: null,
+                          plotBorderWidth: null,
+                          plotShadow: false,
+                          type: 'pie',
+                          backgroundColor: null
+                      },
+                      title: {
+                          text: 'App activity by DB'
+                      },
+                      tooltip: {
+                          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                      },
+                      plotOptions: {
+                          pie: {
+                              allowPointSelect: true,
+                              cursor: 'pointer',
+                              dataLabels: {
+                                  enabled: true,
+                                  format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                  style: {
+                                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                  },
+                                  connectorColor: 'silver'
+                              }
+                          }
+                      },
+                      series: [{
+                          name: "Brands",
+                          data: data2
+                      }]
+                  });
+
+              }
+
+
+
+
+              // ---------------------------------------------------------- vb6 vs .net list
+              //getvb6vsnetbynumberoflounching();
+              var getvb6vsnetbynumberoflounchingind = 0;
+              function getvb6vsnetbynumberoflounching() {
+                  if (getvb6vsnetbynumberoflounchingind == 1) { return;}
+                  getvb6vsnetbynumberoflounchingind = 1;
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $("#getvb6vsnetbynumberoflounching").fadeTo("", 1);
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getquery&s=spJHybridJupiterAudit 1," + $("#godina").html(),
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          var data2 = [];
+                          $.each(data.items, function (i, item) {
+                              var strTD = '';
+                              for (var key in item) {
+                                  var attrName = key;
+                                  if (i == 1) { strTH = strTH + "<th>" + attrName + "</th>"; }
+                                  var attrValue = item[key];
+                                  strTD = strTD + "<td>" + attrValue + "</td>";
+                              }
+                              strFormattedHTML = strFormattedHTML + '<tr>' + strTD + '</tr>';
+                              data2.push({ name: item.Technology, y: item.Percentage })
+                          });
+                          strFormattedHTML = '<table class="table table-condensed"><thead><tr>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
+                          $("#getvb6vsnetbynumberoflounching").html(strFormattedHTML);
+                          $("#getvb6vsnetbynumberoflounching").fadeTo("slow", 1);
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          getvb6vsnetbynumberoflounchingchart(data2)
+                          
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      }
+                  });
+              }
+
+
+              function getvb6vsnetbynumberoflounchingchart(data2) {
+                  // Build the chart
+ 
+                  $('#getvb6vsnetbynumberoflounchingchart').highcharts({
+                      chart: {
+                          plotBackgroundColor: null,
+                          plotBorderWidth: null,
+                          plotShadow: false,
+                          type: 'pie',
+                          backgroundColor: null
+                      },
+                      title: {
+                          text: '.Net vs VB6 vs HTML (launches)'
+                      },
+                      tooltip: {
+                          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                      },
+                      plotOptions: {
+                          pie: {
+                              allowPointSelect: true,
+                              cursor: 'pointer',
+                              dataLabels: {
+                                  enabled: true,
+                                  format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                  style: {
+                                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                  },
+                                  connectorColor: 'silver'
+                              }
+                          }
+                      },
+                      series: [{
+                          name: "Technology",
+                          data: data2
+                      }]
+                  });
+
+              }
+
+
+
+
+              // ---------------------------------------------------------- vb6 vs .net list 
+              //getvb6vsnetunique();
+              var getvb6vsnetuniqueind = 0;
+              function getvb6vsnetunique() {
+                  if (getvb6vsnetuniqueind == 1) { return; }
+                  getvb6vsnetuniqueind = 1;
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $("#getvb6vsnetunique").fadeTo("", 0);
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getquery&s=spJHybridJupiterAudit 11," + $("#godina").html(),
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          var data2 = [];
+                          $.each(data.items, function (i, item) {
+                              var strTD = '';
+                              for (var key in item) {
+                                  var attrName = key;
+                                  if (i == 1) { strTH = strTH + "<th>" + attrName + "</th>"; }
+                                  var attrValue = item[key];
+                                  strTD = strTD + "<td>" + attrValue + "</td>";
+                              }
+                              strFormattedHTML = strFormattedHTML + '<tr>' + strTD + '</tr>';
+                              data2.push({ name: item.Technology, y: item.Percentage })
+                          });
+                          strFormattedHTML = '<table class="table table-condensed"><thead><tr>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
+                          $("#getvb6vsnetunique").html(strFormattedHTML);
+                          $("#getvb6vsnetunique").fadeTo("slow", 1);
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          getvb6vsnetuniquechart(data2)
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      }
+                  });
+              }
+
+
+              function getvb6vsnetuniquechart(data2) {
+                  // Build the chart
+
+                  $('#getvb6vsnetuniquechart').highcharts({
+                      chart: {
+                          plotBackgroundColor: null,
+                          plotBorderWidth: null,
+                          plotShadow: false,
+                          type: 'pie',
+                          backgroundColor: null
+                      },
+                      title: {
+                          text: '.Net vs VB6 vs HTML (unique)'
+                      },
+                      tooltip: {
+                          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                      },
+                      plotOptions: {
+                          pie: {
+                              allowPointSelect: true,
+                              cursor: 'pointer',
+                              dataLabels: {
+                                  enabled: true,
+                                  format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                  style: {
+                                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                  },
+                                  connectorColor: 'silver'
+                              }
+                          }
+                      },
+                      series: [{
+                          name: "Technology",
+                          data: data2
+                      }]
+                  });
+
+              }
+
+
+
+              // ---------------------------------------------------------- gens 
+              //genslaunches();
+              var genslaunchesind = 0;
+              function genslaunches() {
+                  if (genslaunchesind == 1) { return; }
+                  genslaunchesind = 1;
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $("#genslaunches").fadeTo("", 0);
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getquery&s=spJHybridJupiterAudit 2," + $("#godina").html(),
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          var data2 = [];
+                          $.each(data.items, function (i, item) {
+                              var strTD = '';
+                              for (var key in item) {
+                                  var attrName = key;
+                                  if (i == 1) { strTH = strTH + "<th>" + attrName + "</th>"; }
+                                  var attrValue = item[key];
+                                  strTD = strTD + "<td>" + attrValue + "</td>";
+                              }
+                              strFormattedHTML = strFormattedHTML + '<tr>' + strTD + '</tr>';
+                              data2.push({ name: item.Technology, y: item.Percentage })
+                          });
+                          strFormattedHTML = '<table class="table table-condensed"><thead><tr>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
+                          $("#genslaunches").html(strFormattedHTML);
+                          $("#genslaunches").fadeTo("slow", 1);
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          genslauncheschart(data2)
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      }
+                  });
+              }
+
+
+              function genslauncheschart(data2) {
+                  // Build the chart
+
+                  $('#genslauncheschart').highcharts({
+                      chart: {
+                          plotBackgroundColor: null,
+                          plotBorderWidth: null,
+                          plotShadow: false,
+                          type: 'pie',
+                          backgroundColor: null
+                      },
+                      title: {
+                          text: 'GENs (launches)'
+                      },
+                      tooltip: {
+                          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                      },
+                      plotOptions: {
+                          pie: {
+                              allowPointSelect: true,
+                              cursor: 'pointer',
+                              dataLabels: {
+                                  enabled: true,
+                                  format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                  style: {
+                                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                  },
+                                  connectorColor: 'silver'
+                              }
+                          }
+                      },
+                      series: [{
+                          name: "Technology",
+                          data: data2
+                      }]
+                  });
+
+              }
+
+
+              // ---------------------------------------------------------- gens 
+              //gensunique();
+              var gensuniqueind = 0;
+              function gensunique() {
+                  if (gensuniqueind == 1) { return; }
+                  gensuniqueind = 1;
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $("#gensunique").fadeTo("", 0);
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getquery&s=spJHybridJupiterAudit 22," + $("#godina").html(),
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          var data2 = [];
+                          $.each(data.items, function (i, item) {
+                              var strTD = '';
+                              for (var key in item) {
+                                  var attrName = key;
+                                  if (i == 1) { strTH = strTH + "<th>" + attrName + "</th>"; }
+                                  var attrValue = item[key];
+                                  strTD = strTD + "<td>" + attrValue + "</td>";
+                              }
+                              strFormattedHTML = strFormattedHTML + '<tr>' + strTD + '</tr>';
+                              data2.push({ name: item.Technology, y: item.Percentage })
+                          });
+                          strFormattedHTML = '<table class="table table-condensed"><thead><tr>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
+                          $("#gensunique").html(strFormattedHTML);
+                          $("#gensunique").fadeTo("slow", 1);
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          gensuniquechart(data2)
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      }
+                  });
+              }
+
+
+              function gensuniquechart(data2) {
+                  // Build the chart
+
+                  $('#gensuniquechart').highcharts({
+                      chart: {
+                          plotBackgroundColor: null,
+                          plotBorderWidth: null,
+                          plotShadow: false,
+                          type: 'pie',
+                          backgroundColor: null
+                      },
+                      title: {
+                          text: 'GENs (unique)'
+                      },
+                      tooltip: {
+                          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                      },
+                      plotOptions: {
+                          pie: {
+                              allowPointSelect: true,
+                              cursor: 'pointer',
+                              dataLabels: {
+                                  enabled: true,
+                                  format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                  style: {
+                                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                  },
+                                  connectorColor: 'silver'
+                              }
+                          }
+                      },
+                      series: [{
+                          name: "Technology",
+                          data: data2
+                      }]
+                  });
+
+              }
+
+
+
+              // ---------------------------------------------------------- asms  unique
+              //asmunique();
+              var asmuniqueind = 0;
+              function asmunique() {
+                  if (asmuniqueind == 1) { return; }
+                  asmuniqueind = 1;
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $("#asmunique").fadeTo("", 0);
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getquery&s=spJHybridJupiterAudit 2222," + $("#godina").html(),
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          var data2 = [];
+                          $.each(data.items, function (i, item) {
+                              var strTD = '';
+                              var strID = '';
+                              for (var key in item) {
+                                  var attrName = key;
+                                  if (i == 1 && attrName != "id") { strTH = strTH + "<th>" + attrName + "</th>"; }
+                                  var attrValue = item[key];
+                                  if (attrName == "id") { strID = attrValue } else { strTD = strTD + "<td>" + attrValue + "</td>"; }
+                              }
+                              strFormattedHTML = strFormattedHTML + '<tr data-id="' + strID + '">' + strTD + '</tr>';
+                              data2.push({ name: item.Technology, y: item.Percentage })
+                          });
+                          strFormattedHTML = '<table class="table asms table-condensed"><thead><tr>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
+                          $("#asmunique").html(strFormattedHTML);
+                          $("#asmunique").fadeTo("slow", 1);
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          asmuniquechart(data2);
+                          $("table.asms tr").on("click", function (event) {
+                              asmsdet($(this).attr('data-id'));
+                          });
+
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      }
+                  });
+              }
+
+              var ModalDilogHTML = '<div class="modal fade" id="modalgen"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h4 class="modal-title"><span id="modalgentitle"></span></h4></div><div class="modal-body"><span id="modalgenbody"></span></div><div class="modal-footer"><button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button></div></div></div></div>'
+
+              function asmsdet(granula) {
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide'); // isključi ikonu granule i uključi ajax spiner u gornjem lijevom kutu
+                  if ($('#modalgen').length == 0) { $("body").append(ModalDilogHTML); } // ako ne postoji generički modal dodaj ga
+                  $("#modalgenbody,#modalgentitle").html(''); // počisti naslov i sadržaj gen modala, možda tamo već ima nešto 
+                  $("#modalgen").modal("show"); // odmah prikaži modal kako bi korisnik dobio osjećaj da se nešto dešava
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getquery&s=spJHybridJupiterAudit 70," + $("#godina").html() + ",'" + granula + "'",
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 10000,
+                      success: function (data, status) {
+                          if (data.errnumber == '-2') { window.location = 'login.htm'; } // ako GUID operatera nije prošao serversku validaciju najbolje otići na login
+                          $.each(data.items, function (i, item) { // izgradi tablicu na osnovu dobivenog JSON-a, sa rednim brojevima ...
+                              var strTD = '';
+                              for (var key in item) {
+                                  var attrName = key;
+                                  if (i == 1) { strTH = strTH + "<th>" + attrName + "</th>"; }
+                                  var attrValue = item[key];
+                                  strTD = strTD + "<td>" + attrValue + "</td>";
+                              }
+                              strFormattedHTML = strFormattedHTML + '<tr><td>' + (i + 1) + '.</td>' + strTD + '</tr>';
+                          });
+                          strFormattedHTML = '<table class="table table-condensed"><thead><tr><th></th>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
+                          $("#modalgenbody").html(strFormattedHTML); // ubaci formatiranu tablicu u modal
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide'); // uključi ikonu granule i isključi ajax spiner u gornjem lijevom kutu
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide'); // uključi ikonu granule i isključi ajax spiner u gornjem lijevom kutu
+                      }
+                  });
+              }
+
+
+
+              // ============================================================================= load asms details and show it in modal
+
+             
+
+
+              function asmuniquechart(data2) {
+                  // Build the chart
+
+                  $('#asmuniquechart').highcharts({
+                      chart: {
+                          plotBackgroundColor: null,
+                          plotBorderWidth: null,
+                          plotShadow: false,
+                          type: 'pie',
+                          backgroundColor: null
+                      },
+                      title: {
+                          text: 'ASMs (unique)'
+                      },
+                      tooltip: {
+                          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                      },
+                      plotOptions: {
+                          pie: {
+                              allowPointSelect: true,
+                              cursor: 'pointer',
+                              dataLabels: {
+                                  enabled: true,
+                                  format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                  style: {
+                                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                  },
+                                  connectorColor: 'silver'
+                              }
+                          }
+                      },
+                      series: [{
+                          name: "Technology",
+                          data: data2
+                      }]
+                  });
+
+              }
+
+
+
+
+              // ---------------------------------------------------------- asms  launches
+              //asmlaunches();
+              var asmlaunchesind = 0;
+              function asmlaunches() {
+                  if (asmlaunchesind == 1) { return; }
+                  asmlaunchesind = 1;
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                  $("#asmlaunches").fadeTo("", 0);
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getquery&s=spJHybridJupiterAudit 222," + $("#godina").html(),
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          var data2 = [];
+                          $.each(data.items, function (i, item) {
+                              var strTD = '';
+                              for (var key in item) {
+                                  var attrName = key;
+                                  if (i == 1) { strTH = strTH + "<th>" + attrName + "</th>"; }
+                                  var attrValue = item[key];
+                                  strTD = strTD + "<td>" + attrValue + "</td>";
+                              }
+                              strFormattedHTML = strFormattedHTML + '<tr>' + strTD + '</tr>';
+                              data2.push({ name: item.Technology, y: item.Percentage })
+                          });
+                          strFormattedHTML = '<table class="table table-condensed"><thead><tr>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
+                          $("#asmlaunches").html(strFormattedHTML);
+                          $("#asmlaunches").fadeTo("slow", 1);
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          asmlauncheschart(data2)
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      }
+                  });
+              }
+
+
+              function asmlauncheschart(data2) {
+                  // Build the chart
+
+                  $('#asmlauncheschart').highcharts({
+                      chart: {
+                          plotBackgroundColor: null,
+                          plotBorderWidth: null,
+                          plotShadow: false,
+                          type: 'pie',
+                          backgroundColor: null
+                      },
+                      title: {
+                          text: 'ASMs (launches)'
+                      },
+                      tooltip: {
+                          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                      },
+                      plotOptions: {
+                          pie: {
+                              allowPointSelect: true,
+                              cursor: 'pointer',
+                              dataLabels: {
+                                  enabled: true,
+                                  format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                  style: {
+                                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                  },
+                                  connectorColor: 'silver'
+                              }
+                          }
+                      },
+                      series: [{
+                          name: "Technology",
+                          data: data2
+                      }]
+                  });
+
+              }
+
+
+              // ---------------------------------------------------------- top 1000  apps
+              //top100();
+              var top100ind = 0;
+              function top100() {
+                  if (top100ind == 1) { return; }
+                  top100ind = 1;
+                  $("#top100").fadeTo("", 0);
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getquery&s=spJHybridJupiterAudit 3," + $("#godina").html(),
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          $("#top100").html(tablegen(data.items, "top100table"));
+                          $("#top100").fadeTo("slow", 1);
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          $('#top100searchtext').fastLiveFilter('#top100table tbody');
+                          $("#top100table tr").on("click", function (event) {
+                              modalgen("action=getquery&s=spJHybridJupiterAudit 70," + $("#godina").html() + ",'" + $(this).attr('data-id') + "'", $(this).attr('data-id'));
+                          });
+
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      }
+                  });
+              }
+
+
+
+              // ---------------------------------------------------------- app groups
+
+              var appgroupsind = 0;
+              function appgroups() {
+                  if (appgroupsind == 1) { return; }
+                  appgroupsind = 1;
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $("#appgroupslist").fadeTo("", 0);
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getquery&s=spJHybridJupiterAudit 8," + $("#godina").html(),
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          if (data.errnumber == '-2') { window.location = 'login.htm'; } // ako GUID operatera nije prošao serversku validaciju najbolje otići na login
+                          $("#appgroupslist").html(tablegen(data.items, "appgroupstable"));
+                          $("#appgroupslist").fadeTo("slow", 1);
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                          $("#appgroupstable tr").on("click", function (event) {
+                              modalgen("action=getquery&s=spJHybridJupiterAudit 70," + $("#godina").html() + ",'" + $(this).attr('data-id') + "'", $(this).attr('data-id'));
+                          });
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      }
+                  });
+              }
+
+
+              // ---------------------------------------------------------- top users
+
+              var topusersind = 0;
+              function topusers() {
+                  if (topusersind == 1) { return; }
+                  topusersind = 1;
+                  $("#topusers").fadeTo("", 0);
+                  ShowHideAJAXLoader();
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getquery&s=spJHybridJupiterAudit 44," + $("#godina").html(),
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          if (data.errnumber == '-2') { window.location = 'login.htm'; } // ako GUID operatera nije prošao serversku validaciju najbolje otići na login
+                          $("#topusers").html(tablegen(data.items, "topuserstable"));
+                          $("#topusers").fadeTo("slow", 1);
+                          ShowHideAJAXLoader();
+                          $("#topuserstable tr").on("click", function (event) {
+                              modalgen("action=getquery&s=spJHybridJupiterAudit 70," + $("#godina").html() + ",'" + $(this).attr('data-id') + "'", $(this).attr('data-id'));
+                          });
+                          $('#topuserssearchtext').fastLiveFilter('#topuserstable tbody');
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                          ShowHideAJAXLoader();
+                      }
+                  });
+              }
+
+
+              // ----------------------------------------------------------live audit
+
+             
+              function audit() {
+                  clearInterval(startTimerID);
+                  $("#audit").fadeTo("", 0);
+                  ShowHideAJAXLoader();
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getquery&s=spJHybridJupiterAudit 9,0,'" + $("#auditsearchtext").val() + "'",
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          if (data.errnumber == '-2') { window.location = 'login.htm'; } // ako GUID operatera nije prošao serversku validaciju najbolje otići na login
+                          $("#audit").html(tablegen(data.items, "audittable"));
+                          $("#audit").fadeTo("slow", 1);
+                          ShowHideAJAXLoader();
+                          startTimer(1 * 60);
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                          ShowHideAJAXLoader();
+                      }
+                  });
+              }
+
+
+              // ---------------------------------------------------------- evo malo i korisnih gen rutina :)
+
+
+              function ShowHideAJAXLoader() {
+                  // kk
+                  // isključi ikonu granule i uključi ajax spiner (i obrnuto)
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+              }
+
+
+              function tablegen(data, tableid) {
+                  // kk
+                  // format HTML table from JSON
+                  // value from column id hide in <TR> data-id attr  
+                  //
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $.each(data, function (i, item) {
+                      var strTD = '';
+                      var strID = '';
+                      for (var key in item) {
+                          var attrName = key;
+                          if (i == 1 && attrName != "id") { strTH = strTH + "<th>" + attrName + "</th>"; }
+                          var attrValue = item[key];
+                          if (attrName == "id") { strID = " data-id='" + attrValue + "'" } else { strTD = strTD + "<td>" + attrValue + "</td>"; }
+                      }
+                      strFormattedHTML = strFormattedHTML + '<tr' + strID + '"><td>' + (i + 1) + '.</td>' + strTD + '</tr>';
+                  });
+                  strFormattedHTML = '<table id="' + tableid + '" class="table table-condensed"><thead><tr><th></th>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
+                  return strFormattedHTML;
+              }
+
+              function modalgen(urlpart, title) {
+                  // kk
+                  // call ajax, format json into table and popup it
+                  // + with built in filter
+                  //
+                  ShowHideAJAXLoader(); // isključi ikonu granule i uključi ajax spiner u gornjem lijevom kutu
+                  if ($('#modalgen').length == 0) { $("body").append('<div class="modal fade" id="modalgen"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h4 class="modal-title"><span id="modalgentitle"></span></h4>  </div><div class="modal-body">  <div class="input-group"><input type="text"  id="modalsearchtext" class="form-control" placeholder="filter" ><span class="input-group-btn"><button class="btn btn-default btn-default"  type="button"><span class="glyphicon glyphicon-search"></span></button></span></div>  <span id="modalgenbody"></span></div><div class="modal-footer"><button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button></div></div></div></div>'); } // ako ne postoji generički modal dodaj ga u DOM
+                  $("#modalgenbody,#modalgentitle").html(''); // počisti naslov i sadržaj gen modala, možda tamo već ima nešto 
+                  $("#modalsearchtext").val(''); // počisti modalni filter
+                  $("#modalgentitle").html(title); // uredi naslov
+                  $("#modalgen").modal("show"); // odmah prikaži modal kako bi korisnik dobio osjećaj da se nešto dešava
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&" + urlpart,
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 20000,
+                      success: function (data, status) {
+                          if (data.errnumber == '-2') { window.location = 'login.htm'; } // ako GUID operatera nije prošao serversku validaciju najbolje otići na login
+                          $("#modalgenbody").html(tablegen(data.items, "modaltable")); // ubaci formatiranu tablicu u modal
+                          $('#modalsearchtext').fastLiveFilter('#modaltable tbody');
+                          ShowHideAJAXLoader(); // uključi ikonu granule i isključi ajax spiner u gornjem lijevom kutu
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          ShowHideAJAXLoader(); // uključi ikonu granule i isključi ajax spiner u gornjem lijevom kutu
+                      }
+                  });
+              }
+
+              // ---------------------------------------------------------- end of gen rutine :)
+
+
+          });
+                 
+      </script>
+   
+
+  </body>
+</html>

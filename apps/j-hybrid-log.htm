@@ -10,7 +10,7 @@
     <meta http-equiv='expires' content='0' />
     <meta http-equiv='pragma' content='no-cache' />
     
-    <title>Promet maloprodaje</title>
+    <title>jHybrid activity monitor</title>
 
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
@@ -39,8 +39,8 @@
       data-perzister-notification="false" 
       data-perzister-appname="j-hybrid-log.htm" 
       data-perzister-ikona="list-alt" 
-      data-perzister-opis="J-Hybrid Log" 
-      data-perzister-hint="J-Hybrid Log" 
+      data-perzister-opis="J-Hybrid activity monitor" 
+      data-perzister-hint="J-Hybrid activity monitor" 
       >
 
         <!-- NAV -->
@@ -54,7 +54,7 @@
                 <span class="icon-bar"></span>
                 <!--<span class="icon-bar"></span>-->
               </button>
-              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectiontopsearchresults"><i id="ajaxloader0" class="fa fa-spinner fa-spin hide" ></i><i id="appheadericon" class="fa fa-list-alt "></i> J-Hybrid Log </span>  <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span class="badge" id="numberofnotifications" >1</span></span> </a>
+              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectiontopsearchresults"><i id="ajaxloader0" class="fa fa-spinner fa-spin hide" ></i><i id="appheadericon" class="fa fa-list-alt "></i> jHybrid activity monitor </span>  <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span class="badge" id="numberofnotifications" >1</span></span> </a>
             </div>
 
           
@@ -78,10 +78,15 @@
                      
                      <div class="row">
                          <div class="col-sm-12 transparent">
+                            <div class="btn-group">
+                            <h4 class="refreshtototals perzister-h4" > <div class="btn btn-primary"> <i class="fa fa-refresh "></i> <span id="time"></span> </div> activity chart & list, group by days and users </h4>
+                          </div>
 
-                             <div id="last7daysresultslist"></div>
+                          <hr />  
+                             <div id="last7daysresultschart"></div>
                               <br /><br />
-                              <div id="last7daysresultschart"></div>
+                             <div id="last7daysresultslist"></div>
+                              
                              <br /> 
 
                          </div>
@@ -92,6 +97,24 @@
                  </div>
                  </div>
         </section>
+
+      <!-- MODAL (det) -->
+        <div class="modal fade" id="modaldetails" data-caller="">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title"><span id="resultslistdetheader"></span></h4>
+                        </div>
+                        <div class="modal-body">
+                            <span id="resultslistdet"></span>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
 
 
         <!-- MODAL (NOTIFICATIONS) -->
@@ -201,17 +224,57 @@
 
               var dani = [];
 
-              function GetShop7(firma,id,opis) {
+              // =========================================== TIMER ===========================================
+              var startTimerID;
+
+              function startTimer(duration, display) {
+                  var timer = duration, minutes, seconds;
+
+                  startTimerID = setInterval(function () {
+                      minutes = parseInt(timer / 60, 10)
+                      seconds = parseInt(timer % 60, 10);
+
+                      minutes = minutes < 10 ? "0" + minutes : minutes;
+                      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                      $('#time').text(minutes + ":" + seconds);
+
+                      if (--timer < 0) {
+                          timer = duration;
+                          GetIzvMPSadKaoCol();
+                      }
+                  }, 1000);
+              }
+
+              //   put this somewhere :
+              //   clearInterval(startTimerID);
+              //   startTimer(10 * 60);
+
+              $(".refreshtototals").on("click", function (event) {
+                  $(".sectionng").addClass('hide');
+                  $("#sectionresultslist").toggleClass('hide');
+                  GetLog();
+              });
+
+              // =========================================== END OF TIMER ===========================================
+
+
+             
+
+              GetLog();
+
+              function GetLog() {
+                  clearInterval(startTimerID);
                   $("#ajaxloader0,#appheadericon").toggleClass('hide');
                   $(".sectionng").addClass('hide');
                   $("#sectionlast7days").toggleClass('hide');
                   $("#last7daysresultslist").html('');
                   $("#last7daysresultschart").addClass('hide');
-                  $("#trgovinaopis").html(opis + ' (' + firma + ')');
+                  //$("#trgovinaopis").html(opis + ' (' + firma + ')');
                   dani = [];
                   $.ajax({
                       url: localStorage.perzisterURL,
-                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getshop7&s=" + id + "&firma=" + firma,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getlog",
                       dataType: 'jsonp',
                       jsonp: 'jsoncallback',
                       timeout: 30000,
@@ -219,25 +282,31 @@
                           if (data.errnumber == '-2') { window.location = 'login.htm'; }
                           var strFormattedHTML = '';
                           $.each(data.items, function (i, item) {
-                              strFormattedHTML = strFormattedHTML + '<div class="forlivesearch actionbutton3 clearfix"><div class=""><div class="col-xs-6">' + item.datum + ' ' + item.dan + ' </div><div class="col-xs-3"><div class="pull-right">' + item.iznos.formatMoney(2) + '</div></div><div class="col-xs-3"><div class="pull-right">(' + item.brojracuna + ')</div></div></div></div>';
+                              strFormattedHTML = strFormattedHTML + '<div class="forlivesearch actionbutton3 clearfix"   data-datum="' + item.datum + '" data-operaterid="' + item.operateriid + '" data-operater="' + item.operater + '" ><div class=""><div class="col-xs-3">' + item.datum + ' </div><div class="col-xs-5"><div class2="pull-right">' + item.operater + '</div></div><div class="col-xs-4"><div class="pull-right">(' + item.broj + ')</div></div></div></div>';
 
-                              if (i > 0) { dani.push(item.dan) } else { dani.push('danas') }
+                              if (i > 0) { dani.push(item.dan) } else { dani.push('today') }
 
-                              if (i == 0) s0 = parseInt(item.iznos);
-                              if (i == 1) s1 = parseInt(item.iznos);
-                              if (i == 2) s2 = parseInt(item.iznos);
-                              if (i == 3) s3 = parseInt(item.iznos);
-                              if (i == 4) s4 = parseInt(item.iznos);
-                              if (i == 5) s5 = parseInt(item.iznos);
-                              if (i == 6) s6 = parseInt(item.iznos);
-                              if (i == 7) s7 = parseInt(item.iznos);
+                              if (i == 0) s0 = parseInt(item.broj);
+                              if (i == 1) s1 = parseInt(item.broj);
+                              if (i == 2) s2 = parseInt(item.broj);
+                              if (i == 3) s3 = parseInt(item.broj);
+                              if (i == 4) s4 = parseInt(item.broj);
+                              if (i == 5) s5 = parseInt(item.broj);
+                              if (i == 6) s6 = parseInt(item.broj);
+                              if (i == 7) s7 = parseInt(item.broj);
 
                           });
+                          startTimer(30 * 60);
                           $("#last7daysresultschart").removeClass('hide');
                           Chart7();
                           $("#last7daysresultslist").html(strFormattedHTML);
                           //$(window).resize();
                           $("#ajaxloader0,#appheadericon").toggleClass('hide');
+
+                          $(".actionbutton3").on("click", function (event) {
+                              GetDetails($(this).attr('data-datum'), $(this).attr('data-operaterid'), $(this).attr('data-operater'));
+                          });
+
                       },
                       error: function (xhr, ajaxOptions, thrownError) {
                           $("#ajaxloader0,#appheadericon").toggleClass('hide');
@@ -246,16 +315,37 @@
               }
 
 
+              // ============================================================================= load details and show it in modal
+
+              function GetDetails(datum,operaterid,operater) {
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                  $("#modaldetails").modal("show");
+                  $("#resultslistdet").html('');
+                  $("#resultslistdetheader").html(operater + ' @ ' + datum);
+                  var strFormattedHTML = '';
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getlogdet&datum=" + datum + "&operaterid=" + operaterid,
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          if (data.errnumber == '-2') { window.location = 'login.htm'; }
+                          $.each(data.items, function (i, item) {
+                              strFormattedHTML = strFormattedHTML + '<tr class="clearfix"><td>' + item.DT + ' </td><td>' + item.Opis + '</td></tr>';
+                          });
+                          $("#resultslistdet").html('<table class="table"><tbody>' + strFormattedHTML + '</tbody></table>');
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      }
+                  });
+              }
 
               // ============================================================================= first page : totals
 
-              var m0 = 0;
-              var m1 = 0;
-              var m7 = 0;
-
-              var k0 = 0;
-              var k1 = 0;
-              var k7 = 0;
+             
 
 
                   var dt = new Date();
@@ -263,8 +353,6 @@
                   var day = dt.getDate() + '.' + (Number(dt.getMonth()) + 1) + '.' + dt.getFullYear();
                    
                   $("#currenttime").html(day + ' ' + time + 'h');
-
-           
 
 
                   // ============================================================================= chart
@@ -274,10 +362,11 @@
                   function Chart7() {
                       $('#last7daysresultschart').highcharts({
                           chart: {
-                              type: 'column'
+                              type: 'column',
+                              backgroundColor: null
                           },
                           title: {
-                              text: 'promet trgovine'
+                              text: 'last 7 days activity'
                           },
                           xAxis: {
                               categories: dani 
@@ -285,7 +374,7 @@
                           yAxis: {
                               min: 0,
                               title: {
-                                  text: 'kn'
+                                  text: 'nuber of activity'
                               },
                               stackLabels: {
                                   enabled: true,
@@ -301,7 +390,7 @@
                               verticalAlign: 'top',
                               y: 25,
                               floating: true,
-                              backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                              backgroundColor: null,
                               borderColor: '#CCC',
                               borderWidth: 1,
                               shadow: false
@@ -326,7 +415,7 @@
                               }
                           },
                           series: [{
-                              name: 'trgovina',
+                              name: 'activity',
                               data: [ s0,s1,s2,s3,s4,s5,s6,s7]
                           }]
                       });

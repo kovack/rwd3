@@ -1,0 +1,634 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="html5 javascript applications" />
+    <meta name="author" content="kovack@gmail.com" />
+    <meta http-equiv='cache-control' content='no-cache' />
+    <meta http-equiv='expires' content='0' />
+    <meta http-equiv='pragma' content='no-cache' />
+    
+    <title>sql server monitor</title>
+
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="../css/font/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../css/jquery.gritter.css" rel="stylesheet" />
+    <link href="../css/dataTables.responsive.css" rel="stylesheet" />
+    <link href="../css/perzister.css" rel="stylesheet" />
+    <link href="../css/perzister-dark.css" rel="stylesheet" class="additional" />
+    <link href="../css/print.css" rel="stylesheet" media="print" />
+
+    <style>
+       body {  padding-top:45px; }
+       .table>tbody>tr:hover  { background-color : #ccc !important; cursor:pointer; }
+       .table>tbody>tr>td { padding-top:10px; padding-bottom:10px; border-top:0px ;}
+       .actionbutton2:hover , .actionbutton3:hover  {  cursor:pointer; background-color : #ccc !important;}
+       .actionbutton2 , .actionbutton3 {   font-size : 16px; border-bottom : 1px solid #ccc;padding-top:5px; padding-bottom:5px; }
+        h3 { margin-top : 5px; }
+    </style>
+
+    <link rel="shortcut icon" href="../bg/favicon.ico" />
+
+  </head>
+
+  <body data-perzister-login="true" 
+      data-perzister-notification="false" 
+      data-perzister-appname="sql-server-monitor.htm" 
+      data-perzister-ikona="list-alt" 
+      data-perzister-opis="sql server monitor" 
+      data-perzister-hint="sql server monitor" 
+      >
+
+        <!-- NAV -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" >
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <!--<span class="icon-bar"></span>-->
+              </button>
+              <a class="navbar-brand" href="#"><span id="apptitle" data-perzister-showsectiononclick="sectiontopsearchresults"><i id="ajaxloader0" class="fa fa-spinner fa-spin hide" ></i><i id="appheadericon" class="fa fa-list-alt "></i> sql server monitor </span>  <i id="quickapplicationlistbtn" class="fa fa-cube quickapplicationlistbtn"></i> <i id="disablednotificationicon" class="fa fa-bell-slash-o invisible"></i>  <span id="activenotificationicon" class="hide"><i  class="fa fa-bell-o"></i><span class="badge" id="numberofnotifications" >1</span></span> </a>
+            </div>
+
+          
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav" id="actionbutton">
+                      </ul>
+
+                     
+                    </div><!-- /.navbar-collapse -->
+              
+
+          </div><!-- /.container-fluid -->
+        </nav> <!-- end of NAV  -->
+
+        
+        <!-- section sql server monitor -->
+        <section class="sectionng " id="sectionlast7days" data-perzister-sectiontitle="" data-perzister-sectionicon=""  >
+                 <div class="container-fluid perzister-dark-container" >                 <div class="container" >
+                     
+                     <div class="row">
+                         <div class="col-sm-12 transparent">
+                             <br />
+                              <div class="alert alert-info alert-dismissible" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                   
+                               
+                                 <div id="serverinfo"></div>
+
+                                                  
+                             
+                                </div>
+
+                            
+
+                             <div class="btn-group">
+                             <h4 class="refreshtototals perzister-h4" >  <span id="currenttime"></span>  total connections : <span id ="totalconnections"></span></h4>
+                             </div>
+                           
+                             <div id="container2" style=" height: 250px; margin: 0 auto"></div>
+                             <br /> 
+                             <h4 class="perzister-h4">Connections by DB</h4>
+                             <div id="gettotalconnectionsbydblist"></div>
+                             <br />
+                              <div class="alert alert-info alert-dismissible" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  * click for connected users list
+                                </div>
+                             <br /> 
+                             <br />  
+                             <h4 class="perzister-h4">Drives</h4>
+                             <div id="getdrives"></div>
+                             <br /> 
+                             <br /> 
+                             <h4 class="perzister-h4">DB list</h4>
+                             <div id="getdblist"></div>
+                             <br /> 
+                             <br /> 
+                             <h4 class="perzister-h4">Backups</h4>
+                             <div id="getbackuplist"></div>
+                             <br /> 
+                             <br />
+                             <div class="alert alert-info alert-dismissible" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  * click for detail backup specification list
+                                </div>
+                              <br /> 
+
+
+                         </div>
+                     </div>
+                     
+                     <div class="clearfix"></div>
+                     <br /><br />
+                 </div>
+                 </div>
+        </section>
+
+
+        <!-- MODAL (NOTIFICATIONS) -->
+        <div class="modal fade" id="notificationdialog" data-caller="">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title"><i class="fa fa-bell-o"></i> notifications</h4>
+                        </div>
+                        <div class="modal-body">
+                            <span id="notificationitems"></span>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
+
+
+        <!-- MODAL (APPS) -->
+        <div class="modal fade" id="quickapplicationlistdialog" data-caller="">
+        <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group"><a href="#"  class="btn btn-default"><i class="fa fa-cubes fa-lg "></i> </a></div>
+                        <div class="btn-group" role="group"><a href="menu.htm"  class="btn btn-default"><i class="fa fa-home fa-lg "></i> </a></div>
+                        <div class="btn-group" role="group"><a href="login.htm" class="btn btn-default"><i class="fa fa-sign-out fa-lg "></i></a></div>
+                        <div class="btn-group" role="group"><a href="#"  class="btn btn-default" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times fa-lg "></i></span><span class="sr-only">Close</span></a></div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                      <ul class="nav nav-tabs" role="tablist" id="appsmodaltabs">
+                        <li role="presentation" class="active"><a href="#allapps" aria-controls="allapps" role="tab" data-toggle="tab"><i class="fa fa-asterisk fa-2x"></i></a></li>
+                        <li role="presentation"><a href="#historyapps" aria-controls="historyapps" role="tab" data-toggle="tab"><i class="fa fa-history fa-2x"></i></a></li>
+                        <li role="presentation"><a href="#favoritesapps" aria-controls="favoritesapps" role="tab" data-toggle="tab"><i class="fa fa-star fa-2x"></i></a></li>
+                      </ul>
+
+                      <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="allapps"><span id="quickapplicationlist"></span></div>
+                        <div role="tabpanel" class="tab-pane" id="historyapps"><span id="quickapplicationlisthistory"></span></div>
+                        <div role="tabpanel" class="tab-pane" id="favoritesapps"><span id="quickapplicationlistfavorites"></span></div>
+                      </div>
+
+                    
+                </div>
+            <div class="clearfix"></div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                </div>
+        </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+        </div> <!-- end of modal -->
+
+        <section class="sectionng" data-perzister-sectiontitle="divider" />
+        <section class="sectionng" data-perzister-sectiontitle="exit" data-url="menu.htm" />
+
+        <script src="../js/jquery-1.11.1.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/fastLiveFilter.js"></script>
+        <script src="../js/jquery.backstretch.js"></script>
+        <script src="../js/perzister.js"></script>
+        <script src="../js/jquery.dataTables.min.js"></script>
+        <script src="../js/dataTables.bootstrap.js"></script>
+        <script src="../js/dataTables.responsive.min.js"></script>
+        <script src="../js/pusher.min.js"></script>
+        <script src="../js/jquery.gritter.js"></script>
+        <script src="../js/pubnub.min.js"></script>
+
+        <script src="http://code.highcharts.com/highcharts.js"></script>
+        
+
+
+      <script>
+          $(document).ready(function () {
+
+              var dt = new Date();
+              var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+              var day = dt.getDate() + '.' + (Number(dt.getMonth()) + 1) + '.' + dt.getFullYear();
+
+              $("#currenttime").html(day + ' ' + time + 'h');
+               
+
+              // =========================================== TIMER ===========================================
+              var startTimerID;
+
+              function startTimer(duration, display) {
+                  var timer = duration, minutes, seconds;
+
+                  startTimerID = setInterval(function () {
+                      minutes = parseInt(timer / 60, 10)
+                      seconds = parseInt(timer % 60, 10);
+
+                      minutes = minutes < 10 ? "0" + minutes : minutes;
+                      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                      $('#time').text(minutes + ":" + seconds);
+
+                      if (--timer < 0) {
+                          timer = duration;
+                          GetLog();
+                      }
+                  }, 1000);
+              }
+
+              //   put this somewhere :
+              //   clearInterval(startTimerID);
+              //   startTimer(10 * 60);
+
+              $(".refreshtototals").on("click", function (event) {
+                 // GetLog();
+              });
+
+              // =========================================== END OF TIMER ===========================================
+
+
+             
+              var nTotalConnections = 0;
+              //Chart();
+              gettotalconnections();
+              gettotalconnectionsbydb();
+
+              function gettotalconnections() {
+                  //clearInterval(startTimerID);
+                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                  $(".sectionng").addClass('hide');
+                  $("#sectionlast7days").toggleClass('hide');
+                  $("#last7daysresultslist").html('');
+                  $("#last7daysresultschart").addClass('hide');
+                  //$("#trgovinaopis").html(opis + ' (' + firma + ')');
+                  dani = [];
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=gettotalconnections",
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 10000,
+                      success: function (data, status) {
+                          if (data.errnumber == '-2') { window.location = 'login.htm'; }
+                          var strFormattedHTML = '';
+                          $.each(data.items, function (i, item) {
+                              nTotalConnections = item.TotalConnections;
+                              $("#totalconnections").html(item.TotalConnections);
+                          });
+                         // startTimer(10);
+                          $("#last7daysresultschart").removeClass('hide');
+                          
+                          $("#last7daysresultslist").html(strFormattedHTML);
+                          //$(window).resize();
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+
+                          Chart();
+                          
+
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                      }
+                  });
+              }
+
+
+
+              // ============================================================================= gettotalconnections group by db
+
+              function gettotalconnectionsbydb2() {
+                  //$("#gettotalconnectionsbydblist").html('');
+                  $("#gettotalconnectionsbydblist").fadeTo("slow", 0);
+                  var strFormattedHTML = '';
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=gettotalconnectionsbydb",
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 10000,
+                      success: function (data, status) {
+                          if (data.errnumber == '-2') { window.location = 'login.htm'; }
+                          $.each(data.items, function (i, item) {
+                              strFormattedHTML = strFormattedHTML + '<tr class="clearfix"><td>' + item.DBName + ' </td><td class="pull-right">' + item.NumberOfConnections + '</td></tr>';
+                          });
+                          $("#gettotalconnectionsbydblist").html('<table class="table"><tbody>' + strFormattedHTML + '</tbody></table>');
+                          $("#gettotalconnectionsbydblist").fadeTo("slow", 1);
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                      }
+                  });
+              }
+
+              function gettotalconnectionsbydb() {
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $("#gettotalconnectionsbydblist").fadeTo("slow", 0);
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=gettotalconnectionsbydb",
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 10000,
+                      success: function (data, status) {
+                          $.each(data.items, function (i, item) {
+                              var strTD = '';
+                              for (var key in item) {
+                                  var attrName = key;
+                                  if (i == 1) { strTH = strTH + "<th>" + attrName + "</th>"; }
+                                  var attrValue = item[key];
+                                  strTD = strTD + "<td>" + attrValue + "</td>";
+
+                              }
+                              strFormattedHTML = strFormattedHTML + '<tr>' + strTD + '</tr>';
+                          });
+                          strFormattedHTML = '<table class="table "><thead><tr>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
+
+                          $("#gettotalconnectionsbydblist").html(strFormattedHTML);
+                          $("#gettotalconnectionsbydblist").fadeTo("slow", 1);
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                      }
+                  });
+              }
+
+
+              // ============================================================================= get server info
+
+              getserverinfo();
+
+              function getserverinfo() {
+                  
+                  var strFormattedHTML = '';
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getserverinfo",
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 10000,
+                      success: function (data, status) {
+                          if (data.errnumber == '-2') { window.location = 'login.htm'; }
+                          $.each(data.items, function (i, item) {
+                              $("#serverinfo").html(item.Host + ' ' + item.Edition + ' ' + item.ProductLevel + '<br/><small> ' + item.VersionNumber + '</small>')
+                          });
+                           
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                      }
+                  });
+              }
+
+               
+
+              // ---------------------------------------------------------- DB list
+              getdblist();
+              function getdblist() {
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getdblist",
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          $.each(data.items, function (i, item) {
+                              var strTD = '';
+                              for (var key in item) {
+                                  var attrName = key;
+                                  if (i == 1) { strTH = strTH + "<th>" + attrName + "</th>"; }
+                                  var attrValue = item[key];
+                                  strTD = strTD + "<td>" + attrValue + "</td>";
+                                  
+                              }
+                              strFormattedHTML = strFormattedHTML + '<tr>' + strTD + '</tr>';
+                          });
+                          strFormattedHTML = '<table class="table "><thead><tr>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
+
+                          $("#getdblist").html(strFormattedHTML);
+
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                      }
+                  });
+              }
+
+              // ---------------------------------------------------------- get backup list
+              getbackuplist();
+              function getbackuplist() {
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getbackuplist",
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          $.each(data.items, function (i, item) {
+                              var strTD = '';
+                              for (var key in item) {
+                                  var attrName = key;
+                                  if (i == 1) { strTH = strTH + "<th>" + attrName + "</th>"; }
+                                  var attrValue = item[key];
+                                  strTD = strTD + "<td>" + attrValue + "</td>";
+
+                              }
+                              strFormattedHTML = strFormattedHTML + '<tr>' + strTD + '</tr>';
+                          });
+                          strFormattedHTML = '<table class="table "><thead><tr>' + strTH + '</tr></thead><tbody>' + strFormattedHTML + '</tbody></table>';
+
+                          $("#getbackuplist").html(strFormattedHTML);
+
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                      }
+                  });
+              }
+
+              // ---------------------------------------------------------- get drives
+              getdrives();
+              function getdrives() {
+                  var strFormattedHTML = '';
+                  var strTH = '';
+                  $.ajax({
+                      url: localStorage.perzisterURL,
+                      data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=getdrives",
+                      dataType: 'jsonp',
+                      jsonp: 'jsoncallback',
+                      timeout: 30000,
+                      success: function (data, status) {
+                          $.each(data.items, function (i, item) {
+                              strFormattedHTML = strFormattedHTML + '<tr ><td>' + item.drive + ' </td><td  >' + item["MB free"] + '</td><td  >' + parseInt(item["MB free"] / 1024) + '</td></tr>';
+                          });
+                          $("#getdrives").html('<table class="table"><thead><tr><th>drive</th><th>MB free</th><th>GB free</th></tr></thead><tbody>' + strFormattedHTML + '</tbody></table>');
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          //
+                      }
+                  });
+              }
+
+
+
+              // ---------------------------------------------------------- CHART
+
+              var bChartIsInitialized = 0;
+
+              function Chart() {
+                   
+                  if (bChartIsInitialized == 1) { return; };
+                  bChartIsInitialized = 1;
+                      Highcharts.setOptions({
+                          global: {
+                              useUTC: false
+                          }
+                      });
+
+                      $('#container2').highcharts({
+                          chart: {
+
+                              type: 'spline',
+                              backgroundColor: null,
+                              animation: Highcharts.svg, // don't animate in old IE
+                              marginRight: 10,
+                              marginLeft: 40,
+                              events: {
+                                  load: function () {
+
+                                      // set up the updating of the chart each second
+                                      var series = this.series[0];
+                                      setInterval(function () {
+                                          var x = (new Date()).getTime(), // current time
+                                              y = Math.random();
+
+
+                                          $("#ajaxloader0,#appheadericon").toggleClass('hide');
+
+                                          $.ajax({
+                                              url: localStorage.perzisterURL,
+                                              data: "d=" + localStorage.perzisterD + "&g=" + localStorage.perzisterG + "&action=gettotalconnections",
+                                              dataType: 'jsonp',
+                                              jsonp: 'jsoncallback',
+                                              timeout: 10000,
+                                              success: function (data, status) {
+                                                  if (data.errnumber == '-2') { window.location = 'login.htm'; }
+                                                  var strFormattedHTML = '';
+                                                  $.each(data.items, function (i, item) {
+                                                      nTotalConnections = item.TotalConnections;
+                                                      $("#totalconnections").html(item.TotalConnections);
+
+                                                      var dt = new Date();
+                                                      var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                                                      var day = dt.getDate() + '.' + (Number(dt.getMonth()) + 1) + '.' + dt.getFullYear();
+
+                                                      $("#currenttime").html(day + ' ' + time + 'h');
+
+                                                  });
+                                                  series.addPoint([x, nTotalConnections], true, true);
+                                                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                                                  gettotalconnectionsbydb();
+                                              },
+                                              error: function (xhr, ajaxOptions, thrownError) {
+                                                  $("#ajaxloader0,#appheadericon").toggleClass('hide');
+                                              }
+                                          });
+
+
+
+
+                                          
+                                      }, 10000);
+                                  }
+                              }
+                          },
+                          title: {
+                              text: ''
+                          },
+                          xAxis: {
+                              minorGridLineWidth: 0,
+                              gridLineWidth: 0,
+                              type: 'datetime',
+                              tickPixelInterval: 150,
+                              lineColor: null,
+                              labels: {
+                                  style: {
+                                      color: '#bbb',
+                                  }
+                              }
+                          },
+                          yAxis: {
+                              lineColor: null,
+                              minorGridLineWidth: 0,
+                              gridLineWidth: 0,
+                              title: {
+                                  text: ''
+                              },
+                              plotLines: [{
+                                  value: 0,
+                                  width: 1,
+                                  color: '#808080'
+                              }],
+                              labels: {
+                                  style: {
+                                      color: '#bbb',
+                                  }
+                              }
+
+                          },
+                          tooltip: {
+                              formatter: function () {
+                                  return '<b>' + this.series.name + '</b><br/>' +
+                                      Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                                      Highcharts.numberFormat(this.y, 2);
+                              }
+                          },
+                          legend: {
+                              enabled: false
+                          },
+                          exporting: {
+                              enabled: false
+                          },
+                          series: [{
+                              name: 'sql server total connections',
+                              data: (function () {
+                                  // generate an array of random data
+                                  var data = [],
+                                      time = (new Date()).getTime(),
+                                      i;
+
+                                  for (i = -19; i <= 0; i += 1) {
+                                      data.push({
+                                          x: time + i * 1000,
+                                          y: nTotalConnections
+                                          
+                                      });
+                                  }
+                                  return data;
+                                 
+                              }())
+                          }]
+                      });
+                     
+              }
+              // ---------------------------------------------------------- END OF CHART
+
+
+
+
+               
+
+          });
+
+      </script>
+   
+
+  </body>
+</html>

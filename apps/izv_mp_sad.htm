@@ -87,9 +87,13 @@
                          <div class="col-sm-12 transparent">
                       <div class="btn-group">
                         <h4 class="refreshtototals perzister-h4" > <div class="btn btn-primary"> <i class="fa fa-refresh "></i> <span id="time"></span> </div> totali za danas, jučer i prije 7 dana </h4>
+                          
                       </div>
+                          <hr />   
                          </div>
+                         
                           </div>
+                     
                      <div class="row ">
                          <div class="col-sm-12 transparent">
                               <div id="resultslist"></div>
@@ -164,6 +168,7 @@
                               <div class="btn-group">
                               <h4 class="perzister-h4 backtototals" ><i class="fa fa-chevron-left  btn btn-primary"></i> lista trgovina  i kasa  </h4>
                               </div>
+                              <hr />  
                                  <div id="topsearchresultslist"></div>
                              <br /><br />
                               <div class="alert alert-info alert-dismissible" role="alert">
@@ -376,8 +381,9 @@
                       timeout: 30000,
                       success: function (data, status) {
                           if (data.errnumber == '-2') { window.location = 'login.htm'; }
-                          $("#topsearchresultslist").html(TopSearchFormat(data));
-                          $('#topsearchtext').fastLiveFilter('.forlivesearch');
+                          $("#topsearchresultslist").html('<table class="table"><tbody>' + TopSearchFormat(data) + '</tbody></table>');
+                          //$('#topsearchtext').fastLiveFilter('.forlivesearch');
+                          $('#topsearchtext').fastLiveFilter('tbody');
                           $("#ajaxloader0,#appheadericon").toggleClass('hide');
                           $(".actionbutton3").off();
                           $(".actionbutton3").on("click", function (event) {
@@ -403,8 +409,9 @@
                       timeout: 30000,
                       success: function (data, status) {
                           if (data.errnumber == '-2') { window.location = 'login.htm'; }
-                          $("#topsearchresultslist").html(TopSearchFormat(data));
-                          $('#topsearchtext').fastLiveFilter('.forlivesearch');
+                          $("#topsearchresultslist").html('<table class="table"><tbody>' + TopSearchFormat(data) + '</tbody></table>');
+                          //$('#topsearchtext').fastLiveFilter('.forlivesearch');
+                          $('#topsearchtext').fastLiveFilter('tbody');
                           $(".actionbutton3").off();
                           $(".actionbutton3").on("click", function (event) {
                               //$(".backtoshopsfromtotals,.backtoshops").addClass('hide');
@@ -445,7 +452,10 @@
                           myicons = '<i class="fa fa-exclamation-circle"></i>';
                       }
 
-                      strFormattedHTML = strFormattedHTML + '<div class="forlivesearch"><div class="row actionbutton3" data-id="' + item.trgovinaid + '" data-firma="' + item.firma + '" data-opis="' + item.opis + '"><div class="col-sm-5">' + myicons + ' '  + item.opis + ' [kasa: ' + item.kasa + '] </div><div class="col-sm-3">' + item.naziv + ' ' + item.firma + ' </div><div class="col-sm-4">' + mydatediffmins + ' </div></div></div>';
+                     // strFormattedHTML = strFormattedHTML + '<div class=" forlivesearch"><div class="row actionbutton3" data-id="' + item.trgovinaid + '" data-firma="' + item.firma + '" data-opis="' + item.opis + '"><div class="col-sm-5">' + myicons + ' ' + item.opis + ' [kasa: ' + item.kasa + '] </div><div class="col-sm-3">' + item.naziv + ' ' + item.firma + ' </div><div class="col-sm-4">' + mydatediffmins + ' </div></div></div>';
+
+                      strFormattedHTML = strFormattedHTML + '<tr class=" forlivesearch  actionbutton3" data-id="' + item.trgovinaid + '" data-firma="' + item.firma + '" data-opis="' + item.opis + '"><td  >' + myicons + ' ' + item.opis + ' [kasa: ' + item.kasa + '] </td><td  >' + item.naziv + ' ' + item.firma + ' </td><td  >' + mydatediffmins + ' </td></tr>';
+
                   });
                   return strFormattedHTML;
               }
@@ -543,8 +553,9 @@
               // ============================================================================= first page : totals kao col
                   
 
-                  GetIzvMPSadKaoCol();
+                 
                 
+              // ----------------------------------------- TIMER ------------------------------
                   var startTimerID;
                   function startTimer(duration, display) {
                       var timer = duration, minutes, seconds;
@@ -565,7 +576,11 @@
                       }, 1000);
                   }
 
-                  //startTimer(10);
+                  // ----------------------------------------- END OF TIMER ------------------------------
+
+              //startTimer(10);
+
+                  GetIzvMPSadKaoCol();
 
                   function GetIzvMPSadKaoCol() {
                       clearInterval(startTimerID);
